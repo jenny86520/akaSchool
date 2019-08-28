@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PostComponent } from './post/post.component';
+import { HelloWorldComponent } from './hello-world/hello-world.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/helloWorld',
-    pathMatch: 'full'
-  },
-  {
-    path: 'helloWorld',
-    component: PostComponent
+    component: HelloWorldComponent
   }
 ];
 
