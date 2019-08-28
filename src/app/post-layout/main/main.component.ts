@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-main',
-  templateUrl: './main.component.html',
+  templateUrl: '../../postsHtml/helloWorld.html',
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
-  title = 'akaSchool';
+  postUrl = '../../postsHtml/helloWorld.html';
   constructor() { }
 
   ngOnInit() {
