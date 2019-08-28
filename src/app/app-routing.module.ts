@@ -6,7 +6,8 @@ import { MainComponent } from './post-layout/main/main.component';
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
+    loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)
   }
 ];
 
