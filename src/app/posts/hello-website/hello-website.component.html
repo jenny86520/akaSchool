@@ -19,7 +19,8 @@
         <ul>
           <li><a href='https://angular.io/docs' target="_blank">Augular 官方教材</a>(英文)</li>
           <li><a href='https://angular.tw/docs' target="_blank">Augular 官方教材</a>(中文)</li>
-          <li><a href='https://ithelp.ithome.com.tw/users/20090728/ironman/1600' target="_blank">Angular 深入淺出三十天</a></li>
+          <li><a href='https://ithelp.ithome.com.tw/users/20090728/ironman/1600' target="_blank">Angular 深入淺出三十天</a>
+          </li>
         </ul>
       </li>
       <li>
@@ -47,7 +48,8 @@
     再說很懶的話，也可以直接跟著我開始，遇到不懂的再回去翻翻資料也行，我就是這樣<br><br>
     好！那我們就開始吧！
   </div>
-  <br><hr class="border-two" />
+  <br>
+  <hr class="border-two" />
   <!--Class-->
   <table class='block-catalog'>
     本日教學導覽
@@ -58,7 +60,8 @@
       <li>完成網站吧！將 Angular 專案放進 Github Pages</li>
     </ol>
   </table>
-  <br><hr class="border-two" />
+  <br>
+  <hr class="border-two" />
   <!--1. Angular 環境建置 -->
   <div>
     <h3 class="sub-title">1. Angular 環境建置</h3>
@@ -88,7 +91,8 @@
 
     完成以上步驟後，就準備好 Angular 的開發環境囉！
   </div>
-  <br><hr class="border-two" />
+  <br>
+  <hr class="border-two" />
   <!--2. 建立 Angular 專案 & 部屬-->
   <div>
     <h3 class="sub-title">2. 建立 Angular 專案 & 部屬</h3>
@@ -105,7 +109,7 @@
 
     <b>Step 2：開啟 Angular 頁面</b><br><br>
     進入專案中，於命令列視窗打上下面指令，接著打開任一瀏覽器（Chrome），於網址列輸入「<a href='localhost:4200/' target="_blank">localhost:4200</a>」<br><br>
-    能看到顯示出Angular初始畫面，就代表Angular專案以建置成功囉！<br><br>
+    能看到顯示出Angular初始畫面，就代表Angular專案已建置成功囉！<br><br>
     <div class='block-code'>ng serve</div>
     or
     <div class='block-code'>npm start</div>
@@ -124,7 +128,8 @@
     </ul>
 
   </div>
-  <br><hr class="border-two" />
+  <br>
+  <hr class="border-two" />
   <!--3. Git、GitHub 版控建置-->
   <div>
     <h3 class="sub-title">3. Git、GitHub 版控建置</h3>
@@ -188,7 +193,8 @@
     <b>Step 1：建立 Github Pages</b><br><br>
     建立 GitHub 專案方法如上述「3. Git、GitHub 版控建置」的「Step 3：將 Angular 專案丟上版控（github）」<br><br>
     不一樣的點是，這次我們專案名稱要限制囉！<br><br>
-    專案名稱必須是「<span class='point-red'>username.github.io</span>」（username 為使用者名稱），如下圖，其餘設定參見「3. Git、GitHub 版控建置」的「Step 3：將 Angular 專案丟上版控（github）」<br><br>
+    專案名稱必須是「<span class='point-red'>username.github.io</span>」（username 為使用者名稱），如下圖，其餘設定參見「3. Git、GitHub 版控建置」的「Step 3：將
+    Angular 專案丟上版控（github）」<br><br>
     <img class='img cmd' src='assets\posts\helloWebsite\github-create github pages.jpg'><br><br>
     其實 username 的位置可以任意取名，只要結尾是「.github.io」即可<br><br>
     只是製作出的網站網址就會是「username/yourWebsiteName.github.io」，依然會掛上使用者名稱，我個人是覺得很醜啦！<br><br>
@@ -205,11 +211,17 @@
     沒錯！只要將部屬出來在 dist 檔案底下的所有檔案，放到 Github Pages 的遠端分支上就大功告成囉！<br><br>
     接下來讓我帶大家一步步做～<br><br>
     首先，需要讓本地端連上遠端分支。在 GitHub 上，進到 Github Pages 專案中<br><br>
-    把下圖中的網址複製，貼到命令列視窗，Enter 執行指令，跑完就會看到相連的專案資料夾啦～<br><br>
+    把下圖中的網址複製：<br><br>
     <img class='img cmd' src='assets\posts\helloWebsite\website-clone.jpg'><br><br>
-    接著，把 dist 底下的檔案全部複製起來：<br><br>
+    於命令列視窗輸入以下指令，後面網址為剛剛複製的網址，Enter 執行指令，跑完就會看到相連的專案資料夾啦～<br><br>
+    <div class='block-code'>git clone https://github.com/jenny86520/jenny86520.github.io.git</div>
+    <ul>
+      <li>[clone]：從遠端複製一份檔案到本地端</li>
+      <li>[https://github.com/jenny86520/jenny86520.github.io.git]：剛剛複製的網址</li>
+    </ul>
+    接著，把 Angular 專案中的 dist 底下的檔案全部複製起來：<br><br>
     <img class='img cmd' src='assets\posts\helloWebsite\website-dist.jpg'><br><br>
-    再來，把它全部貼到 Github Pages 的專案目錄下：<br><br>
+    再來，把它全部貼到 Github Pages 的專案目錄下（剛剛 clone 下來的檔案中）：<br><br>
     <img class='img cmd' src='assets\posts\helloWebsite\website-github.io.jpg'><br><br>
     最後，執行以下指令，把全部更新丟上遠端分支就大功告成囉！（這裡只示範最簡單最基本丟上版控的操作，以後會詳細介紹）<br><br>
     <div class='block-code'>
@@ -224,12 +236,14 @@
     接下來，打開剛剛的網址，當看到 Angular 專案在上面，你就成仁了((x<br><br>
     啊！我是說成功啦～第一關的 BOSS 解決囉！<br><br>
   </div>
-  <br><hr class="border-two" />
+  <br>
+  <hr class="border-two" />
   <!--結語-->
   現在，你擁有屬於自己的網站啦～<br><br>
   你可以把你的網站網址分享出去，讓大家知道你好棒棒，就跟我一樣❤<br><br>
   今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span>
-  <br><hr class="border-two" />
+  <br>
+  <hr class="border-two" />
   <!--參考資料-->
   <div>
     <h3 class="sub-title">參考資料</h3>
@@ -252,5 +266,9 @@
       <li><a href='http://www.webtech.tw/info.php?tid=100'>[css]CSS border 邊框設計</a></li>
     </ul>
   </div>
-  <h5 class="sign">赤 2019-08-30 17:50</h5>
+  <h5 class="sign">
+    赤 2019-08-30 17:50<br>
+    更新：赤 2019-08-30 20:12
+
+  </h5>
 </div>
