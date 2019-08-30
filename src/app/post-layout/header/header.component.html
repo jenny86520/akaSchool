@@ -8,15 +8,9 @@
 <!--選擇文章-->
 <div style="text-align: right">
   傳送到
-  <select name="selectPost" [(ngModel)]="selectPost">
-    <option [ngValue]=0>
-      akaSchool
-    </option>
-    <option [ngValue]=1>
-      從零開始的爆肝工程師日常
-    </option>
-    <option [ngValue]=2>
-      Angular環境建置&入門知識
+  <select name="selectPost" [(ngModel)]="selectPost" >
+    <option *ngFor="let postTitle of postTitles" [ngValue]=postTitle>
+        {{postTitle.title}}
     </option>
   </select>
   <button (click)="goToPost()">Go</button>
@@ -26,11 +20,8 @@
 <div>
   <h2 class='title'>akaSchool ?</h2>
   <b style='color: red'>「從這裡重新開始吧！從一，不，從零開始！」雷姆琳的話要好好遵守❤</b><br><br>
-
   這裡將會是爆肝工程師從零開始的日常，我將會一點一滴記錄我的所見所聞，冷熱知識((?<br><br>
-
   目前以 Angular(web) 教學為主～當然免不了有許多廢話啦:P<br><br>
-
   歡迎持續追蹤＞＜!!
   <h5 class="sign">赤 2019-08-28</h5>
 </div>

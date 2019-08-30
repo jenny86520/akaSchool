@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -7,24 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  selectPost: number;
-  constructor(private router: Router) { }
+  selectPost: any;
+  postTitles: any;
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
-    this.selectPost = 0;
+    this.postTitles = environment.postTitles;
+    this.selectPost = environment.postTitles[0];
   }
 
   goToPost() {
-    switch (this.selectPost) {
-      case 0:
-        this.router.navigate(['/'], { skipLocationChange: true }); break;
-      case 1:
-        this.router.navigate(['/helloWorld'], { skipLocationChange: true }); break;
-      case 2:
-            this.router.navigate(['/startAngular'], { skipLocationChange: true }); break;
-      default: console.log(this.selectPost);
-
-    }
-
+    this.router.navigate(['/', this.selectPost.path], { skipLocationChange: true });
   }
 }
