@@ -1,13 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
+/**block */
 .header-block {
   background-color: cornsilk
 }
 
+.block-catalog {
+  background-color: linen
+}
+
+.block-code {
+  color: white;
+  background-color: black
+}
+
+/**post text */
 .title {
   color: brown
 }
-
+.sub-title {
+  color: deeppink
+}
 .sign {
   color:mediumvioletred;
   text-align: right
+}
+
+.point-red {
+  color: red;
+  font-weight:bold;
+}
+
+.img:not(.cmd) {
+  height: auto;
+  width: 1000px;
+  border-width:2px;
+  border-color:black;
+  border-style:solid;
+}
+
+.img.cmd {
+  height: auto;
+  width: auto;
+  border-width:2px;
+  border-color:black;
+  border-style:solid;
+}
+
+hr .border-two {
+  border: 0;
+  border-bottom: 1px dashed #ccc;
+  background: #999;
 }
