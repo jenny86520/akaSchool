@@ -7,7 +7,7 @@ export const environment = {
     {
       id: 0,
       title: 'akaSchool',
-      path: ''
+      path: null
     },
     {
       id: 1,
