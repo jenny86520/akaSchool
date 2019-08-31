@@ -31,21 +31,24 @@
 }
 /**img */
 .img:not(.cmd) {
-  height: auto;
-  width: 1000px;
+  height: 100%;
+  width: 100%;
   border-width:2px;
   border-color:black;
   border-style:solid;
 }
 
 .img.cmd {
-  height: auto;
-  width: auto;
+  height: 100%;
+  width: 100%;
   border-width:2px;
   border-color:black;
   border-style:solid;
 }
 /**tag */
+select {
+  width: 50%;
+}
 hr .border-two {
   border: 0;
   border-bottom: 1px dashed #ccc;
