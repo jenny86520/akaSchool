@@ -102,24 +102,25 @@
 
     <b>Step 1：建立專案</b><br><br>
     於命令列視窗（cmd）打上下面指令，接著會詢問你是否要加上 routing 以及使用的裝飾樣式，這裡就先「yes」然後選擇「CSS」吧！<br><br>
-    <div class='block-code'>ng new test</div>
+    <div class='block-code'>ng new testMyWebsite</div>
     <ul>
       <li>[ng]：Angular CLI 指令</li>
       <li>[new]：創建一新專案</li>
-      <li>[test]：專案名稱，可以取你尬意的</li>
+      <li>[testMyWebsite]：專案名稱，可以取你尬意的</li>
     </ul>
     <img class='img cmd' src='assets\posts\helloWebsite\angular-new angular.jpg'><br><br>
 
     <b>Step 2：開啟 Angular 頁面</b><br><br>
-    進入專案中，於命令列視窗打上下面指令，接著打開任一瀏覽器（Chrome），於網址列輸入「<a href='localhost:4200/' target="_blank">localhost:4200</a>」<br><br>
-    能看到顯示出Angular初始畫面，就代表Angular專案已建置成功囉！<br><br>
+    進入專案中，於命令列視窗打上下面指令：<br><br>
     <div class='block-code'>ng serve</div>
     or
     <div class='block-code'>npm start</div>
     <ul>
-      <li>[ng serve]：建置當前目錄的 Angular專案，<span class='point-red'>使用全域的 Angular CLI 版本建置</span></li>
+      <li>[ng serve]：建置當前目錄的 Angular 專案，<span class='point-red'>使用全域的 Angular CLI 版本建置</span></li>
       <li>[npm start]：執行 ng serve，建置當前目錄的 Angular專案，<span class='point-red'>使用當前專案的 Angular CLI 版本建置</span>（下一篇會介紹）</li>
     </ul>
+    接著打開任一瀏覽器（Chrome），於網址列輸入「<a href='localhost:4200/' target="_blank">localhost:4200</a>」<br><br>
+    能看到顯示出 Angular 初始畫面，就代表 Angular 專案已建置成功囉！<br><br>
 
     <b>Step 3：部屬 Angular 專案</b><br><br>
     進入專案中，於命令列視窗打上下面指令，等它跑好就部屬好了～<br><br>
@@ -152,9 +153,9 @@
 
     <b>Step 3：將 Angular 專案丟上版控（github）</b><br><br>
     首先，需於 GitHub 上建立專案（repository），如下圖<br><br>
-    <img class='img cmd' src='assets\posts\helloWebsite\github-new repository.jpg'><br><br>
+    <img class='img' src='assets\posts\helloWebsite\github-new repository.jpg'><br><br>
     輸入好專案名稱（<b>建議與本地端專案名稱相同</b>），可以選擇要公開或是保密，如下圖<br><br>
-    <img class='img cmd' src='assets\posts\helloWebsite\github-create repository.jpg'><br><br>
+    <img class='img' src='assets\posts\helloWebsite\github-create repository.jpg'><br><br>
     上圖藍色框起來的部分，使用預設值即可，即不建立 .gitignore 跟 license<br><br>
     　<ul>
       <li>.gitignore：不加入版控的檔案會列於當中，Angular 專案預設以建立此檔案</li>
@@ -165,20 +166,20 @@
     點選「Create Repository」後就建立好一個 GitHub 專案啦～而如何把現在本地端的專案丟到 GitHub 版控中呢？<br><br>
     由於 Angular 預設以配置好 git 文檔（於隱藏的資料夾 .git），所以只需於 Angular 專案下，執行以下指令就完成了喔～<br><br>
     <div class='block-code'>
-      git config --global user.email "you@example.com"<br>
-      git remote add origin https://github.com/yourUserName/repositoryName.git<br>
+      git config --global user.email "jenny50626000@gmail.com"<br>
+      git remote add origin https://github.com/jenny86520/testMyWebsite.git<br>
       git push -u origin master
     </div>
     　<ul>
       <li>[git]：git 版控工具</li><br>
-      <li>[config --global user.email "you@example.com"]：</li><br>
+      <li>[config --global user.email "jenny50626000@gmail.com"]：</li><br>
       [config]：取得和設定 git 的組態參數，這裡是為了登入用<br><br>
-      [user.email "you@example.com"]：使用 email 登入 GitHub，也可使用「user.name "Your Name"」以使用者名稱登入<br><br>
-      <li>[remote add origin https://github.com/yourUserName/repositoryName.git]：</li><br>
+      [user.email "jenny50626000@gmail.com"]：使用 email 登入 GitHub，也可使用「user.name "jenny86520"」以使用者名稱登入<br><br>
+      <li>[remote add origin https://github.com/jenny86520/testMyWebsite.git]：</li><br>
       [remote]：指向遠端版本控制倉庫，就是指到版控平台（GitHub）上<br><br>
       [add origin]：加入遠端版本控制倉庫的路徑，選擇剛剛創建好的 GitHub 專案，讓本地端 Angular 的專案聯繫上<br><br>
-      [https://github.com/yourUserName/repositoryName.git]：即剛剛創建好的 GitHub 專案路徑
-      （yourUserName：GitHub 註冊時的 username，repositoryName：GitHub 專案名稱）<br><br>
+      [https://github.com/jenny86520/testMyWebsite.git]：即剛剛創建好的 GitHub 專案路徑
+      （jenny86520：GitHub 註冊時的 username，testMyWebsite：GitHub 專案名稱）<br><br>
       <li>[push]：將本地端檔案丟進版控，即將檔案上傳到分支上（簡單來說就是丟上 GitHub 平台，不過這真的是簡而言之）</li><br>
       <li>[-u origin master]：</li><br>
       [-u]：相等於「--set-upstream」，即設定 upstream，可以使目前本地端開始追蹤指定的遠端分支<br><br>
@@ -198,13 +199,13 @@
     不一樣的點是，這次我們專案名稱要限制囉！<br><br>
     專案名稱必須是「<span class='point-red'>username.github.io</span>」（username 為使用者名稱），如下圖，其餘設定參見「3. Git、GitHub 版控建置」的「Step 3：將
     Angular 專案丟上版控（github）」<br><br>
-    <img class='img cmd' src='assets\posts\helloWebsite\github-create github pages.jpg'><br><br>
-    其實 username 的位置可以任意取名，只要結尾是「.github.io」即可<br><br>
-    只是製作出的網站網址就會是「username/yourWebsiteName.github.io」，依然會掛上使用者名稱，我個人是覺得很醜啦！<br><br>
+    <img class='img' src='assets\posts\helloWebsite\github-create github pages.jpg'><br><br>
+    其實 jenny86520 的位置可以任意取名，只要結尾是「.github.io」即可<br><br>
+    只是製作出的網站網址就會是「jenny86520/yourWebsiteName.github.io」，依然會掛上使用者名稱，我個人是覺得很醜啦！<br><br>
     建立好後，點選專案的 settings<br><br>
-    <img class='img cmd' src='assets\posts\helloWebsite\github-github pages-settings.jpg'><br><br>
+    <img class='img' src='assets\posts\helloWebsite\github-github pages-settings.jpg'><br><br>
     往下滾找到 Github Pages，會有如圖的一行文字，就可以看到自己的網站網址已經OK囉！<br><br>
-    <img class='img cmd' src='assets\posts\helloWebsite\github-github pages-url.jpg'><br><br>
+    <img class='img' src='assets\posts\helloWebsite\github-github pages-url.jpg'><br><br>
     目前沒有放任何檔案，所以開啟網址是空白頁面是正常的喔～<br><br>
 
     <b>Step 2：將 Angular 專案放進 Github Pages</b><br><br>
@@ -215,17 +216,17 @@
     接下來讓我帶大家一步步做～<br><br>
     首先，需要讓本地端連上遠端分支。在 GitHub 上，進到 Github Pages 專案中<br><br>
     把下圖中的網址複製：<br><br>
-    <img class='img cmd' src='assets\posts\helloWebsite\website-clone.jpg'><br><br>
+    <img class='img' src='assets\posts\helloWebsite\website-clone.jpg'><br><br>
     於命令列視窗輸入以下指令，後面網址為剛剛複製的網址，Enter 執行指令，跑完就會看到相連的專案資料夾啦～<br><br>
     <div class='block-code'>git clone https://github.com/jenny86520/jenny86520.github.io.git</div>
     <ul>
       <li>[clone]：從遠端複製一份檔案到本地端</li>
       <li>[https://github.com/jenny86520/jenny86520.github.io.git]：剛剛複製的網址</li>
     </ul>
-    接著，把 Angular 專案中的 dist 底下的檔案全部複製起來：<br><br>
-    <img class='img cmd' src='assets\posts\helloWebsite\website-dist.jpg'><br><br>
+    接著，把 Angular 專案中的 dist 底下的檔案全部複製起來（這裡用 akaSchool 的 Angular 專案示範）：<br><br>
+    <img class='img' src='assets\posts\helloWebsite\website-dist.jpg'><br><br>
     再來，把它全部貼到 Github Pages 的專案目錄下（剛剛 clone 下來的檔案中）：<br><br>
-    <img class='img cmd' src='assets\posts\helloWebsite\website-github.io.jpg'><br><br>
+    <img class='img' src='assets\posts\helloWebsite\website-github.io.jpg'><br><br>
     最後，執行以下指令，把全部更新丟上遠端分支就大功告成囉！（這裡只示範最簡單最基本丟上版控的操作，以後會詳細介紹）<br><br>
     <div class='block-code'>
       git add .<br>
@@ -272,6 +273,6 @@
   <h5 class="sign">
     赤 2019-08-30 17:50<br>
     更新：赤 2019-08-30 20:12<br>
-    更新：赤 2019-08-31 15:04
+    更新：赤 2019-08-31 16:48
   </h5>
 </div>
