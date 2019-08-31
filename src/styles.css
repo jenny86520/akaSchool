@@ -29,7 +29,7 @@
   color: red;
   font-weight:bold;
 }
-
+/**img */
 .img:not(.cmd) {
   height: auto;
   width: 1000px;
@@ -45,9 +45,13 @@
   border-color:black;
   border-style:solid;
 }
-
+/**tag */
 hr .border-two {
   border: 0;
   border-bottom: 1px dashed #ccc;
   background: #999;
 }
+
+ol { counter-reset: item -1 }
+li{ display: block; }
+li:before { content: counters(item, ".") ". "; counter-increment: item }
