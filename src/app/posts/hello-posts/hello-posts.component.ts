@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class HelloPostsComponent implements OnInit {
   title: string = environment.postTitles.find(x => x.path === 'helloPosts').title;
+  lastTitle: string = environment.postTitles.find(x => x.path === 'helloWebsite').title;
   constructor() { }
 
   ngOnInit() {
