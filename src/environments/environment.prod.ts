@@ -17,8 +17,8 @@ export const environment = {
     },
     {
       id: 3,
-      title: '0x02 我的第一篇文章-檔案篇【Angular：檔案介紹】',
-      path: 'helloPosts-file'
+      title: '0x02 我的第一篇文章-序章【0. Angular 專案檔案介紹】',
+      path: 'helloPosts/file'
     }
   ],
   production: true

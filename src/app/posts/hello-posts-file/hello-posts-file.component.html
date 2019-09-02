@@ -10,7 +10,7 @@
   <table class='block-catalog'>
     【我的第一篇文章】教學導覽
     <ol>
-      <li start="0">Angular 專案檔案介紹</li>
+      <li start="0" class='sub-title'>Angular 專案檔案介紹</li>
       <li>建立文章：[Angular]建立元件（Component）</li>
       <li>撰寫內容：[Angular]資料繫結（Binding）
         <ol>
@@ -36,8 +36,58 @@
 
     剛新建好的 Angular 專案資料夾裡就如上圖<br><br>
     而 <span class='point-red'>dist 資料夾則是部屬（執行 「ng build --prod」）後新增的檔，一開始是沒有的喔！</span><br><br>
-    接下來我來一一介紹：<br><br>
+    先來看一下專案下的樹狀結構：<br>
+    <ul>
+      <li>.git/</li>
+      <li>dist/</li>
+      <li>e2e/</li>
+      <li>node_modules/</li>
+      <li>src/
+        <ul>
+          <li>app/
+            <ul>
+              <li>app.component.css</li>
+              <li>app.component.html</li>
+              <li>app.component.spec.ts</li>
+              <li>app.component.ts</li>
+              <li>app.module.ts</li>
+              <li>app-routing.module.ts</li>
+            </ul>
+          </li>
+          <li>assets/
+            <ul>
+              <li>.gitkeep</li>
+            </ul>
+          </li>
+          <li>environments/
+            <ul>
+              <li>environment.ts</li>
+              <li>environment.prod.ts</li>
+            </ul>
+          </li>
+          <li>favicon.ico</li>
+          <li>index.html</li>
+          <li>main.ts</li>
+          <li>polyfills.ts</li>
+          <li>styles.css</li>
+          <li>test.ts</li>
+        </ul>
+      </li>
+      <li>.editorconfig</li>
+      <li>.gitignore</li>
+      <li>angular.json</li>
+      <li>browserslist</li>
+      <li>karma.conf.js</li>
+      <li>package.json</li>
+      <li>package-lock.json</li>
+      <li>README.md</li>
+      <li>tsconfig.app.json</li>
+      <li>tsconfig.json</li>
+      <li>tsconfig.spec.json</li>
+      <li>tslint.json</li>
+    </ul>
 
+    接下來我來一一介紹：<br><br>
     <!--.git-->
     <b>.git/</b><br><br>
     <div class='block-table'>
@@ -45,6 +95,14 @@
       存放 git 版控的相關資料，大致上可以不用理會它，畢竟版控不是目前我們要學的:P<br><br>
       <span class='point-red'>只要記得不要刪掉它！</span>不然就要重新連到版控上了（即遠端分支<br><br>
       如果你要再練習一次如何連上版控，那刪吧，加油((x<br>
+    </div>
+    <br>
+    <!--dist-->
+    <b>dist/</b><br><br>
+    <div class='block-table'>
+      <span class='point-red'>部屬後新建的資料夾，存放部屬後可發行的檔案</span><br><br>
+      執行「ng build」或「ng build --prod」指令後，所有檔案將壓縮成瀏覽器看得懂的語言（html、javascript、css）<br><br>
+      因此只要將裡面的檔案都丟到網站伺服器（我們使用 GitHub Pages，所以就是丟上 GitHub Pages），瀏覽器讀取時就能運作囉！<br>
     </div>
     <br>
     <!--e2e-->
@@ -115,33 +173,177 @@
           <span class='point-red'>設定 Angular 程式碼會用到的參數，類似 Web.config</span><br><br>
           執行或部屬時，預設使用 environment.ts 檔中的參數，要產生不同的 environment 的話，參考命名規則為 <b>environment.xxx.ts</b><br><br>
           執行或部屬時加上 xxx 的參數，就可指定到該 environmnet（<b>ng serve --xxx</b> / <b>ng build --xxx</b>）<br><br>
-          底下初始會有兩個檔案（environmnet.ts、environmnet.prod.ts），上一章我們教的部屬指令，即是使用 environmnet.prod.ts 檔的參數
+          底下初始會有兩個檔案（environmnet.ts、environmnet.prod.ts），上一篇我們教的部屬指令，即是使用 environmnet.prod.ts 檔的參數
         </div>
         <br>
         <!--favicon.ico-->
         <b>favicon.ico</b><br><br>
         <div class='block-table'>
           網站頁籤的 Icon，初始是 Angular 的 Icon，如下圖：<br><br>
-          <img class='img cmd' src='assets\posts\helloPosts\file-favicon.ico.jpg'><br><br>
+          <img class='img' src='assets\posts\helloPosts\file-favicon.ico.jpg'><br><br>
         </div>
         <br>
         <!--index.html-->
         <b>index.html</b><br><br>
         <div class='block-table'>
-          <!-- TODO: not finished-->
+          網頁的進入點，使用者進入網站的起始頁，大門就是從這裡打開的（給瀏覽器看的）<br><br>
+          裡面放了很多網頁的設定，頁籤名、頁籤 Icon、編碼方式、根目錄等。以下是它初始的程式碼：<br><br>
+          <img class='img' src='assets\posts\helloPosts\file-index.html.jpg'><br><br>
+          其中要注意的是<span class='point-red'>「&lt;base href="/"&gt;」，它設定了根目錄的路徑</span><br><br>
+          以後大家都是向著它展開，也就是依據它配置相對路徑，預設是空字串（"/"）<br><br>
         </div>
+        <br>
+        <!--main.ts-->
+        <b>main.ts</b><br><br>
+        <div class='block-table'>
+          程式的進入點，對工程師來說應該不陌生，整個程式的大門在這裡唷（給編譯器看的）<br><br>
+          這裡只要知道它<span class='point-red'>「bootstrapModule(AppModule)」的部分，代表它指名從「AppModule」開始唷～</span><br><br>
+          以下是它初始的程式碼：<br><br>
+          <img class='img' src='assets\posts\helloPosts\file-main.ts.jpg'><br><br>
+        </div>
+        <br>
+        <!--polyfills.ts-->
+        <b>polyfills.ts</b><br><br>
+        <div class='block-table'>
+          <span class='point-red'>輔助瀏覽器的推薦套件清單</span>，非常饒舌((x<br><br>
+          顧名思義，就是當需要支援比較老舊的瀏覽器時（IE9.10.11），需要加載檔案中的套件，才能確保功能皆能正常運作<br><br>
+          方法很簡單，打開檔案你會發現滿滿的註解，慢慢看用心看，就知道在什麼時候需要開啟哪個套件了<br><br>
+          記得功能無法運作時，可以到此檔案看看是不是瀏覽器給你搞鬼喔！<br>
+        </div>
+        <br>
+        <!--styles.css-->
+        <b>styles.css</b><br><br>
+        <div class='block-table'>
+          全域的裝飾樣式（CSS），存放整個專案都可以共享的 CSS 樣式，Over<br>
+        </div>
+        <br>
+        <!--test.ts-->
+        <b>test.ts</b><br><br>
+        <div class='block-table'>
+          單元測試（Unit Tests）的大門，存放單元測試的設定和起始點，Over<br>
+        </div>
+        <br>
       </div>
-
-
     </div>
     <br>
     <!--.editorconfig-->
     <b>.editorconfig</b><br><br>
     <div class='block-table'>
-
+      設定專案中檔案的風格，像是縮排、tab 的寬度以及 EOL 字元等<br><br>
+      幫助開發者使用不同的 IDEs 時，保持檔案格式一致性的設定檔<br>
     </div>
-
-
+    <br>
+    <!--.gitignore-->
+    <b>.gitignore</b><br><br>
+    <div class='block-table'>
+      設定上傳版控時要忽略的檔案，列於其中的檔案，將不會進入版控，Over<br>
+    </div>
+    <br>
+    <!--angular.json-->
+    <b>angular.json</b><br><br>
+    <div class='block-table'>
+      Angular CLI 的設定檔（官方詳解：<a href='https://github.com/angular/angular-cli/wiki/angular-cli' target='_blank'>Angular
+        CLI Config
+        Schema</a>）<br>
+    </div>
+    <br>
+    <!--browserslist-->
+    <b>browserslist</b><br><br>
+    <div class='block-table'>
+      為了使編譯器能夠編出不同瀏覽器皆看得懂的設定<br><br>
+      即給一些工具（Autoprefixer、Stylelint、babel-preset-env 等）引來使用，以避免花太多時間在為不同工具調整成同樣的目標瀏覽器配置<br><br>
+      聽不懂嘛？那就看看這篇介紹，詳盡又淺顯易懂：<a href='https://ithelp.ithome.com.tw/articles/10192300' target='_blank'>什麼是 Browserlist？設定
+        Autoprefixer、Stylelint 來支援你想要的任何瀏覽器！</a>
+    </div>
+    <br>
+    <!--karma.conf.js-->
+    <b>karma.conf.js</b><br><br>
+    <div class='block-table'>
+      Karma test 的單元測試（Unit Tests）設定，暫先不討論測試～<br>
+    </div>
+    <br>
+    <!--package.json-->
+    <b>package.json</b><br><br>
+    <div class='block-table'>
+      <span class='point-red'>Angular 的所有指令&版本設定檔（指令、套件版本、測試版本）</span><br><br>
+      上一篇有提到「ng server」與「npm start」的差異，前者使用全域 Angular CLI 版本編譯，後者使用專案中 Angular CLI 版本<br><br>
+      在此檔中，能找到「"@angular/cli": "~8.3.1"」設定，即專案版本（為專案建立時使用的版本，除非有再更新才會更改）<br><br>
+      區分全域跟專案的 CLI 版本，用意是即使很舊的專案也能夠不失真的編譯運行<br><br>
+      以及沒有安裝全域 CLI，也能使用專案中的 CLI 編譯。像是電腦並無安裝 Angular CLI，而從網上或是他人手中獲得的 Angular 專案，能直接執行「npm start」編譯運行<br><br>
+      非常方便呢！<br>
+    </div>
+    <br>
+    <!--package-lock.json-->
+    <b>package-lock.json</b><br><br>
+    <div class='block-table'>
+      紀錄第一次建立好專案時的所有版本設定檔（套件版本、測試版本）<br><br>
+      在更新時（像是從 1.0 跳到 2.0），可能會改變一些套件的版本<br><br>
+      此檔算是做歷史紀錄，當更新換版本出錯誤時，還能找回原始版本<br><br>
+      詳細介紹請看這：<a href='https://ithelp.ithome.com.tw/articles/10191888' target='_blank'>package-lock.json 有什麼用，淺談 Yarn,
+        NPM5 與 npm
+        shrinkwrap</a>
+    </div>
+    <br>
+    <!--README.md-->
+    <b>README.md</b><br><br>
+    <div class='block-table'>
+      <span class='point-red'>版控的說明文件</span>，用來寫一些說明資料，於 GitHub 上專案首頁會看見的文件<br><br>
+      .md 檔的撰寫的官方規格：<a href='https://guides.github.com/features/mastering-markdown/' target='_blank'>Mastering
+        Markdown</a><br>
+    </div>
+    <br>
+    <!--tsconfig.*-->
+    <b>tsconfig.app.json / tsconfig.json / tsconfig.spec.json / tslint.json</b><br><br>
+    <div class='block-table'>
+      TypeScript 編譯器設定檔，詳細解說可以參考：<a href='https://josephdotw.blogspot.com/2016/05/angular-js-2tsconfigjson.html'
+        target='_blank'>Angular 2筆記：tsconfig.json 設定</a>，有興趣再研究吧～<br>
+    </div>
+    <br>
+    <!--tslint.json-->
+    <b>tslint.json</b><br><br>
+    <div class='block-table'>
+      <a href='http://codelyzer.com/' target='_blank'>Codelyzer</a>（用以保持 code style 的一致性）和 <a
+        href='https://palantir.github.io/tslint/' target='_blank'>TSLint</a> 的設定檔，有興趣再研究吧～<br>
+    </div>
+    <br>
 
   </div>
+  <br>
+  <hr class="border-two" />
+  <!--結語-->
+  終於講完 Angular 專案初始的所有檔案啦((攤<br><br>
+  誰想的到可以講這～麼久啊((滾<br><br>
+  只好拆很多小節來發啦～期待下一篇吧！<br><br>
+  你可以先到 src/app/app.component.html 中打一些文字來證明一下這是你網站唷！<br><br>
+  或是到 src/index.html 找到頁籤名處修改頁籤名唷～快去小試身手一下！<br><br>
+  今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span>
+  <br>
+  <hr class="border-two" />
+  <!--參考資料-->
+  <div>
+    <h3 class='sub-title'>參考資料</h3>
+    <ul>
+      <li><a href='https://ithelp.ithome.com.tw/articles/10192286?sc=iThelpR'
+          target='_blank'>[angular]建立一個Angular5的專案-檔案介紹</a></li>
+      <li><a href='https://www.itread01.com/content/1543914259.html' target='_blank'>[angular]單元測試與E2E測試</a></li>
+      <li><a href='https://www.gonever.com/post/25' target='_blank'>[angular]什么是 .gitkeep ? .gitkeep 和 .gitignore
+          有什么区别？</a></li>
+      <li><a href='https://ithelp.ithome.com.tw/articles/10193754' target='_blank'>[angular]Editor Config自訂編輯與設定</a>
+      </li>
+      <li><a href='https://my.oschina.net/zzzGA/blog/373598' target='_blank'>[html]HTML中显示特殊字符,如尖括号 "&lt;"","&gt;"</a>
+      </li>
+      <li><a href='https://www.bitdegree.org/learn/html-list' target='_blank'>[html]Three Types of HTML Lists: When and
+          How to Use Them All</a></li>
+      <li><a
+          href='http://www.wibibi.com/info.php?tid=%E7%94%A8+CSS+padding+%E8%A8%AD%E8%A8%88+HTML+%E8%A1%A8%E6%A0%BC%E9%82%8A%E6%A1%86%E8%88%87%E6%AC%84%E4%BD%8D%E9%96%93%E7%9A%84%E8%B7%9D%E9%9B%A2'
+          target='_blank'>[css]用 CSS padding 設計 HTML 表格邊框與欄位間的距離</a></li>
+      <li><a
+          href='https://stackoverflow.com/questions/4098195/can-ordered-list-produce-result-that-looks-like-1-1-1-2-1-3-instead-of-just-1'
+          target='_blank'>[css]Ordered list that looks like 1.1, 1.2, 1.3 (instead of just 1, 2, 3, …) with css?</a>
+      </li>
+    </ul>
+  </div>
+  <h5 class="sign">
+    赤 2019-09-02 23:24<br>
+  </h5>
 </div>

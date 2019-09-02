@@ -20,8 +20,12 @@ const routes: Routes = [
     component: HelloWebsiteComponent
   },
   {
-    path: 'helloPosts-file',
-    component: HelloPostsFileComponent
+    path: 'helloPosts',
+    children: [{
+      path: 'file',
+      component: HelloPostsFileComponent,
+      pathMatch: 'full'
+    }]
   },
   {
     path: '**',

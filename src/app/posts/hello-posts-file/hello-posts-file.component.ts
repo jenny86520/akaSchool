@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./hello-posts-file.component.css']
 })
 export class HelloPostsFileComponent implements OnInit {
-  title: string = environment.postTitles.find(x => x.path === 'helloPosts-file').title;
+  title: string = environment.postTitles.find(x => x.path === 'helloPosts/file').title;
   lastTitle: string = environment.postTitles.find(x => x.path === 'helloWebsite').title;
   constructor() { }
 
