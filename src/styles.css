@@ -13,6 +13,10 @@
   background-color: black
 }
 
+.block-tab {
+  margin-left : 2em;
+  margin-right: 2em;
+}
 /**post text */
 .title {
   color: brown
@@ -45,11 +49,31 @@
   border-color:black;
   border-style:solid;
 }
+/**table */
+.block-table {
+  text-align: left;
+  border-width: 1px;
+  border-color:black;
+  border-style: dashed;
+}
+.block-table tr, .block-table td{
+  text-align: left;
+  border-width: 1px;
+  border-color:black;
+  border-style: solid;
+  padding: 10px;
+}
+.block-table thead th{
+  text-align: center;
+  border-width: 1px;
+  border-color:black;
+  border-style: solid;
+}
 /**tag */
 select {
   width: 50%;
 }
-hr .border-two {
+hr.border-two {
   border: 0;
   border-bottom: 1px dashed #ccc;
   background: #999;
