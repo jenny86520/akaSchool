@@ -25,6 +25,104 @@
   </table>
   <br>
   <hr class="border-two" />
-  <!--coming soon-->
-  <b>Coming soon ...</b><br><br>
+  <!--Angular 專案檔案介紹-->
+  <div>
+    <h3 class='sub-title'>0. Angular 專案檔案介紹</h3>
+    在開始撰寫第一篇文章前，我們得先與 Angular 好好認識認識才行！（不想認識也無妨，快去下一小節 gogogo）<br><br>
+    首先，先了解在使用 Angular CLI 建立好我們的 Angular 專案後，自動產生的檔案們吧！<br><br>
+    打開建立好的 Angular 專案（testMyWebsite），就會看到如下圖<br><br>
+    <img class='img' src='assets\posts\helloPosts\file-all.jpg'><br><br>
+    ((不要介意我的檔案路徑，我常切換來切換去的，再次宣揚 git 是多方便的東西 OwO<br><br>
+
+    剛新建好的 Angular 專案資料夾裡就如上圖<br><br>
+    而 <span class='point-red'>dist 資料夾則是部屬（執行 「ng build --prod」）後新增的檔，一開始是沒有的喔！</span><br><br>
+    接下來我來一一介紹：<br><br>
+
+    <!--.git-->
+    <b>.git/</b><br><br>
+    <div class='block-table'>
+      為隱藏的資料夾，需開啟檔案總管的「顯示隱藏的項目」才看的到<br><br>
+      存放 git 版控的相關資料，大致上可以不用理會它，畢竟版控不是目前我們要學的:P<br><br>
+      <span class='point-red'>只要記得不要刪掉它！</span>不然就要重新連到版控上了（即遠端分支<br><br>
+      如果你要再練習一次如何連上版控，那刪吧，加油((x<br>
+    </div>
+    <br>
+    <!--e2e-->
+    <b>e2e/</b><br><br>
+    <div class='block-table'>
+      用來存放 <span class='point-red'>E2E（End-to-End）測試程式碼</span><br><br>
+      單元測試與 E2E 測試比較圈外(?)，有興趣可以參考：<a href='https://www.itread01.com/content/1543914259.html'
+        target='_blank'>Angular單元測試與E2E測試</a><br>
+    </div>
+    <br>
+    <!--node_modules-->
+    <b>node_modules/</b><br><br>
+    <div class='block-table'>
+      <span class='point-red'>為所有套件的存放地</span><br><br>
+      通常檔案大小很大，版控時會 ignore 的資料夾（寫在 .gitignore 中）<br>
+    </div>
+    <br>
+    <!--src-->
+    <b>src/</b><br><br>
+    <div class='block-table'>
+      <span class='point-red'>主要會更動的檔案都會放在 src 資料夾下</span><br><br>
+      底下簡單介紹一下 src/ 底下初始的檔案：<br><br>
+      <!--src/*-->
+      <div class='block-tab'>
+        <img class='img' src='assets\posts\helloPosts\file-src.jpg'><br><br>
+        <!--app-->
+        <b>app/</b><br><br>
+        <div class='block-table'>
+          <span class='point-red'>存放所有撰寫的程式碼（Component、Module、Pipe、Service...）</span><br><br>
+          底下簡單介紹一下 src/app/ 底下初始的檔案：<br><br>
+          <!--src/app/*-->
+          <div class='block-tab'>
+            <!--src/app/app.component.*-->
+            <b>app.component.css / app.component.html / app.component.ts / app.component.spec.ts</b><br><br>
+            <div class='block-table'>
+              Angular CLI 預設建立的 root component<br><br>
+              app.component.spec.ts 為測試用檔案，基本上可以不用理它<br>
+            </div>
+            <br>
+            <!--src/app/app.module.ts-->
+            <b>app.module.ts</b><br><br>
+            <div class='block-table'>
+              預設的 root module，用來告訴 Angular 有哪些 Components、Modules、Services...<br><br>
+              讓 Angular 知道如何 assemble the application<br>
+            </div>
+            <br>
+            <!--src/app/app-routing.module.ts-->
+            <b>app-routing.module.ts</b><br><br>
+            <div class='block-table'>
+              設定路由（Router）的地方<br><br>
+              新建 Angular 專案時，如果有選擇新建 routing，將會自動建立的檔案（上一篇教學有選擇 yes 唷！）<br>
+            </div>
+            <br>
+          </div>
+        </div>
+        <!--assets-->
+        <b>assets/</b><br><br>
+        <div class='block-table'>
+          放圖片或者其他需要用的材料<br><br>
+          底下有一個初始檔案「.gitkeep」，為版控用檔案<br><br>
+          上傳到版控時，空的資料夾預設是不會進入版控的，而資料夾中添加「.gitkeep」檔後，即使資料夾為空亦會進版控<br>
+        </div>
+        <!--environments-->
+        <b>environments</b><br><br>
+        <div class='block-table'>
+
+        </div>
+      </div>
+
+    </div>
+    <br>
+    <!--.editorconfig-->
+    <b>.editorconfig</b><br><br>
+    <div class='block-table'>
+
+    </div>
+
+
+
+  </div>
 </div>
