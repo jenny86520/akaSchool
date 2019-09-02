@@ -8,7 +8,7 @@
   <br>
   <hr class="border-two" />
   <table class='block-catalog'>
-    本日教學導覽
+    【我的第一篇文章】教學導覽
     <ol>
       <li start="0">Angular 專案檔案介紹</li>
       <li>建立文章：[Angular]建立元件（Component）</li>
@@ -100,6 +100,7 @@
             <br>
           </div>
         </div>
+        <br>
         <!--assets-->
         <b>assets/</b><br><br>
         <div class='block-table'>
@@ -107,12 +108,30 @@
           底下有一個初始檔案「.gitkeep」，為版控用檔案<br><br>
           上傳到版控時，空的資料夾預設是不會進入版控的，而資料夾中添加「.gitkeep」檔後，即使資料夾為空亦會進版控<br>
         </div>
+        <br>
         <!--environments-->
         <b>environments</b><br><br>
         <div class='block-table'>
-
+          <span class='point-red'>設定 Angular 程式碼會用到的參數，類似 Web.config</span><br><br>
+          執行或部屬時，預設使用 environment.ts 檔中的參數，要產生不同的 environment 的話，參考命名規則為 <b>environment.xxx.ts</b><br><br>
+          執行或部屬時加上 xxx 的參數，就可指定到該 environmnet（<b>ng serve --xxx</b> / <b>ng build --xxx</b>）<br><br>
+          底下初始會有兩個檔案（environmnet.ts、environmnet.prod.ts），上一章我們教的部屬指令，即是使用 environmnet.prod.ts 檔的參數
+        </div>
+        <br>
+        <!--favicon.ico-->
+        <b>favicon.ico</b><br><br>
+        <div class='block-table'>
+          網站頁籤的 Icon，初始是 Angular 的 Icon，如下圖：<br><br>
+          <img class='img cmd' src='assets\posts\helloPosts\file-favicon.ico.jpg'><br><br>
+        </div>
+        <br>
+        <!--index.html-->
+        <b>index.html</b><br><br>
+        <div class='block-table'>
+          <!-- TODO: not finished-->
         </div>
       </div>
+
 
     </div>
     <br>

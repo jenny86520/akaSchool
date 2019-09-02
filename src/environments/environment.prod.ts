@@ -17,9 +17,11 @@ export const environment = {
     },
     {
       id: 3,
-      title: '0x02 我的第一篇文章【Angular：檔案、元件(component)、繫結(binding)、路由(router) 基本介紹】',
-      path: 'helloPosts'
+      title: '0x02 我的第一篇文章-檔案篇【Angular：檔案介紹】',
+      path: 'helloPosts-file'
     }
   ],
   production: true
+  // title: '0x02 我的第一篇文章-檔案篇【Angular：檔案、元件(component)、繫結(binding)、路由(router) 基本介紹】',
+
 };
