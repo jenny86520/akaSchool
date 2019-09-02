@@ -75,7 +75,7 @@ select {
 }
 hr.border-two {
   border: 0;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #ccc;
   background: #999;
 }
 
