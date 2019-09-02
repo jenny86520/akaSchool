@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
   goToPost() {
     // for home not show (''/'')
-    this.router.navigate(this.selectPost.path ? ['/', this.selectPost.path] : ['/'], { skipLocationChange: true });
+    // navigateByUrl(this.selectPost.path ? ['/', this.selectPost.path] : ['/'])
+    this.router.navigateByUrl(this.selectPost.path ? '/' + this.selectPost.path : '/', { skipLocationChange: true });
   }
 }
