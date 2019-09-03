@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HelloPostsMainComponent implements OnInit {
 
-  @Input() title: string;
+  // @Input() title: string;
   @Input() lastPost: any = {
     title: null,
     path: null

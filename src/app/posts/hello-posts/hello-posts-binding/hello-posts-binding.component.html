@@ -1,0 +1,54 @@
+<app-hello-posts-main [title]='title' [lastPost]='lastPost' [classNumber]=2></app-hello-posts-main>
+<!--2. 撰寫內容：[Angular]資料繫結（Binding）-->
+<div>
+  <h3 class='sub-title'>2. 撰寫內容：[Angular]資料繫結（Binding）</h3>
+  <b>資料繫結？別急，我們得先了解一下 Angular 的架構～</b><br><br>
+
+  <b>2.0. MVVM 架構（Model-View-ViewModel）</b><br><br>
+  很久很久以前，前端盛行 MVC 架構，即由 Model、View、Controller 三個互相扶持所組成的架構<br><br>
+  <ul>
+    <li>MVC
+      <ul>
+        <li>Model：負責儲存資料、制定資料的格式等等</li>
+        <li>View：負責顯示資料，沒了</li>
+        <li><span class='point-red'>Controller：負責所有的操作、事件觸發要做什麼、運算等等</span>，包含點選按鈕啟動什麼機關等等，負責做苦功</li>
+      </ul>
+
+    </li>
+  </ul>
+  <img class='img' src='assets\posts\helloPosts\binding-mvc.jpg'><br>
+  ((圖源：<a href='https://juejin.im/post/593021272f301e0058273468' target='_blank'>浅析前端开发中的 MVC/MVP/MVVM 模式</a><br><br>
+  MVC 為非常傳統的架構，Controller 做完事（運算），再丟給兩位（View、Model）去做存放與顯示<br><br>
+  而 View 會綁定在 Model 上，藉此觀察資料是否有變動，需要同步改變<br><br>
+  卻也因此無法拆換 View，所以就發展出了 MVP 架構，即由 Model、View、Presenter 三個互相扶持所組成的架構<br><br>
+  <ul>
+    <li>MVP
+      <ul>
+        <li>Model：依然負責儲存資料、制定資料的格式等等</li>
+        <li>View：依然負責顯示資料，沒了</li>
+        <li><span class='point-red'>Presenter：負責所有的操作、事件觸發要做什麼、運算等等，可說是連結 Model 與 View 的橋樑</span></li>
+      </ul>
+
+    </li>
+  </ul>
+  <img class='img' src='assets\posts\helloPosts\binding-mvp.jpg'><br>
+  ((圖源：<a href='https://juejin.im/post/593021272f301e0058273468' target='_blank'>浅析前端开发中的 MVC/MVP/MVVM 模式</a><br><br>
+  MVP 甩掉 MVC 的 View 綁定 Model 的缺點，將 Presenter 當成傳話筒，需要溝通都是透過它<br><br>
+  於是要替換 View 就變得很簡單，但相反的，Presenter 就得學會 View 的語言才能溝通，即 View 只要有更新，Presenter 就得一併更新<br><br>
+  所以最後的角色出來了－MVVM，即由 Model、View、ViewModel 三個互相扶持所組成的架構<br><br>
+  <ul>
+    <li>MVVM
+      <ul>
+        <li>Model：依然負責儲存資料、制定資料的格式等等</li>
+        <li>View：依然負責顯示資料，沒了</li>
+        <li><span class='point-red'>ViewModel：負責所有的操作、事件觸發要做什麼、運算等等，把 View 和 Model 的同步自動化了！</span></li>
+      </ul>
+
+    </li>
+  </ul>
+  <img class='img' src='assets\posts\helloPosts\binding-mvvm.jpg'><br>
+  ((圖源：<a href='https://juejin.im/post/593021272f301e0058273468' target='_blank'>浅析前端开发中的 MVC/MVP/MVVM 模式</a><br><br>
+  以往 MVC、MVP 數據同步都需要手動去完成，而 MVVM 就是自動幫你一起改<br><br>
+  就像雲端空間一樣，雲端的資源更改，View 和 Model 抓取的都會是更改後的了<br><br>
+  沒錯！Angular就是這樣運作的！<br><br>
+</div>

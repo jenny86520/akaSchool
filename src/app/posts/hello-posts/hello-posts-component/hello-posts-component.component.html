@@ -1,6 +1,40 @@
-<app-hello-posts-main [title]='title' [lastPost]='lastPost' [classNumber]=1></app-hello-posts-main>
+<h2 class='title'>{{title}}</h2>
+<b>寫文章前，我們需要有白紙，在網站裡就是頁面，而在 Angular 裡就是元件（Component）</b><br><br>
+來建立元件吧！<br><br>
+
+<app-hello-posts-main [lastPost]='lastPost' [classNumber]=1></app-hello-posts-main>
+
 <!--1. 建立文章：[Angular]建立元件（Component）-->
 <div>
   <h3 class='sub-title'>1. 建立文章：[Angular]建立元件（Component）</h3>
-  Coming soon ...<br><br>
+  初始時，Angular 有替我們建一個 Component，在 src/app/ 路徑底下<br><br>
+  你會看到有四個檔案的檔名都有 component ，沒錯！他們就是一個 Componet！<br><br>
+  聽不懂吧～別急，我們來創一個元件就會懂了！<br><br>
+
+  <b>Method 1: 使用命令列視窗創建元件 Component（html、ts、css）</b><br><br>
+  廢話不多說（已經說了），於 Angular 專案下執行下列指令：<br><br>
+  <div class='block-code'>
+    ng g component home<br>
+  </div>
+  <ul>
+    <li>[g]: general，會自動生成所需檔案（此搭配 component 為自動生成 .html .ts .css 及測試檔 .spec.ts）</li>
+    <li>[component]: 也可用縮寫「c」，指定要生成的檔案類型（component、class、service、pipe...）</li>
+    <li>[home]: 檔案名稱，取你尬意的</li>
+  </ul>
+  等它跑完，你可以在資料夾下看到自動生成的檔案（如下圖），第一個元件就這樣簡簡單單完成了～<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-file.jpg'><br><br>
+  先不理 src/app/ 底下的 app.module.ts 與 app-routing.module.ts（後續會介紹唷！）<br><br>
+  是不是發現生成的檔案跟 src/app/ 底下的檔案幾乎一模一樣啊！沒錯！一個元件就是包含了三個東西（不要理測試檔）<br><br>
+  而這三個「東西」是如何分工呢？<br>
+  <ul>
+    <li>.html：顯示在畫面上</li>
+    <li>.css：替畫面增加色彩跟排版</li>
+    <li>.ts：邏輯、運算、事件觸發、互動，負責做苦工思考的組員((x</li>
+  </ul>
+  再來你在命令列視窗會看到它更動了幾個檔案：<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-new c.jpg'><br><br>
+  會發現它更新了 app.module.ts 檔案，那我們打開來瞧瞧<br><br>
+  開啟開發工具（以 VSCode 為例），將專案打開，我們來看看 app.module.ts 的內容：<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-app.module.jpg'><br><br>
+  黃色框框起來的部分是它更動的部分，<b>即將 HomeComponent 匯入後，加入 declararions 中</b><br><br>
 </div>

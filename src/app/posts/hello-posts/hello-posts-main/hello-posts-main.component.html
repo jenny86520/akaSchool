@@ -1,7 +1,4 @@
 <div>
-  <h2 class='title'>{{title}}</h2>
-  <b>來證明這是你的網站吧！</b><br><br>
-  要怎麼證明這是你的網站呢？來寫第一篇文章吧！<br><br>
   前情提要：
   <a [routerLink]="path" skipLocationChange>{{lastPost.title}}</a>
   <!--Class-->
@@ -14,7 +11,8 @@
       <li [class.sub-title] = 'classNumber == 1'>建立文章：[Angular]建立元件（Component）</li>
       <li [class.sub-title] = 'classNumber == 2'>撰寫內容：[Angular]資料繫結（Binding）
         <ol>
-          <li value="0">內嵌繫結（Interpolation Binding）</li>
+          <li value="0">MVVM 架構（Model-View-ViewModel）</li>
+          <li>內嵌繫結（Interpolation Binding）</li>
           <li>屬性繫結（Property Binding）</li>
           <li>事件繫結（Event Binding）</li>
         </ol>

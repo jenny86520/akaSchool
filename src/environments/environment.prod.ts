@@ -24,6 +24,11 @@ export const environment = {
       id: 4,
       title: '0x03 我的第一篇文章-建立篇【1. 建立文章：[Angular]建立元件（Component）】',
       path: 'helloPosts/component'
+    },
+    {
+      id: 5,
+      title: '0x04 我的第一篇文章-撰寫篇【2. 撰寫內容：[Angular]資料繫結（Binding）】',
+      path: 'helloPosts/binding'
     }
   ],
   production: true
