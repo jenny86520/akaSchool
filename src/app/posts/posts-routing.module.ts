@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { HomeComponent } from './home/home.component';
 import { HelloWebsiteComponent } from './hello-website/hello-website.component';
-import { HelloPostsFileComponent } from './hello-posts-file/hello-posts-file.component';
 
 
 const routes: Routes = [
@@ -21,11 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'helloPosts',
-    children: [{
-      path: 'file',
-      component: HelloPostsFileComponent,
-      pathMatch: 'full'
-    }]
+    loadChildren: () => import('./hello-posts/hello-posts.module').then(m => m.HelloPostsModule)
   },
   {
     path: '**',

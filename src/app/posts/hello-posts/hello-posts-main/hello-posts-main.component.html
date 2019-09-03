@@ -1,0 +1,28 @@
+<div>
+  <h2 class='title'>{{title}}</h2>
+  <b>來證明這是你的網站吧！</b><br><br>
+  要怎麼證明這是你的網站呢？來寫第一篇文章吧！<br><br>
+  前情提要：
+  <a [routerLink]="path" skipLocationChange>{{lastPost.title}}</a>
+  <!--Class-->
+  <br>
+  <hr class="border-two" />
+  <table class='block-catalog'>
+    【我的第一篇文章】教學導覽
+    <ol>
+      <li start="0" [class.sub-title] = 'classNumber == 0'>Angular 專案檔案介紹</li>
+      <li [class.sub-title] = 'classNumber == 1'>建立文章：[Angular]建立元件（Component）</li>
+      <li [class.sub-title] = 'classNumber == 2'>撰寫內容：[Angular]資料繫結（Binding）
+        <ol>
+          <li value="0">內嵌繫結（Interpolation Binding）</li>
+          <li>屬性繫結（Property Binding）</li>
+          <li>事件繫結（Event Binding）</li>
+        </ol>
+      </li>
+      <li [class.sub-title] = 'classNumber == 3'>瀏覽文章吧！：[Angular]路由配置（Router）</li>
+      <li [class.sub-title] = 'classNumber == 4'>簡單管理所有文章標題：[Angular]環境變數（environmemt.ts v.s environmemt.prod.ts）</li>
+    </ol>
+  </table>
+  <br>
+  <hr class="border-two" />
+</div>
