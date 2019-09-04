@@ -22,7 +22,7 @@ export const environment = {
     },
     {
       id: 4,
-      title: '0x03 我的第一篇文章-建立篇【1. 建立文章：[Angular]建立元件（Component）】',
+      title: '0x03 我的第一篇文章-建立篇【1. 建立文章：[Angular]建立元件（Component）& NgModule 簡介】',
       path: 'helloPosts/component'
     },
     {
