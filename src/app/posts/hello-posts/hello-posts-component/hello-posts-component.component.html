@@ -1,17 +1,17 @@
+<!--1. 建立文章：[Angular]建立元件（Component）-->
 <h2 class='title'>{{title}}</h2>
 <b>寫文章前，我們需要有白紙，在網站裡就是頁面，而在 Angular 裡就是元件（Component）</b><br><br>
 來建立元件吧！<br><br>
 
 <app-hello-posts-main [lastPost]='lastPost' [classNumber]=1></app-hello-posts-main>
 
-<!--1. 建立文章：[Angular]建立元件（Component）-->
 <div>
-  <h3 class='sub-title'>1. 建立文章：[Angular]建立元件（Component）</h3>
-  初始時，Angular 有替我們建一個 Component，在 src/app/ 路徑底下<br><br>
-  你會看到有四個檔案的檔名都有 component ，沒錯！他們就是一個 Componet！<br><br>
+  初始時，Angular 有替我們建一個 Component，名叫 app，就是在 src/ 路徑底下的 app/<br><br>
+  你會看到在 src/app/ 路徑下有四個檔案的檔名都有 component ，沒錯！他們就是一個 Component！<br><br>
   聽不懂吧～別急，我們來創一個元件就會懂了！<br><br>
-
-  <b>Method 1: 使用命令列視窗創建元件 Component（html、ts、css）</b><br><br>
+  <!--1.0 如何建立元件（Component）？-->
+  <h3 class='sub-title'>1.0 如何建立元件（Component）？</h3>
+  <b>Method 1: 使用命令列視窗（cmd）建立元件</b><br><br>
   廢話不多說（已經說了），於 Angular 專案下執行下列指令：<br><br>
   <div class='block-code'>
     ng g component home<br>
@@ -23,9 +23,83 @@
   </ul>
   等它跑完，你可以在資料夾下看到自動生成的檔案（如下圖），第一個元件就這樣簡簡單單完成了～<br><br>
   <img class='img' src='assets\posts\helloPosts\component-file.jpg'><br><br>
+
+  <b>Method 2: 使用 VSCode（Visual Studio Code） 建立元件</b><br><br>
+  除了使用指令建立外，我們來善用一下 VSCode 這套開發工具吧！<br><br>
+  為了常識使用 VSCode 建立元件，我們就再建立一個元件吧！<br><br>
+  將專案用 VSCode 打開，<span class='point-red'>只要在專案下的命令列視窗，打上 「code .」就可以將 VSCode 打開囉！</span><br><br>
+  VSCode 已經幫你預設好環境變數了，貼心一哥～<br><br>
+  順利使用 VSCode 開啟專案後，於左側檔案清單（Explorer）任一處點選右鍵，選擇「<b>Angular: Generate a component</b>」<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-new c by vscode.jpg'><br><br>
+  會於上方出現輸入框，就可以打上要建立的元件名稱啦～直接輸入名稱就是建立在 src/app/ 目錄下<br><br>
+  而如果要指定在哪個目錄下，就直接輸入相對路徑即可。如「test/test1」，將會在 src/app/test 中建立 test1 的元件（即包含三個檔案與一測試檔的資料夾）<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-new c by vscode-1.jpg'><br><br>
+  之後他會詢問要建立什麼類型的元件（介紹放於補充區），這裡我們選普通的 Classic component（第一項）按下 Enter 即可<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-new c by vscode-2.jpg'><br><br>
+  二次確認，選擇 Confirm 確認建立<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-new c by vscode-3.jpg'><br><br>
+  接著會自動在 VSCode 底下開啟命令列視窗，發現它執行了 Method 1 的指令<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-new c by vscode-4.jpg'><br><br>
+  一樣等它跑完，就會在左側看到元件展開囉！也就是元件建立完成～<br><br>　
+  <img class='img' src='assets\posts\helloPosts\component-new c by vscode-5.jpg'><br><br>
+  這樣我們就學會使用指令和 VSCode 工具兩種方式建立元件囉！<br><br>
+
+  <div class='block-table'>
+    <b>補充區</b><br><br>
+    <div class='block-tab'>
+      元件的類型（Type of component）
+      <ul>
+        <li>Classic component
+          <ul>
+            <li>No option: 普通的元件，無其他附加功能</li>
+          </ul>
+        </li>
+        <li>Exported component
+          <ul>
+            <li>--export (no other option): 自動加入模組（Module）的匯出清單（以後會介紹模組）</li>
+          </ul>
+        </li>
+        <li>Pure component
+          <ul>
+            <li>--changeDetection OnPush (no other option): 用於不需常刷新的頁面使用，增加效能<br>
+              元件的 @Component 設定中加入「<b>changeDetection: ChangeDetectionStrategy</b><span
+                class='point-red'>.OnPush</span>」<br>
+              changeDetection 屬性為預設時（不寫 or .Default），代表只要元件中的內容有任何改變，包含物件內容改變、物件的屬性內容改變等，皆會刷新頁面（dirty check）<br>
+              changeDetection 屬性為 OnPush 時（.OnPush），代表只有元件中的「@Input 真的改變」時（輸入換一個容器，內容改變不算），才會刷新頁面<br>
+            </li>
+          </ul>
+        </li>
+        <li>Exported pure component
+          <ul>
+            <li>--export --changeDetection OnPush (no other option): 綜合 Exported 和 Pure 的功能</li>
+          </ul>
+        </li>
+        <li>Element component
+          <ul>
+            <li>--entryComponent --viewEncapsulation ShadowDom: 自動加入模組（Module）的 entryComponents 清單<br>
+              entryComponents 清單列出不通過 Route 動態加入到 DOM 中的元件，清單中的元件將會在此模組定義的時候進行編譯
+            </li>
+          </ul>
+        </li>
+        <li>Advanced component
+          <ul>
+            <li>You'll be able to choose all available options: 可展開所有附加功能做選擇，暫不闡述</li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+  <br>
+  <hr class="border-two" />
+
+  <!--1.1 NgModule 簡介-->
+  <h3 class='sub-title'>1.1 NgModule 簡介</h3>
+  <b>建立元件做了哪些事？</b><br><br>
   先不理 src/app/ 底下的 app.module.ts 與 app-routing.module.ts（後續會介紹唷！）<br><br>
   是不是發現生成的檔案跟 src/app/ 底下的檔案幾乎一模一樣啊！沒錯！一個元件就是包含了三個東西（不要理測試檔）<br><br>
-  而這三個「東西」是如何分工呢？<br>
+  而這三個「東西」是做什麼的呢？<br>
   <ul>
     <li>.html：顯示在畫面上</li>
     <li>.css：替畫面增加色彩跟排版</li>
@@ -34,7 +108,55 @@
   再來你在命令列視窗會看到它更動了幾個檔案：<br><br>
   <img class='img' src='assets\posts\helloPosts\component-new c.jpg'><br><br>
   會發現它更新了 app.module.ts 檔案，那我們打開來瞧瞧<br><br>
-  開啟開發工具（以 VSCode 為例），將專案打開，我們來看看 app.module.ts 的內容：<br><br>
+  使用開發工具（VSCode）將專案打開，我們來看看 app.module.ts 的內容：<br><br>
   <img class='img' src='assets\posts\helloPosts\component-app.module.jpg'><br><br>
-  黃色框框起來的部分是它更動的部分，<b>即將 HomeComponent 匯入後，加入 declararions 中</b><br><br>
+  黃色框框起來的部分是它更動的部分，即<span class='point-red'>將 HomeComponent、Page1Component 匯入後，加入 declararions 中</span><br><br>
+  declararions 又是做什麼的呢？我們來從頭導覽一下 app.module.ts 中 <b>NgModule</b> 的內容<br><br>
+
+  <b>NgModule</b><br><br>
+  NgModule 為一裝飾器（Decorator），用來設定此模組（Module）運用元件、子模組的配置，配置分類為以下：
+  <ul>
+    <li>可宣告物件表（Declarations）：<b>宣告元件、指令、管道歸屬於此模組</b>，令該物件<span class='point-red'>只能被此模組識別</span>（管理、操作等）</li>
+    <li>匯入表（imports）：<b>匯入其他模組、套件、元件等，供此模組使用</b>，令此模組可以使用匯入項目的所有工具、功能</li>
+    <li>匯出表（exports）：<b>匯出此模組、套件、元件等，供其他模組使用</b>，列出其他模組匯入此模組時，可以使用的項目</li>
+    <li>服務提供商（providers）：此模組需要用到的服務都必須列於此處</li>
+    <li>根元件（bootstrap）：<b>文章 0x02 有稍微提到 bootstrap</b>，即應用中所有其它元件的宿主，它就是開始的大門。<span class='point-red'>只有根模組才需設定這個
+        bootstrap 屬性</span></li>
+  </ul>
+  了解 NgModule 的內容後，回頭來看建立元件時加入的部分，上圖黃色框框起來的部分<br><br>
+  現在，換你來說說它加入的部分是代表什麼意思了，請作答！<br><br>
+  沒錯！很好，很聰明喔！((x <br><br>
+  由於我們是在最外層，即專案中第一層（src/app/）建立元件，而<span class='point-red'>最外層的模組是 app.module.ts</span><br><br>
+  所以理所當然地該元件會被加入到 app 模組中～<br><br>
+  因此，我們建立的兩個元件（HomeComponent、Page1Component）就會先被匯入（給予路徑才知道這元件是誰，就像元件的地址）<br><br>
+  然後加到可宣告物件表（Declarations）中～完成元件建立以及歸類元件到模組中～<br><br>
+
 </div>
+<br>
+<hr class="border-two" />
+<br>
+<!--結語-->
+我們終於準備好白紙啦～下一節就會開始撰寫文章囉！<br><br>
+而模組（Module）的作用及詳細介紹，我會放到後續的篇幅中喔～<br><br>
+今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
+
+<br>
+<hr class="border-two" />
+
+<!--參考資料-->
+<div>
+  <h3 class='sub-title'>參考資料</h3>
+  <ul>
+    <li><a href='https://medium.com/@cyrilletuzi/angular-schematics-cli-commands-in-visual-studio-code-d9a56383f53e'
+        target='_blank'>[angular]Angular schematics (CLI commands) in Visual Studio Code</a></li>
+    <li><a href='https://ithelp.ithome.com.tw/articles/10209130' target='_blank'>[angular]認識元件的變更偵測策略</a></li>
+    <li><a href='https://angular.io/api/core/NgModule' target='_blank'>[angular]官方NgModule功能介紹(英)</a></li>
+    <li><a href='https://angular.tw/guide/architecture-modules' target='_blank'>[angular]官方NgModule功能介紹(中)</a></li>
+    <li><a href='https://ithelp.ithome.com.tw/articles/10186257' target='_blank'>[angular]Angular2的模組化</a></li>
+    <li><a href='https://ithelp.ithome.com.tw/articles/10195338' target='_blank'>[angular]NgModules功能介紹</a></li>
+
+  </ul>
+</div>
+<h5 class="sign">
+  赤 2019-09-04 15:46<br>
+</h5>
