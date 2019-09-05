@@ -17,19 +17,22 @@ export const environment = {
     },
     {
       id: 3,
-      title: '0x02 我的第一篇文章-序章【0. Angular 專案檔案介紹】',
+      title: '0x02 我的第一篇文章-序章【Angular 專案檔案介紹】',
       path: 'helloPosts/file'
     },
     {
       id: 4,
-      title: '0x03 我的第一篇文章-建立篇【1. 建立文章：[Angular]建立元件（Component）& NgModule 簡介】',
+      title: '0x03 我的第一篇文章-建立文章【[Angular]建立元件（Component）& NgModule 簡介】',
       path: 'helloPosts/component'
     },
     {
       id: 5,
-      title: '0x04 我的第一篇文章-撰寫篇【2. 撰寫內容：[Angular]資料繫結（Binding）】',
+      title: '0x04 我的第一篇文章-撰寫內容【[Angular]資料繫結（Binding）】',
       path: 'helloPosts/binding'
     }
+
+    //      使用版控與開發工具管理吧！：[Git]... [VSCode]...
+
   ],
   production: true
   // title: '0x02 我的第一篇文章-檔案篇【Angular：檔案、元件(component)、繫結(binding)、路由(router) 基本介紹】',

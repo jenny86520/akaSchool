@@ -96,16 +96,7 @@
 
   <!--1.1 NgModule 簡介-->
   <h3 class='sub-title'>1.1 NgModule 簡介</h3>
-  <b>建立元件做了哪些事？</b><br><br>
-  先不理 src/app/ 底下的 app.module.ts 與 app-routing.module.ts（後續會介紹唷！）<br><br>
-  是不是發現生成的檔案跟 src/app/ 底下的檔案幾乎一模一樣啊！沒錯！一個元件就是包含了三個東西（不要理測試檔）<br><br>
-  而這三個「東西」是做什麼的呢？<br>
-  <ul>
-    <li>.html：顯示在畫面上</li>
-    <li>.css：替畫面增加色彩跟排版</li>
-    <li>.ts：邏輯、運算、事件觸發、互動，負責做苦工思考的組員((x</li>
-  </ul>
-  再來你在命令列視窗會看到它更動了幾個檔案：<br><br>
+  接下來，我們來看看命令列視窗，可以看到在建立元件時更動了幾個檔案：<br><br>
   <img class='img' src='assets\posts\helloPosts\component-new c.jpg'><br><br>
   會發現它更新了 app.module.ts 檔案，那我們打開來瞧瞧<br><br>
   使用開發工具（VSCode）將專案打開，我們來看看 app.module.ts 的內容：<br><br>
@@ -130,6 +121,34 @@
   所以理所當然地該元件會被加入到 app 模組中～<br><br>
   因此，我們建立的兩個元件（HomeComponent、Page1Component）就會先被匯入（給予路徑才知道這元件是誰，就像元件的地址）<br><br>
   然後加到可宣告物件表（Declarations）中～完成元件建立以及歸類元件到模組中～<br><br>
+
+  <br>
+  <hr class="border-two" />
+  <!--1.2 Component 簡介-->
+  <h3 class='sub-title'>1.2 Component 簡介</h3>
+  <b>建立元件做了哪些事？</b><br><br>
+  先不理 src/app/ 底下的 app.module.ts 與 app-routing.module.ts（後續會介紹唷！）<br><br>
+  是不是發現生成的檔案跟 src/app/ 底下的檔案幾乎一模一樣啊！沒錯！一個元件就是包含了三個東西（不要理測試檔）<br><br>
+  而這三個「東西」是做什麼的呢？<br>
+  <ul>
+    <li>.html：顯示在畫面上</li>
+    <li>.css：替畫面增加色彩跟排版</li>
+    <li>.ts：邏輯、運算、事件觸發、互動，負責做苦工思考的組員((x</li>
+  </ul>
+  我想有溫習一下前端三大元素（html、css、JS）的人對這些不陌生，陌生的是「啊它怎麼運作的？」<br><br>
+  上一段我們有提到，ngModule 負責元件等的配置，而其中一項設定「根元件（bootstrap）」列了 AppComponent 這個元件<br><br>
+  也就是說，<span class='point-red'>整個專案開始的元件是 AppComponent</span>，那我們就從它開始看吧！<br><br>
+  <span class='point-red'>元件自身的大門都是從 .ts 檔開始的喔～</span>那我們就來瞧瞧 src/app/app.component.ts 檔<br><br>
+  <img class='img' src='assets\posts\helloPosts\component-app.component.jpg'><br><br>
+  跟 app.module.ts 一樣能看到裝飾器，不過是 @Component 的裝飾器<br><br>
+  在裝飾器中可以看到它設定了三個屬性，又是作什麼的呢？<br>
+  <ul>
+    <li>「selector: 'app-root'」：<span class='point-red'>替此元件掛上名稱（app-root）</span>，也就是能夠成為標籤，供其他元件放入 html 展開用</li>
+    <li>「templateUrl: './app.component.html'」：指定此元件的 view 是誰，<span class='point-red'>通常都稱為此元件的 Template</span></li>
+    <li>「styleUrls: ['./app.component.css']」：指定此元件的裝飾是誰，通常都稱為此元件的 Style</li>
+  </ul>
+  <span class='point-red'>於是可以透過 app.component.ts 的 @Component 裝飾器得知，第一個呈現的 view 就是 app.component.html！</span><br><br>
+  了解這點很重要，理解大門如何打開的真的很重要喔！！！<br><br>
 
 </div>
 <br>
@@ -159,4 +178,5 @@
 </div>
 <h5 class="sign">
   赤 2019-09-04 15:46<br>
+  更新：赤 2019-09-05 17:43<br>
 </h5>
