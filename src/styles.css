@@ -1,13 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /**wrapper */
-.two-col-wrapper > .col-page-left {
-  width: 0px;
-  padding-top: 20px;
-  float: left;
-  display: block;
-}
-.two-col-wrapper > .col-page-right {
-  width: calc(100% - 0px);
+.two-col-wrapper {
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
@@ -17,6 +10,9 @@
 
 
 /**block */
+.block-header {
+  background-color: gainsboro;
+}
 .block-main {
   background-color: cornsilk
 }

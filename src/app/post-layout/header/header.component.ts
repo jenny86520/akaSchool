@@ -9,12 +9,16 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class HeaderComponent implements OnInit {
   public selectPost: any;
+  homeTitle: any;
   postTitles: any;
+  angularPostTitles: any;
   constructor(private router: Router) {
   }
 
   ngOnInit() {
-    this.postTitles = environment.postTitles;
+    this.homeTitle = environment.postTitles[0];
+    this.postTitles = environment.postTitles.filter(p => p.id <= 2 && p.id !== 0);
+    this.angularPostTitles = environment.postTitles.filter(p => p.id > 2);
     this.selectPost = environment.postTitles[0];
   }
   goToPost(post: any) {
