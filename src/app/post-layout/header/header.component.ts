@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  selectPost: any;
+  public selectPost: any;
   postTitles: any;
   constructor(private router: Router) {
   }
@@ -17,10 +17,9 @@ export class HeaderComponent implements OnInit {
     this.postTitles = environment.postTitles;
     this.selectPost = environment.postTitles[0];
   }
-
-  goToPost() {
+  goToPost(post: any) {
     // for home not show (''/'')
     // navigateByUrl(this.selectPost.path ? ['/', this.selectPost.path] : ['/'])
-    this.router.navigateByUrl(this.selectPost.path ? '/' + this.selectPost.path : '/', { skipLocationChange: true });
+    this.router.navigateByUrl(post.path ? '/' + post.path : '/', { skipLocationChange: true });
   }
 }

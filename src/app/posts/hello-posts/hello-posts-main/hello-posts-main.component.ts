@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { HeaderComponent } from 'src/app/post-layout/header/header.component';
 
 @Component({
   selector: 'app-hello-posts-main',
@@ -21,5 +22,4 @@ export class HelloPostsMainComponent implements OnInit {
   ngOnInit() {
     this.path = '/' + this.lastPost.path;
   }
-
 }
