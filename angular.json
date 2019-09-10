@@ -25,12 +25,12 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/bootstrap-grid.min.css",
-              "src/assets/css/bootstrap-reboot.min.css",
-              "src/assets/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap-reboot.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "src/assets/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {
