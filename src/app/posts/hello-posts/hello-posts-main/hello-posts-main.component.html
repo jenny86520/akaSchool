@@ -1,6 +1,6 @@
 <div>
   前情提要：
-  <a [routerLink]="path" skipLocationChange >{{lastPost.title}}</a>
+  <a [routerLink]="path" skipLocationChange>{{lastPost.title}}</a>
   <!--Class-->
   <br>
   <hr class="border-two" />
@@ -29,7 +29,14 @@
           <li>事件繫結（Event Binding）</li>
         </ol>
       </li>
-      <li [class.sub-title]='classNumber == 3'>瀏覽文章吧！：[Angular]路由配置（Router）</li>
+      <li [class.sub-title]='classNumber == 3'>瀏覽文章吧！：[Angular]路由配置（Routing）
+        <ol>
+          <li>路由插座（Router-Outlet）</li>
+          <li>給文章一個地址吧！（RouterModule & Routes & RouterLink）</li>
+          <li>有效地管理路由與參數（Router & ActivatedRoute Service）</li>
+          <li>把地址藏起來吧！（路由屬性：skipLocationChange）</li>
+        </ol>
+      </li>
       <li [class.sub-title]='classNumber == 4'>簡單管理所有文章標題：[Angular]環境變數（environmemt.ts v.s environmemt.prod.ts）</li>
 
     </ol>

@@ -6,10 +6,16 @@ import { HelloPostsFileComponent } from './hello-posts-file/hello-posts-file.com
 import { HelloPostsComponentComponent } from './hello-posts-component/hello-posts-component.component';
 import { HelloPostsMainComponent } from './hello-posts-main/hello-posts-main.component';
 import { HelloPostsBindingComponent } from './hello-posts-binding/hello-posts-binding.component';
+import { HelloPostsRouterComponent } from './hello-posts-router/hello-posts-router.component';
 
 
 @NgModule({
-  declarations: [HelloPostsFileComponent, HelloPostsComponentComponent, HelloPostsMainComponent, HelloPostsBindingComponent],
+  declarations: [
+    HelloPostsFileComponent,
+    HelloPostsComponentComponent,
+    HelloPostsMainComponent,
+    HelloPostsBindingComponent,
+    HelloPostsRouterComponent],
   imports: [
     CommonModule,
     HelloPostsRoutingModule

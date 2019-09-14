@@ -1,0 +1,70 @@
+<!--3. 瀏覽文章吧！：[Angular]路由配置（Router）-->
+<h2 class='title'>{{title}}</h2>
+「我的第一篇文章」終於來到倒數第二節，不過還是不小心生出了四小小節:P<br><br>
+<b>沒有地址的信，要怎麼寄到手？沒有地址的文章，要怎麼讓人家瀏覽呢？</b><br><br>
+我們來賦予文章地址吧!<br><br>
+
+<app-hello-posts-main [lastPost]='lastPost' [classNumber]=3></app-hello-posts-main>
+<!-- <li>路由插座（Router-Outlet）</li>
+          <li>給文章一個地址吧！（RouterModule & Routes & RouterLink）</li>
+          <li>有效地管理路由與參數（Router & ActivatedRoute Service）</li>
+          <li>把地址藏起來吧！（路由屬性：skipLocationChange）</li> -->
+
+<div>
+  <!--前言-->
+  終於能讓我們的文章們見天日啦！<span class='point-red'>在網站中的「地址」，就是「Path 路徑」</span>，即瀏覽器可看見的網址唷～<br><br>
+  而要賦予 Path 路徑，就需要仰賴 Router 這個「模組」啦～<br><br>
+  還記得上一節一直不停提到的模組嗎？這節沒有要聊模組((X<br><br>
+  我們主要是要了解路由的各種配置，以及它相關的服務（Service），而這一切都要從 Router 模組說起（RouterModule）<br><br>
+  不過我打算從路由插座說起:P<br><br>
+  <!--3.0. 路由插座（Router-Outlet）-->
+  <h3 class="sub-title">3.0. 路由插座（Router-Outlet）</h3>
+  顧名思義，路由插座就是一個<span class='point-red'>可以插上路由的插座</span>((???<br><br>
+  我沒有騙你們，來，附上<a href='https://angular.tw/api/router/RouterOutlet' target='_blank'>官方</a>說詞：「一個佔位符，Angular
+  會根據當前的路由器狀態動態填充它。」<br><br>
+  看不懂吧，我也是，所以就相信我，它就是一個插路由的插座這樣，嗯嗯！<br><br>
+  別離開啊～聽我娓娓道來...<br><br>
+  <span class='point-red'>路由插座是隸屬於 RouterModule，所以要使用它就必須把 RouterModule 匯入進來</span><br><br>
+  由於我們建立專案時就選擇加入 Routing（詳見 <a routerLink='/helloWebsite' skipLocationChange>0x01</a>），所以已經幫我們匯入 RouterModule 了！<br><br>
+  上一節我們瀏覽 src/app/app-routing.module.ts 在匯入的地方就有看到 RouterModule 的身影，忘記了嗎？自己回去看:P<br><br>
+  RouterModule 待會介紹，我們現在主角是路由插座<br><br>
+  打開 src/app/app.component.html，還記得我們保留下來的標籤嗎？<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routeroutlet.jpg'><br><br>
+  沒錯！就是路由插座！那就來實地操作一下，就知道路由插座在幹嘛囉～<br><br>
+  於 src/app/app.component.html 中隨意加上內容，例如個人自我介紹好了，如下：（為了好看點，我加了一些 css 裝飾）<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routeroutlet-code.jpg'><br>
+  ((暴露粗糙的撰寫了((掩面<br><br>
+  記得保留好 Router-outlet 這個路由插座標籤啊！<br><br>
+  接著我們就老樣子，到三個路徑看看吧！（「<a href='http://localhost:4200/' target='_blank'>localhost:4200</a>」、「<a
+    href='http://localhost:4200/home' target='_blank'>localhost:4200/home</a>」、「<a href='http://localhost:4200/myPage'
+    target='_blank'>localhost:4200/myPage</a>」）<br><br>
+  大家來找碴～有找到相異處嗎？沒找到就記得滾一下你可愛的滑鼠滾輪<br><br>
+  是不是發現我們剛剛加在 src/app/app.component.html 中的內容就好像釘選一樣，不管怎麼切頁面（路徑），就是被釘在最上面？<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routeroutlet-view.jpg'><br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routeroutlet-view-home.jpg'><br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routeroutlet-view-mypage.jpg'><br><br>
+  而不同頁面的內容，就會乖乖放在底下，從底下展出來，這就是路由插座的用處啊～<br><br>
+  由於一開始的大門的 view 是 app.component.html，而我們要再<span class='point-red'>透過路徑顯示其他頁面，就須使用路由插座</span><br><br>
+  把頁面插在上面，也就是把路由插在路由插座上。<span class='point-red'>插上的路由所指向的元件內容，就會在路由插座的地方展開來！</span><br><br>
+  <b>而路由又是什麼東西？這可跟路徑不太一樣喔</b>，接下來就來深入討論一下吧！<br><br>
+  <br>
+  <hr class="border-two" />
+  <!--3.1. 給文章一個地址吧！（RouterModule & Routes & RouterLink）-->
+  <!-- <h3 class="sub-title">3.1. 給文章一個地址吧！（RouterModule & Routes & RouterLink）</h3>
+  <br>
+  <hr class="border-two" /> -->
+  <!--3.2. 有效地管理路由與參數（Router & ActivatedRoute Service）-->
+  <!-- <h3 class="sub-title">3.2. 有效地管理路由與參數（Router & ActivatedRoute Service）</h3>
+  <br>
+  <hr class="border-two" /> -->
+  <!--3.3. 把地址藏起來吧！（路由屬性：skipLocationChange）-->
+  <!-- <h3 class="sub-title">3.3. 把地址藏起來吧！（路由屬性：skipLocationChange）</h3> -->
+
+</div>
+
+<b>Coming soon ...</b>
+
+<!--簽名-->
+<h5 class="sign">
+  赤 2019-09-14 23:00<br>
+</h5>

@@ -29,12 +29,16 @@ export const environment = {
       id: 5,
       title: '0x04 我的第一篇文章-撰寫內容【[Angular]資料繫結（Binding）】',
       path: 'helloPosts/binding'
+    },
+    {
+      id: 6,
+      title: '0x05 我的第一篇文章-瀏覽文章吧！【[Angular]路由配置（Router）】',
+      path: 'helloPosts/router'
     }
 
     //      使用版控與開發工具管理吧！：[Git]... [VSCode]...
 
   ],
   production: true
-  // title: '0x02 我的第一篇文章-檔案篇【Angular：檔案、元件(component)、繫結(binding)、路由(router) 基本介紹】',
 
 };

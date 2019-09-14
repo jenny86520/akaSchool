@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HelloPostsFileComponent } from './hello-posts-file/hello-posts-file.component';
 import { HelloPostsComponentComponent } from './hello-posts-component/hello-posts-component.component';
 import { HelloPostsBindingComponent } from './hello-posts-binding/hello-posts-binding.component';
+import { HelloPostsRouterComponent } from './hello-posts-router/hello-posts-router.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'binding',
     component: HelloPostsBindingComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'router',
+    component: HelloPostsRouterComponent,
     pathMatch: 'full'
   }
 ];
