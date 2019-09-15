@@ -10,7 +10,7 @@ export class HelloPostsRouterComponent implements OnInit {
   title: string = environment.postTitles.find(x => x.path === 'helloPosts/router').title;
   lastPost: any = {
     title: environment.postTitles.find(x => x.path === 'helloPosts/binding').title,
-    path: 'helloPosts/component'
+    path: 'helloPosts/binding'
   };
 
   constructor() { }
