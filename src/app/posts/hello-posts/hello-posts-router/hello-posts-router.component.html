@@ -98,11 +98,11 @@
     </div>
   </div><br>
 
-  接著，我們來看看插在路由插坐上的「路由們」到底是誰～<br><br>
+  接著，我們來看看插在路由插座上的「路由們」到底是誰～<br><br>
 
   <b>Routes</b><br><br>
   「即將插在路由插座上的路由」所組成的陣列，<span class='point-red'>每個路由包含元件、地址、其底下可能還有的子路由，以及路由的各種設定、屬性</span><br><br>
-  我們來實際看移下例子，開啟 src/app/app-routing.module.ts，會發現我們之前<del>含糊帶過</del>的路徑設定<br><br>
+  我們來實際看一下例子，開啟 src/app/app-routing.module.ts，會發現我們之前<del>含糊帶過</del>的路徑設定<br><br>
   <img class='img' src='assets\posts\helloPosts\router-routes.jpg'><br><br>
   圖中的路由有兩個元素 path 與 component，非常顯而易見，就是此路徑是代表這個元件，也就是元件的地址<br><br>
   而<span class='point-red'>每一組用大括號框起來的，就是一個路由</span>，可以看見先前我們已經加入兩個路由囉！<br><br>
@@ -186,7 +186,7 @@
       內部僅有一屬性 exact，用來切斷連結(?)，就是<span class='point-red'>僅完全比對到的路徑套上裝飾</span><br><br>
       將 src/app/app.component.html 改為下列：<br><br>
       <img class='img' src='assets\posts\helloPosts\router-routerlink-options.jpg'><br><br>
-      將<span class='point-red'>會被部分比對而套上裝飾得加上 routerLinkActiveOptions 屬性即可</span><br><br>
+      將<span class='point-red'>會被部分比對而套上裝飾的加上 routerLinkActiveOptions 屬性即可</span><br><br>
       就會看到美美的裝飾就套上去囉！（第一個路由連結是因為重導向到 home，所以是 home 路由連結被選取喔～）<br><br>
     </div>
   </div><br>
@@ -201,7 +201,7 @@
   除了使用 RouterLink 在 view 上指定路徑外，也可以在 .ts 中導路徑唷～也就是使用路由服務商（Router Service）<br><br>
   我想在路徑上帶參數，<span class='point-red'>透過丟過來的參數來決定我要如何呈現，就要使用我們的激活路由服務商（ActivatedRoute Service）</span><br><br>
   在介紹這兩個服務商之前，必須先<span class='point-red'>「依賴注入（Dependency Injection）」服務商才能夠使用喔～</span>（依賴注入將於之後篇幅中介紹）<br><br>
-  我打算在 src/app/page1/page1.component.ts 中使用導路徑的方法、在 src/app/page2/page2.component.ts 取出參數的方法<br><br>
+  我打算在 src/app/page1/page1.component.ts 中使用導路徑的方法、在 src/app/page2/page2.component.ts 使用取出參數的方法<br><br>
   所以就在這兩個檔案中注入服務商吧！注入的方式很簡單，只要在「constructor」的地方宣告，就完成注入囉！<br><br>
   <img class='img' src='assets\posts\helloPosts\router-service-injection.jpg'><br><br>
 
@@ -232,7 +232,7 @@
   <img class='img' src='assets\posts\helloPosts\router-service-activeroute-view2.jpg'><br><br>
   完成上述加入參數後，接下來就是把參數讀出來啦～我們是丟給 page2 元件，所以就到 src/app/page2/page2.component.ts 找參數吧！<br><br>
   為了證明我們有抓到參數，所以要在 src/app/page2/page2.component.html 中使用內嵌繫結呈現出來<br><br>
-  因應上述 RouterLink 的兩種加上參數的方法，所以也時做了兩種取得參數的方法，<span class='point-red'>一是路徑取得，二是透過查詢參數取得</span><br><br>
+  因應上述 RouterLink 的兩種加上參數的方法，所以也實作了兩種取得參數的方法，<span class='point-red'>一是路徑取得，二是透過查詢參數取得</span><br><br>
   <img class='img' src='assets\posts\helloPosts\router-service-activeroute-param.jpg'><br><br>
   而 <span class='point-red'>ActivatedRoute 需使用「訂閱（Subscribe）」的方式去取得值</span>，訂閱的介紹也會留到日後的篇章唷～<br><br>
   在這邊就先知道如何取得參數就行了，而<span class='point-red'>「.get('id')」中的 id，就是當初自訂的參數名稱喔！</span>（忘記就到 src/app/app-routing.module.ts
@@ -259,8 +259,8 @@
   最後，你會發現在自己 localhost 可以看到路徑的切換，但是丟到 GitHub Page，也就是丟到網站上卻無法呈現<br><br>
   是的，我們在人家（GitHub Page）的地盤，<span class='point-red'>在人家的平台上，是不能自己亂加入路徑的唷！</span><br><br>
   那怎麼辦？我不能切換路徑，換頁嗎？<br><br>
-  可以！只要動點巧思，<span class='point-red'>我們把切換的路徑影藏起來，讓它不會呈現出改變的路徑，但事實上是有換路徑唷！</span><br><br>
-  怎麼做到影藏路徑呢？方法比上面一拖拉庫要簡單多了，只要加上「skipLocationChange」屬性就大功告成了～<br><br>
+  可以！只要動點巧思，<span class='point-red'>我們把切換的路徑隱藏起來，讓它不會呈現出改變的路徑，但事實上是有換路徑唷！</span><br><br>
+  怎麼做到隱藏路徑呢？方法比上面一拖拉庫要簡單多了，只要加上「skipLocationChange」屬性就大功告成了～<br><br>
   而 RouterLink 跟 Router Service 加的方式些微不同，如下圖<br><br>
   <img class='img' src='assets\posts\helloPosts\router-skiplocationchange.jpg'><br><br>
   現在按按按鈕造訪一下，就會發現網址列沒有更動，也就是路徑不會改變，但是一樣有切換頁面了唷！<br><br>
@@ -274,9 +274,10 @@
 <hr class="border-two" />
 <br>
 <!--結語-->
-學會給文章上地址，也學會如何切換文章、轉址、傳遞參數、影藏路徑了！<br><br>
+學會給文章上地址，也學會如何切換文章、轉址、傳遞參數、隱藏路徑了！<br><br>
 有沒有覺得自己更上一層樓，要學的變多了呢QQ<br><br>
-這次又提到一個陌生的詞，「訂閱（Subscribe）」，我們很快就會再看到它，訂閱可是 Angular 很重要的一個部分啊！<br><br>
+這次又提到兩個陌生的詞，「依賴注入（Dependency Injection）」、「訂閱（Subscribe）」<br><br>
+我們很快就會再看到它們，它們可是 Angular 很重要的一個部分啊！<br><br>
 今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
 
 <br>
@@ -298,5 +299,5 @@
 <!--簽名-->
 <h5 class="sign">
   赤 2019-09-14 23:00<br>
-  更新：赤 2019-09-15 22:48<br>
+  更新：赤 2019-09-15 23:16<br>
 </h5>
