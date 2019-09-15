@@ -5,10 +5,6 @@
 我們來賦予文章地址吧!<br><br>
 
 <app-hello-posts-main [lastPost]='lastPost' [classNumber]=3></app-hello-posts-main>
-<!-- <li>路由插座（Router-Outlet）</li>
-          <li>給文章一個地址吧！（RouterModule & Routes & RouterLink）</li>
-          <li>有效地管理路由與參數（Router & ActivatedRoute Service）</li>
-          <li>把地址藏起來吧！（路由屬性：skipLocationChange）</li> -->
 
 <div>
   <!--前言-->
@@ -47,24 +43,260 @@
   由於一開始的大門的 view 是 app.component.html，而我們要再<span class='point-red'>透過路徑顯示其他頁面，就須使用路由插座</span><br><br>
   把頁面插在上面，也就是把路由插在路由插座上。<span class='point-red'>插上的路由所指向的元件內容，就會在路由插座的地方展開來！</span><br><br>
   <b>而路由又是什麼東西？這可跟路徑不太一樣喔</b>，接下來就來深入討論一下吧！<br><br>
+
   <br>
   <hr class="border-two" />
+
   <!--3.1. 給文章一個地址吧！（RouterModule & Routes & RouterLink）-->
-  <!-- <h3 class="sub-title">3.1. 給文章一個地址吧！（RouterModule & Routes & RouterLink）</h3>
+  <h3 class="sub-title">3.1. 給文章一個地址吧！（RouterModule & Routes & RouterLink）</h3>
+  我們有了路由插座後，就可以將路由插上去啦！<br><br>
+  也將路由包含上文章、地址，讓大家都可以透過這個地址（路徑）找到相對應的文章<br><br>
+  在這之前，先來釐清路由插座怎麼知道誰要插它呢((好像怪怪的((x<br><br>
+  這就是路由模組（RouterModule）在負責的，存放所有的路由（Routes），並透過路由連結（RouterLink）到相對應元件上<br><br>
+
+  <b>RouterModule</b><br><br>
+  為路由模組，<span class='point-red'>存放所有路由</span>。路由模組包含兩個方法，「forRoot()」及「forChild()」：<br><br>
+  <div class='block-table'>
+    <b>forRoot()</b><br><br>
+    <div class='block-tab'>
+      建立一個帶有所有路由器服務提供商和指令的模組。它還可以（可選的）設定一個應用監聽器，來執行首次導航。［by: <a href='https://angular.tw/api/router/RouterModule'
+        target='_blank'>angular.tw</a>］<br><br>
+      簡單來說，就是把要插到路由插座上的路由，塞到這個方法中，它就會指引路由插座找對應路由來插上了<br><br>
+      <span class='point-red'>只有根模組能使用 forRoot() 來決定路由插座的路由們</span><br><br>
+      而此方法可以加入第二個參數，為一物件，用來替加入的路由的掛上附加功能（屬性），常見的附加功能：<br><br>
+      <ul>
+        <li>enableTracing：預設為 false，當開啟時（設為 true），就會在切換路由時將路由的資訊都列印到控制台中（console log）</li>
+        <li>useHash：預設為 false，當開啟時（設為 true），會在路徑最後端加入「#」，用來因應 IE 舊版的路徑設置</li>
+        <li>scrollPositionRestoration：配置了當導航回來時是否需要還原滾動位置（這比較複雜，有興趣可參考<a
+            href='https://angular.tw/api/router/ExtraOptions#scrollPositionRestoration' target='_blank'>官方做法</a>）</li>
+        <li>scrollOffset：為一 xy 軸座標，即透過配置令卷軸滾動到某處時，到達某處時的 xy 軸偏移量</li>
+        （詳細附加功能介紹：<a href='https://blog.kevinyang.net/2018/10/29/angular-router-config/' target='_blank'>RouterModule
+          Options 篇</a>）
+      </ul>
+      說了這麼多，我們來看看實際應用，打開 src/app/app-routing.module.ts，就會看到 forRoot() 的身影<br><br>
+      <img class='img' src='assets\posts\helloPosts\router-routermodule-forroot.jpg'><br><br>
+      誠如上述所說，放入一個<span class='point-red'>名叫「routes」的路由陣列（Routes），代表要插在路由插座的路由，就是路由陣列中的這些了！</span><br><br>
+      我們加入上面的附加功能，看看效果吧！將 src/app/app-routing.module.ts 改為以下：<br><br>
+      <img class='img' src='assets\posts\helloPosts\router-routermodule-forroot-2.jpg'><br><br>
+      卷軸滾動的附加功能，有興趣的再自己 try try，這邊就先不測試囉！因其還需多寫一些設定才能看到效果，暫不提～<br><br>
+      接著，開啟瀏覽器看看結果吧～發現在路徑尾端加入了「#」，並且其他路徑都須加到其後<br><br>
+      <img class='img' src='assets\posts\helloPosts\router-routermodule-forroot-view.jpg'><br><br>
+      再來，我們按下「F12」，開啟瀏覽器的開發人員工具（Developer Tools），就會看到路由的資訊<br><br>
+      <img class='img' src='assets\posts\helloPosts\router-routermodule-forroot-view2.jpg'><br><br>
+      試著切換不同路徑，看看路由的資訊變化吧！<br><br>
+    </div>
+
+  </div><br>
+  <div class='block-table'>
+    <b>forChild()</b><br><br>
+    <div class='block-tab'>
+      建立一個具有所有路由器指令和一個用於註冊路由的提供商。［by: <a href='https://angular.tw/api/router/RouterModule'
+        target='_blank'>angular.tw</a>］<br><br>
+      簡單來說，依然是把要插到路由插座上的路由，塞到這個方法中<br><br>
+      不同的是，<span class='point-red'>除了根模組以外的模組，需使用 forChild() 來決定路由插座的路由們</span><br><br>
+      目前我們除了 App 這個模組包含元件外，並無其他模組包含元件，所以暫時不會看見此方法，後續介紹模組時就會看見囉！<br><br>
+    </div>
+  </div><br>
+
+  接著，我們來看看插在路由插坐上的「路由們」到底是誰～<br><br>
+
+  <b>Routes</b><br><br>
+  「即將插在路由插座上的路由」所組成的陣列，<span class='point-red'>每個路由包含元件、地址、其底下可能還有的子路由，以及路由的各種設定、屬性</span><br><br>
+  我們來實際看移下例子，開啟 src/app/app-routing.module.ts，會發現我們之前<del>含糊帶過</del>的路徑設定<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routes.jpg'><br><br>
+  圖中的路由有兩個元素 path 與 component，非常顯而易見，就是此路徑是代表這個元件，也就是元件的地址<br><br>
+  而<span class='point-red'>每一組用大括號框起來的，就是一個路由</span>，可以看見先前我們已經加入兩個路由囉！<br><br>
+  當然，路由的元素（屬性）不是只有 path 跟 component兩個而已，常見的屬性如下：<br><br>
+  <ul>
+    <li>path：此路由的路徑/地址/URL</li>
+    <li>component：元件，此路由代表哪個元件，即此路徑指向的元件</li>
+    <li>pathMatch：路徑比對（prefix／full），<b>prefix 為部分比對，只要路徑有部分相同就判定為相同路徑；full 為完全比對，路徑須完全相同才判定為相同</b></li>
+    <li>redirectTo：重導向，進入此路徑時，<b>直接導向另一路徑</b>。常用於空路徑或任意路徑時，重新給予路徑</li>
+    <li>children：子路由，可放置在此路徑下的路由們，即子路由的路徑將於該路由的路徑之後添加</li>
+    <li>loadChildren：<b>延遲載入子路由</b>，此會一併於模組篇章中介紹</li>
+    （詳細屬性介紹：<a href='https://angular.tw/api/router/Route' target='_blank'>Route</a>）
+  </ul>
+  直接來練習一波，我們多創建幾個元件來練習吧！加入「Page2」、「NotFound」兩個元件～（建立元件作法：<a routerLink='/helloPosts/component'
+    skipLocationChange>0x03</a>）<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routes-createcomponents.jpg'><br><br>
+  接著把它們加到路由的陣列吧！順便放上一些屬性測試測試（為方便，先將上面有開啟的<span class='point-red'>「useHash」取消掉</span>）<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routes-2.jpg'><br><br>
+  記得有使用到的元件都要先 import 進來唷～接著造訪這幾個路徑看看效果吧！「<a href='http://localhost:4200' target='_blank'>localhost:4200</a>」、「<a
+    href='http://localhost:4200/home' target='_blank'>localhost:4200/home</a>」、「<a href='http://localhost:4200/myPage'
+    target='_blank'>localhost:4200/myPage</a>」、「<a href='http://localhost:4200/myPage/children'
+    target='_blank'>localhost:4200/myPage/children</a>」、「<a href='http://localhost:4200/otherpath'
+    target='_blank'>localhost:4200/otherpath</a>」<br><br>
+  上圖中，可以看到：<br><br>
+  <div class='block-table'>
+    <b>重導向</b><br><br>
+    <div class='block-tab'>
+      <span class='point-red'>只要是空路徑就是重導向到「home」路徑，並且使用完全比對（重導向強制要完全比對）</span><br><br>
+      造訪「<a href='http://localhost:4200' target='_blank'>localhost:4200</a>」能發現路徑自動幫我們導到 home 去了<br><br>
+
+    </div>
+    <b>子路由</b><br><br>
+    <div class='block-tab'>
+      children 的值也是一個路由的陣列<br><br>
+      透過「<a href='http://localhost:4200/myPage' target='_blank'>localhost:4200/myPage</a>」、「<a
+        href='http://localhost:4200/myPage/children'
+        target='_blank'>localhost:4200/myPage/children</a>」兩個路徑可以知道其用法，就是這麼簡單明瞭<br><br>
+    </div>
+    <b>萬用路徑</b><br><br>
+    <div class='block-tab'>
+      萬用路由代表<span class='point-red'>不管路徑輸入什麼，就是符合此路由，即使用此路由，萬用路由應放於最後</span><br><br>
+      因為<span class='point-red'>路由比對時是造順序比對，即由上而下</span>，如果萬用路由放在第一個，那不管路徑輸入什麼都會比對到萬用路由去，底下就完全沒作用了<br><br>
+      可以自己試試看～<br><br>
+    </div>
+  </div><br>
+
+  最後，我們有了可以插到路由插座上的路由了，但是每次都要輸入路徑才能插上對應的路由，是不是太麻煩了啊！<br><br>
+  沒錯！所以我們要來製作簡單方便可以造訪各路徑的方式～<br><br>
+
+  <b>RouterLink</b><br><br>
+  最簡單造訪路由的方法，就是使用路由模組（RouterModule）中的路由連結（RouterLink）屬性，我來直接用給你看～<br><br>
+  打開 src/app/app.component.html，加上我們的路由連結，如下：<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routerlink.jpg'><br><br>
+  從圖中我們可以看到 RouterLink 有兩種方式，<span class='point-red'>使用字串或是放入字串陣列（最後兩個）</span><br><br>
+  <span class='point-red'>字串陣列必須使用屬性繫結</span>（繫結介紹請見：<a routerLink='/helloPosts/binding'
+    skipLocationChange>0x04</a>）<br><br>
+  而最下面的路由連結，path 為一變數，可以到 src/app/app.component.ts 檔中給個隨意的值<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-routerlink-ts.jpg'><br><br>
+  除了 RouterLink 外，還有一些其他路由的屬性可以設定，常見的像是 routerLinkActive、routerLinkActiveOptions<br><br>
+
+  <div class='block-table'>
+    <b>routerLinkActive</b><br><br>
+    <div class='block-tab'>
+      <span class='point-red'>即當此連結指向的路由啟用時，往宿主元素上新增一個 CSS 類</span>［by: <a
+        href='https://angular.tw/api/router/RouterModule' target='_blank'>angular.tw</a>］<br><br>
+      光看也不會懂的，動手做就會懂啦～我們來簡單套幾個裝飾上去吧！<br><br>
+      <img class='img' src='assets\posts\helloPosts\router-routerlink-active.jpg'><br><br>
+      接著我們來看看效果，怎麼好像怪怪的，沒錯！因為他會<span class='point-red'>從根路徑一直向下比對，只要成功都會套上裝飾</span><br><br>
+      以「<a href='http://localhost:4200/myPage/children' target='_blank'>localhost:4200/myPage/children</a>」為例：<br><br>
+      <img class='img' src='assets\posts\helloPosts\router-routerlink-view.jpg'><br><br>
+      因比對到「localhost:4200/myPage/children」路徑，就會比對成功「/」、「myPage」、「children」三者，所以三個都會掛上裝飾<br><br>
+    </div>
+  </div><br>
+
+  可是這樣很醜啊！我是說，不美觀啊！<br><br>
+  當然，有相應解法啦～那就是 routerLinkActiveOptions 屬性在做的事<br><br>
+
+  <div class='block-table'>
+    <b>routerLinkActiveOptions</b><br><br>
+    <div class='block-tab'>
+      內部僅有一屬性 exact，用來切斷連結(?)，就是<span class='point-red'>僅完全比對到的路徑套上裝飾</span><br><br>
+      將 src/app/app.component.html 改為下列：<br><br>
+      <img class='img' src='assets\posts\helloPosts\router-routerlink-options.jpg'><br><br>
+      將<span class='point-red'>會被部分比對而套上裝飾得加上 routerLinkActiveOptions 屬性即可</span><br><br>
+      就會看到美美的裝飾就套上去囉！（第一個路由連結是因為重導向到 home，所以是 home 路由連結被選取喔～）<br><br>
+    </div>
+  </div><br>
+  終於可以很方便地造訪各個路徑了～接下來就是進階課程了！<br><br>
+  來複雜地(?)造訪路徑吧！((才不要<br><br>
+
   <br>
-  <hr class="border-two" /> -->
+  <hr class="border-two" />
+
   <!--3.2. 有效地管理路由與參數（Router & ActivatedRoute Service）-->
-  <!-- <h3 class="sub-title">3.2. 有效地管理路由與參數（Router & ActivatedRoute Service）</h3>
+  <h3 class="sub-title">3.2. 有效地管理路由與參數（Router & ActivatedRoute Service）</h3>
+  除了使用 RouterLink 在 view 上指定路徑外，也可以在 .ts 中導路徑唷～也就是使用路由服務商（Router Service）<br><br>
+  我想在路徑上帶參數，<span class='point-red'>透過丟過來的參數來決定我要如何呈現，就要使用我們的激活路由服務商（ActivatedRoute Service）</span><br><br>
+  在介紹這兩個服務商之前，必須先<span class='point-red'>「依賴注入（Dependency Injection）」服務商才能夠使用喔～</span>（依賴注入將於之後篇幅中介紹）<br><br>
+  我打算在 src/app/page1/page1.component.ts 中使用導路徑的方法、在 src/app/page2/page2.component.ts 取出參數的方法<br><br>
+  所以就在這兩個檔案中注入服務商吧！注入的方式很簡單，只要在「constructor」的地方宣告，就完成注入囉！<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-service-injection.jpg'><br><br>
+
+  接下來就分別介紹這兩個服務商吧～<br><br>
+
+  <b>Router Service</b><br><br>
+  一個提供導航和操縱 URL 能力的 NgModule。［by: <a href='https://angular.tw/api/router/Router' target='_blank'>angular.tw</a>］<br><br>
+  簡單來說，就是<span class='point-red'>可以切換路徑的幫手</span>，使用方式如下<br><br>
+  於 src/app/page1/page1.component.ts 中新增用來轉址（導路徑）的事件，並於 src/app/page1/page1.component.html 中使用事件繫結<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-service-router.jpg'><br><br>
+  有兩種方式皆可以轉址，<span class='point-red'>使用url，或是字串陣列，可使用字串陣列的用處在於可放入變數</span><br><br>
+  點下新增的兩個按鈕，會就能夠跳轉到 page2 元件囉！<br><br>
+
+  學會兩種轉址的方式（RouterLink、Router Service），接下來要學習如何在轉址時傳遞參數<br><br>
+  而要取得傳遞的參數，就是 ActivatedRoute Service 出場的時候了！<br><br>
+
+  <b>ActivatedRoute Service</b><br><br>
+  <span class='point-red'>ActivatedRoute Service 會取得目前插在路由插座上的路由</span>，所以我們可以從它身上取得傳遞的參數<br><br>
+  首先，我們要先在原本轉址的地方加上參數，且微調一下路由的路徑<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-service-activeroute.jpg'><br><br>
+  在 src/app/app-routing.module.ts 中，加入一個新路徑，讓路由可以判斷後方還有一參數，id 為參數名稱，可取你尬意的<br><br>
+  在 src/app/page1/page1.component.ts 中，如要放入變數，僅能使用字串陣列轉址的方式唷！<br><br>
+  在 src/app/page1/page1.component.html 中，加上事件繫結<br><br>
+  而<span class='point-red'>藍色框框起來的部分，則是使用 RouterLink 的方式傳遞參數，兩種作法結果不太一樣喔～</span>來按按看就知道了<br><br>
+  按下「go to Page2 with id use routerLink」按鈕的路徑會長下圖這樣<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-service-activeroute-view.jpg'><br><br>
+  而按下「go to Page2 with id use queryParams」按鈕的路徑會長下圖這樣<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-service-activeroute-view2.jpg'><br><br>
+  完成上述加入參數後，接下來就是把參數讀出來啦～我們是丟給 page2 元件，所以就到 src/app/page2/page2.component.ts 找參數吧！<br><br>
+  為了證明我們有抓到參數，所以要在 src/app/page2/page2.component.html 中使用內嵌繫結呈現出來<br><br>
+  因應上述 RouterLink 的兩種加上參數的方法，所以也時做了兩種取得參數的方法，<span class='point-red'>一是路徑取得，二是透過查詢參數取得</span><br><br>
+  <img class='img' src='assets\posts\helloPosts\router-service-activeroute-param.jpg'><br><br>
+  而 <span class='point-red'>ActivatedRoute 需使用「訂閱（Subscribe）」的方式去取得值</span>，訂閱的介紹也會留到日後的篇章唷～<br><br>
+  在這邊就先知道如何取得參數就行了，而<span class='point-red'>「.get('id')」中的 id，就是當初自訂的參數名稱喔！</span>（忘記就到 src/app/app-routing.module.ts
+  看）<br><br>
+  點選剛新增的三個按鈕，「go to Page2 with id」、「go to Page2 with id use routerLink」、「go to Page2 with id use queryParams」造訪<br><br>
+  「go to Page2 with id」：<br>
+  <img class='img' src='assets\posts\helloPosts\router-service-activeroute-param-view.jpg'><br>
+  「go to Page2 with id use routerLink」：<br>
+  <img class='img' src='assets\posts\helloPosts\router-service-activeroute-param-view2.jpg'><br>
+  「go to Page2 with id use queryParams」：<br>
+  <img class='img' src='assets\posts\helloPosts\router-service-activeroute-param-view3.jpg'><br><br>
+
+  可以看到路徑參數跟查詢參數的差異，也完成了傳遞參數的任務囉！<br><br>
+
+  <div class='block-table'>
+    <b>任務4</b>：試著讓使用者自己輸入參數，傳遞到 Page2 元件並呈現吧！
+  </div><br>
+
   <br>
-  <hr class="border-two" /> -->
+  <hr class="border-two" />
+
   <!--3.3. 把地址藏起來吧！（路由屬性：skipLocationChange）-->
-  <!-- <h3 class="sub-title">3.3. 把地址藏起來吧！（路由屬性：skipLocationChange）</h3> -->
+  <h3 class="sub-title">3.3. 把地址藏起來吧！（路由屬性：skipLocationChange）</h3>
+  最後，你會發現在自己 localhost 可以看到路徑的切換，但是丟到 GitHub Page，也就是丟到網站上卻無法呈現<br><br>
+  是的，我們在人家（GitHub Page）的地盤，<span class='point-red'>在人家的平台上，是不能自己亂加入路徑的唷！</span><br><br>
+  那怎麼辦？我不能切換路徑，換頁嗎？<br><br>
+  可以！只要動點巧思，<span class='point-red'>我們把切換的路徑影藏起來，讓它不會呈現出改變的路徑，但事實上是有換路徑唷！</span><br><br>
+  怎麼做到影藏路徑呢？方法比上面一拖拉庫要簡單多了，只要加上「skipLocationChange」屬性就大功告成了～<br><br>
+  而 RouterLink 跟 Router Service 加的方式些微不同，如下圖<br><br>
+  <img class='img' src='assets\posts\helloPosts\router-skiplocationchange.jpg'><br><br>
+  現在按按按鈕造訪一下，就會發現網址列沒有更動，也就是路徑不會改變，但是一樣有切換頁面了唷！<br><br>
+  為了放到人家的地盤不會被踢出去，<span class='point-red'>記得所有路徑切換都要隱藏路徑喔</span><br><br>
+  也就是不管轉址到哪邊，路徑必須永遠在本地端為「localhost:4200」<br><br>
 
 </div>
 
-<b>Coming soon ...</b>
 
+<br>
+<hr class="border-two" />
+<br>
+<!--結語-->
+學會給文章上地址，也學會如何切換文章、轉址、傳遞參數、影藏路徑了！<br><br>
+有沒有覺得自己更上一層樓，要學的變多了呢QQ<br><br>
+這次又提到一個陌生的詞，「訂閱（Subscribe）」，我們很快就會再看到它，訂閱可是 Angular 很重要的一個部分啊！<br><br>
+今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
+
+<br>
+<hr class="border-two" />
+
+<!--參考資料-->
+<div>
+  <h3 class='sub-title'>參考資料</h3>
+  <ul>
+    <li><a href='https://jonny-huang.github.io/angular/training/09_angular_router2/' target='_blank'>[angular]Angular
+        子路由</a></li>
+    <li><a href='https://angular.tw/api/router/RouterModule' target='_blank'>[angular]官方: RouterModule</a></li>
+    <li><a href='https://angular.io/api/router/RouterLinkActive' target='_blank'>[angular]官方: RouterLinkActive</a></li>
+    <li><a href='https://angular.tw/api/router/Router' target='_blank'>[angular]官方: Router</a></li>
+    <li><a href='https://ithelp.ithome.com.tw/articles/10209035' target='_blank'>[angular]路由總結</a></li>
+    <li><a href='https://ithelp.ithome.com.tw/articles/10195347' target='_blank'>[angular]Router進階介紹</a></li>
+  </ul>
+</div>
 <!--簽名-->
 <h5 class="sign">
   赤 2019-09-14 23:00<br>
+  更新：赤 2019-09-15 22:48<br>
 </h5>
