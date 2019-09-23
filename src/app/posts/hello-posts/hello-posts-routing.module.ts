@@ -4,6 +4,7 @@ import { HelloPostsFileComponent } from './hello-posts-file/hello-posts-file.com
 import { HelloPostsComponentComponent } from './hello-posts-component/hello-posts-component.component';
 import { HelloPostsBindingComponent } from './hello-posts-binding/hello-posts-binding.component';
 import { HelloPostsRouterComponent } from './hello-posts-router/hello-posts-router.component';
+import { HelloPostsEnvironmentComponent } from './hello-posts-environment/hello-posts-environment.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'router',
     component: HelloPostsRouterComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'environment',
+    component: HelloPostsEnvironmentComponent,
     pathMatch: 'full'
   }
 ];

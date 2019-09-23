@@ -7,6 +7,7 @@ import { HelloPostsComponentComponent } from './hello-posts-component/hello-post
 import { HelloPostsMainComponent } from './hello-posts-main/hello-posts-main.component';
 import { HelloPostsBindingComponent } from './hello-posts-binding/hello-posts-binding.component';
 import { HelloPostsRouterComponent } from './hello-posts-router/hello-posts-router.component';
+import { HelloPostsEnvironmentComponent } from './hello-posts-environment/hello-posts-environment.component';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { HelloPostsRouterComponent } from './hello-posts-router/hello-posts-rout
     HelloPostsComponentComponent,
     HelloPostsMainComponent,
     HelloPostsBindingComponent,
-    HelloPostsRouterComponent],
+    HelloPostsRouterComponent,
+    HelloPostsEnvironmentComponent
+  ],
   imports: [
     CommonModule,
     HelloPostsRoutingModule

@@ -34,9 +34,13 @@ export const environment = {
       id: 6,
       title: '0x05 我的第一篇文章-瀏覽文章吧！【[Angular]路由配置（Router）】',
       path: 'helloPosts/router'
+    },
+    {
+      id: 7,
+      title: '0x06 我的第一篇文章-簡單管理所有文章標題【[Angular]環境變數（environmemt.ts v.s environmemt.prod.ts）】',
+      path: 'helloPosts/environment'
     }
 
-    //      使用版控與開發工具管理吧！：[Git]... [VSCode]...
 
   ],
   production: true
