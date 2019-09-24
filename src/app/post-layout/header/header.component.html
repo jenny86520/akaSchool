@@ -19,34 +19,55 @@
   <!-- .collapse.navbar-collapse 用於外層中斷點群組和隱藏導覽列內容 -->
   <!-- 選單項目&漢堡式折疊選單 -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <!--搜尋-->
+    <!--排序選擇 & 搜尋-->
     <form class="form-inline my-2 my-lg-0" (submit)="loadPosts()">
+      <!--排序選擇-->
+      <select class='form-control' name='orderType' [(ngModel)]='orderType'>
+        <option value='category'>依類別排序</option>
+        <option value='id'>依編號排序</option>
+      </select>
+      <!--搜尋-->
       <input class="form-control mr-sm-2" type="text" name='search' placeholder="Search" aria-label="Search"
         [(ngModel)]="searchText">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-
-    <ul class="navbar-nav mr-auto">
-      <!-- active表示當前頁面 -->
+    <!--依類別選單-->
+    <ul *ngIf="orderType === 'category'" class="navbar-nav mr-auto">
+      <!-- akaSchool -->
       <li class="nav-item active">
         <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle.title}}<span
             class="sr-only">(current)</span></a>
       </li>
+      <!--未分類-->
       <li class="nav-item" *ngFor="let post of postsHasNoCategory">
         <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
           style="white-space: pre-line;">{{post.title}}</a>
       </li>
-      <!-- .dropdown Navbar選項使用下拉式選單 -->
+      <!--已分類-->
       <li class="nav-item dropdown" *ngFor="let category of categories">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="true">{{category}}</a>
-        <!-- .dropdown-menu 下拉選單內容 -->
+        <!--其分類文章-->
         <div class="dropdown-menu" [class.show]="searchText != ''" aria-labelledby="navbarDropdownMenuLink">
           <div *ngFor="let post of postsHasCategory; let i = index">
             <button *ngIf='post.category === category' class="dropdown-item" (click)='goToPost(post)'
               style="white-space: pre-line;"> {{post.title}} </button>
           </div>
         </div>
+      </li>
+    </ul>
+
+    <!--依編號選單-->
+    <ul *ngIf="orderType === 'id'" class="navbar-nav mr-auto">
+      <!-- akaSchool -->
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle.title}}<span
+            class="sr-only">(current)</span></a>
+      </li>
+      <!--所有文章-->
+      <li class="nav-item" *ngFor="let post of posts">
+        <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
+          style="white-space: pre-line;">{{post.title}}</a>
       </li>
     </ul>
   </div>

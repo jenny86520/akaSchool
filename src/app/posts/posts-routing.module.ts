@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { HomeComponent } from './home/home.component';
 import { HelloWebsiteComponent } from './hello-website/hello-website.component';
+import { GitStartComponent } from './git-start/git-start.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'helloPosts',
     loadChildren: () => import('./hello-posts/hello-posts.module').then(m => m.HelloPostsModule)
+  },
+  {
+    path: 'gitStart',
+    component: GitStartComponent
   },
   {
     path: '**',
