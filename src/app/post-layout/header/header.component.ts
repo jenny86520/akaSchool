@@ -9,17 +9,28 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class HeaderComponent implements OnInit {
   public selectPost: any;
+  public searchText: string;
   homeTitle: any;
-  postTitles: any;
-  angularPostTitles: any;
+  categories: string[];
+  posts: any;
+  postsHasNoCategory: any;  // 存放未分類
+  postsHasCategory: any;    // 存放已分類
+
   constructor(private router: Router) {
   }
 
   ngOnInit() {
+    this.searchText = '';
     this.homeTitle = environment.postTitles[0];
-    this.postTitles = environment.postTitles.filter(p => p.id <= 2 && p.id !== 0);
-    this.angularPostTitles = environment.postTitles.filter(p => p.id > 2);
-    this.selectPost = environment.postTitles[0];
+    this.categories = environment.categories;
+    this.selectPost = this.homeTitle;
+    this.loadPosts();
+  }
+
+  loadPosts() {
+    this.posts = environment.postTitles.filter(p => this.searchText !== '' ? p.title.search(this.searchText) !== -1 : true);
+    this.postsHasNoCategory = this.posts.filter(p => p.category === '' && p.id !== 0); // 未分類
+    this.postsHasCategory = this.posts.filter(p => p.category !== '');   // 已分類
   }
   goToPost(post: any) {
     // for home not show (''/'')

@@ -19,32 +19,36 @@
   <!-- .collapse.navbar-collapse 用於外層中斷點群組和隱藏導覽列內容 -->
   <!-- 選單項目&漢堡式折疊選單 -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!--搜尋-->
+    <form class="form-inline my-2 my-lg-0" (submit)="loadPosts()">
+      <input class="form-control mr-sm-2" type="text" name='search' placeholder="Search" aria-label="Search"
+        [(ngModel)]="searchText">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
     <ul class="navbar-nav mr-auto">
       <!-- active表示當前頁面 -->
       <li class="nav-item active">
         <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle.title}}<span
             class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item" *ngFor="let postTitle of postTitles">
-        <a class="nav-link" href="javascript:void(0)" (click)='goToPost(postTitle)'
-          style="white-space: pre-line;">{{postTitle.title}}</a>
+      <li class="nav-item" *ngFor="let post of postsHasNoCategory">
+        <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
+          style="white-space: pre-line;">{{post.title}}</a>
       </li>
       <!-- .dropdown Navbar選項使用下拉式選單 -->
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngFor="let category of categories">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Angular</a>
+          aria-haspopup="true" aria-expanded="true">{{category}}</a>
         <!-- .dropdown-menu 下拉選單內容 -->
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="javascript:void(0)" (click)='goToPost(postTitle)'
-            style="white-space: pre-line;" *ngFor="let postTitle of angularPostTitles"> {{postTitle.title}} </a>
+        <div class="dropdown-menu" [class.show]="searchText != ''" aria-labelledby="navbarDropdownMenuLink">
+          <div *ngFor="let post of postsHasCategory; let i = index">
+            <button *ngIf='post.category === category' class="dropdown-item" (click)='goToPost(post)'
+              style="white-space: pre-line;"> {{post.title}} </button>
+          </div>
         </div>
       </li>
     </ul>
-    <!-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search
-            </button>
-          </form> -->
   </div>
 
 </nav>
