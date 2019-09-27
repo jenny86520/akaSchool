@@ -1,3 +1,138 @@
-<br>
-<b>Coming soon ...</b>
-<br>
+<div>
+  <h2 class='title'>{{title}}</h2>
+  <!--前言-->
+  版本控管（Version control）簡稱版控，顧名思義，就是<span class='point-red'>針對專案的各個版本做控制、管理</span>。<br><br>
+  這次要來帶大家了解一下，版本控管的用途、種類，以及簡單介紹 Git 版控軟體的功能和 GitHub 平台～<br><br>
+  <!--教學導覽-->
+  <table class='block-catalog'>
+    本日教學導覽
+    <ol>
+      <li value="0">為何需要版本控管？</li>
+      <li>版本控管的種類
+        <ol>
+          <li>本地版本控管</li>
+          <li>集中式版本控管</li>
+          <li>分散式版本控管</li>
+        </ol>
+      </li>
+      <li>Git 分散式版控軟體</li>
+      <li>GitHub 平台</li>
+    </ol>
+  </table>
+  <br>
+  <hr class="border-two" />
+  <!--/教學導覽-->
+  <div>
+    <!--0. 為何需要版本控管？-->
+    <h3 class='sub-title'>0. 為何需要版本控管？</h3>
+    在大型專案中非常仰賴版控，因其需區分發行版本與開發版本等多種版本，並需詳細記錄所有的變更，包含內容的變更、變更的人員、變更的時間，
+    且為<b>每一個時刻原始碼的版本</b>，也需<b>比對不同版本的差異</b>，甚至在必要時，能夠<b>復原檔案的變更</b>等等。<br><br>
+    此外，在多人開發時，版本控管也是很重要的一環，能夠精準的紀錄每個人員修改的版本，以及管理、分配每個人負責的區塊。<br><br>
+    最後，需要實現 <a href='https://zh.wikipedia.org/wiki/DevOps' target='_blank'>DevOps（Development &
+      Operations）</a>，也就是<b>開發、維運的一體化</b>，即仰賴版控的技術才得以實現。<br><br>
+
+
+    <br>
+    <hr class="border-two" />
+    <!--1. 版本控管的種類-->
+    <h3 class='sub-title'>1. 版本控管的種類</h3>
+    要實施版本控管，有三種方式，本地版本控管、集中式版本控管及分散式版本控管。<br><br>
+    <h4>1.0. 本地版本控管</h4>
+    <span class='point-red'>使用資料夾備份來記錄每一次的版本</span>，也就是最陽春的版本控管。<br><br>
+    每當要更新版本、做變更時，就再複製一份資料夾，這使得需儲存大量的檔案，且絕大多數都是重複並未更改的檔案，可見佔位極大。<br><br>
+    而且要查詢歷史紀錄、比對檔案的差異或變更，較為困難。下圖為本地版本控管的示意圖：<br><br>
+    <img class='img' src='assets\posts\gitStart\version control-1.jpg'><br><br>
+
+
+    <h4>1.1. 集中式版本控管</h4>
+    使用遠端儲存庫儲存每一次的版本，且<span class='point-red'>只有在遠端伺服器上才有完整的版本庫（儲存庫）</span>。<br><br>
+    每當要更新版本、做變更時，就須將變更丟到遠端儲存庫，其他開發者再從遠端儲存庫下載更新的版本。<br><br>
+    但，這會產生一個問題，每當開發人員要上傳新版本時，就必須先連到遠端儲存庫去下載目前最新的版本，再將自己修改的新版本加入後，最後上傳到遠端儲存庫，
+    且要<b>觀看版本的歷史訊息、下載最新版都需要網路連線</b>。<br><br>
+    而其優點，就是<span class='point-red'>能輕易地替每個檔案做權限管理</span>，因為完整的檔案只存在遠端儲存庫，所以只要到遠端儲存庫對檔案進行權限設定即可。<br><br>
+    常見的集中式版控為 CVS(Concurrent Version System)、Subversion、Team Foundation Version Control、Perforce。下圖為集中式版本控管的示意圖：<br><br>
+    <img class='img' src='assets\posts\gitStart\version control-2.jpg'><br><br>
+
+
+    <h4>1.2. 分散式版本控管</h4>
+    使用遠端儲存庫儲存每一次的版本，且<span class='point-red'>遠端伺服器與本地端皆有完整的版本庫（儲存庫）</span>。<br><br>
+    每當要更新版本、做變更時，<b>只需將更動丟到本地儲存庫，需合併不同開發者的更動時，再上傳到遠端儲存庫即可</b>。<br><br>
+    <span class='point-red'>查詢版本的歷史訊息不需連網，因為在本地就有完整的歷史紀錄，每次更動也不需到遠端下載</span>，大幅減少傳輸時間，增加效率。<br><br>
+    而其缺點，就是<b>難於做檔案的權限管理</b>，因每位開發人員在本地端皆有完整的儲存庫，無法集中標示特定檔案的權限，僅能設定遠端儲存庫上的權限（例如上傳、下載）。<br><br>
+    常見的分散式版本控管為 Git、Mercurial。下圖為分散式版本控管的示意圖：<br><br>
+    <img class='img' src='assets\posts\gitStart\version control-3.jpg'><br><br>
+
+    <br>
+    接下來，讓我簡單介紹一下 <b>Git 即是分散式版控軟體</b>，期望之後帶著大家從入門到放棄～<br><br>
+    啊，不行，入門了就不能放棄啊((搖<br><br>
+
+    <br>
+    <hr class="border-two" />
+    <!--2. Git 分散式版控軟體-->
+    <h3 class='sub-title'>2. Git 分散式版控軟體</h3>
+    Git 是目前廣為人知的版控軟體，是一個分散式版本控制軟體，最初由林納斯·托瓦茲創作，於2005年以GPL釋出，最初目的是為更好地管理Linux核心開發而設計。［by: <a
+      href='https://zh.wikipedia.org/wiki/Git' target='_blank'>維基百科：Git</a>］<br><br>
+    <span class='point-red'>Git 提供了版本庫儲存所有的歷史紀錄、版本比較、合併、追蹤、標記等功能</span>，幾乎想地到的管理方式，Git 都幫你準備好了！<br><br>
+    其軟體下載方式也非常簡單，以 windows 作業系統為例（本人為 win10），只需於 <a href='https://git-scm.com/' target='_blank'>Git 官網</a>下載即可，
+    下載時的一些設定與選項介紹，將於下篇章做教學，敬請期待～<br><br>
+
+    <br>
+    <hr class="border-two" />
+    <!--3. GitHub 平台-->
+    <h3 class='sub-title'>3. GitHub 平台</h3>
+    <span class='point-red'>GitHub 是提供遠端儲存庫的平台，是透過 Git 進行版本控制的軟體原始碼代管服務平台</span>，由 GitHub 公司（曾稱Logical Awesome）的開發者
+    Chris
+    Wanstrath、PJ Hyett 和 Tom Preston-Werner 使用 Ruby on Rails 編寫而成。［by: <a href='https://zh.wikipedia.org/wiki/GitHub'
+      target='_blank'>維基百科：GitHub</a>］<br><br>
+    不過不單只提供遠端儲存庫而已，GitHub 也提供像是 <b>GitHub Page，供使用者上傳文章、靜態網站</b>（<a routerLink='../helloWebsite' skipLocationChange>0x01
+      從零開始的個人網站</a>）
+    其平台使用方式只需於<a href='https://github.com/' target='_blank'>GitHub 官網</a>註冊 GitHub 帳號，即可使用囉～而且 GitHub 也有預設提供給 Git
+    軟體的指令，便於串聯到 GitHub 遠端儲存庫唷！<br><br>
+    因此只要搭配 Git 一同使用，就可以開始使用分散式版本控管啦～<br><br>
+
+  </div>
+  <br>
+  <hr class="border-two" />
+
+  <!--結語-->
+  最後，附上各版控軟體的比較：<a
+    href='https://zh.wikipedia.org/wiki/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E8%BD%AF%E4%BB%B6%E6%AF%94%E8%BE%83'
+    target='_blank'>維基百科：版本控制軟體比較</a>。<br><br>
+  以上就是今天的課程，我們來重點整理一下：<br><br>
+  <ul>
+    <li>版本控管：針對專案的各個版本做控制、管理</li>
+    <li>版控的好處：紀錄每一個時刻原始碼的版本、比對不同版本的差異、復原檔案的變更</li>
+    <li>版本控管的種類：
+      <ul>
+        <li>本地版本控管：使用資料夾備份來記錄每一次的版本</li>
+        <li>集中式版本控管：使用遠端儲存庫儲存每一次的版本，且<b>只有在遠端伺服器上才有完整的版本庫（儲存庫）</b></li>
+        <li>分散式版本控管：使用遠端儲存庫儲存每一次的版本，且<b>遠端伺服器與本地端皆有完整的版本庫（儲存庫）</b></li>
+      </ul>
+    </li>
+    <li>集中式版控 v.s 分散式版控：
+      <ul>
+        <li>集中式：優點-<b>易於做檔案權限設定</b>；缺點-觀看版本的歷史訊息、下載最新版都需要網路連線</li>
+        <li>分散式：優點-查詢版本的歷史訊息、更動皆不需連網，<b>在本地就有完整的歷史紀錄</b>；缺點-不易做檔案權限設定</li>
+      </ul>
+    </li>
+    <li>Git：分散式版本控制軟體，提供了版本庫儲存所有的歷史紀錄、版本比較、合併、追蹤、標記等功能</li>
+    <li>GitHub：是透過 Git 進行版本控制的軟體原始碼代管服務平台，其中提供遠端儲存庫</li>
+  </ul>
+  你學會了嗎～開始導入版本控管，更有效率的開發吧！<br><br>
+  今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
+
+  <br>
+  <hr class="border-two" />
+
+  <!--參考資料-->
+  <div>
+    <h3 class='sub-title'>參考資料</h3>
+    <ul>
+      <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
+
+    </ul>
+  </div>
+  <h5 class="sign">
+    赤 2019-09-27 21:19<br>
+  </h5>
+</div>

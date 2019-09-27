@@ -54,7 +54,7 @@ export const environment = {
     },
     {
       id: 8,
-      title: '0x07 前進 Git 版本控制吧！【Coming soon】',
+      title: '0x07 前進 Git 版本控管吧！【版本控管（Version control） & Git & GitHub 簡介】',
       path: 'gitStart',
       category: 'Git'
     }
