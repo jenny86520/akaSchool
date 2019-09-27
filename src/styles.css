@@ -19,7 +19,11 @@
 }
 
 .block-catalog {
-  background-color: linen
+  background-color: linen;
+  padding-right: 5px;
+  padding-left: 5px;
+  display: block;
+
 }
 
 .block-code {
