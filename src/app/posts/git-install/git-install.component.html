@@ -109,7 +109,7 @@
     <hr class="border-two" />
     <!--5. Git 預設開啟的文字編輯器-->
     <h3 class='sub-title'>5. Git 預設開啟的文字編輯器</h3>
-    選擇 Git 預設開啟的文字編輯器，如下圖。選擇預設值 vim（下篇會介紹如何使用 vim），之後還是可修改的，直接下一步即可。<br><br>
+    選擇 Git 預設開啟的文字編輯器，即上傳到本地儲存庫時的輸入訊息視窗，選擇預設值 vim（下篇會介紹如何使用 vim），如下圖，之後還是可修改的，直接下一步即可。<br><br>
     <img class='img' src='assets\posts\gitInstall\git-setup-5.jpg'><br><br>
     此外。也可以選擇你熟悉的文字編輯器，可選的文字編輯器為以下（記得要先安裝欲選擇的文字編輯器，不然會無法繼續進入下一步喔）：
     <ul>
@@ -122,35 +122,36 @@
       <li><a href='https://atom.io/' target='_blank'>Atom</a></li>
       <li>(other)</li>
     </ul>
-    對了，它有提示 vim 可能很難用，嗯，對((x<br><br>
+    對了，它有提示 Vim 可能很難用，嗯，對((x<br><br>
+    不過學會 Vim 很多事情會方便很多～賣賣關子<br><br>
     <br>
     <hr class="border-two" />
     <!--6. 調整 Path 環境變數-->
     <h3 class='sub-title'>6. 調整 Path 環境變數</h3>
-    選擇要如何加入 Git 相關的環境變數，使用預設值只將 Git 加入環境變數，如下圖。選擇預設值，直接下一步就好。<br><br>
+    選擇要如何加入 Git 相關的環境變數，使用預設值只將 Git 加入環境變數。選擇預設值，如下圖，直接下一步就好。<br><br>
     <img class='img' src='assets\posts\gitInstall\git-setup-6.jpg'><br><br>
     以下介紹一下圖中三個選項的意思：<br><br>
 
     <b>Use Git from Git Bash only</b><br>
     <div class='block-table'>
-      不將 Git 執行檔加入環境變數，也就是在命令列視窗無法下「git ...」執行 Git 相關指令，只可於 Git Bash 中使用 Git 指令。
+      不將 Git 執行檔加入環境變數，也就是在命令列視窗無法下「git」執行 Git 相關指令，只可於 Git Bash 中使用 Git 指令。
     </div><br>
 
     <b>Use Git from the Windows Command Prompt</b><br>
     <div class='block-table'>
-      預設值（建議選項），將 Git 執行檔加入環境變數，也就是在命令列視窗下「git ...」即可執行 Git 相關指令。
+      預設值（建議選項），將 Git 執行檔加入環境變數，也就是在命令列視窗下「git」即可執行 Git 相關指令。
     </div><br>
 
     <b>Use Git and optional Unix tools from the Windows Command Prompt</b><br>
     <div class='block-table'>
-      將 Git 執行檔及 Git Bash 下的指令皆加入環境變數，也就等同於將命命列視窗與 Bash 結合。<br>
+      將 Git 執行檔及 Git Bash 下的指令皆加入環境變數，也就等同於將命令列視窗與 Bash 結合。<br>
       <span class='point-red'>建議命令列視窗與 Bash 分開，以明確知道兩者的指令差異</span>。
     </div><br>
     <br>
     <hr class="border-two" />
     <!--7. HTTPS 加密連線方式-->
     <h3 class='sub-title'>7. HTTPS 加密連線方式</h3>
-    選擇傳輸時的加密方式，即使用 Git 下載遠端上的檔案時的傳輸加密方式，使用預設值 OpenSSL，如下圖。只用預設值，直接下一步即可。<br><br>
+    選擇傳輸時的加密方式，即使用 Git 下載遠端上的檔案時的傳輸加密方式，使用預設值 OpenSSL，如下圖，直接下一步即可。<br><br>
     <img class='img' src='assets\posts\gitInstall\git-setup-7.jpg'><br><br>
     以下為兩個加密方式的介紹：<br><br>
 
@@ -171,11 +172,10 @@
     <hr class="border-two" />
     <!--8. 換行字元（Line Ending Conversions）-->
     <h3 class='sub-title'>8. 換行字元（Line Ending Conversions）</h3>
-    選擇使用換行字元的方式，<span class='point-red'>因在不同作業系統下的換行字元不同，需要設定在切換平台時對於換行符號的調整方式</span>。<br><br>
+    選擇使用換行字元的方式，<span class='point-red'>因應跨平台的需求，在不同作業系統下的換行字元不同，需要設定在切換平台時對於換行符號的調整方式</span>。
     例如<b>在 Windows 跟 Linux 下使用的換行字元就不一樣，前者使用 CRLF（Carriage Return and Line Feed，「/r/n」）作為換行字元，後者則使用 LF（Line
-      Feed，「/n」）</b>。
-    為了跨平台的需求，<br><br>
-    此預設值為<b>在讀取檔案時（Checkout），使用該作業系統的換行方式顯示；在本地儲存庫時（Commit），使用 LF 的換行方式儲存</b>。
+      Feed，「/n」）</b>。<br><br>
+    此預設值為<b>在讀取檔案時（Checkout），使用本機作業系統的換行方式顯示；在本地儲存庫時（Commit），使用 LF 的換行方式儲存</b>。
     建議使用此選項，如下圖，比較不會因換行字元的關係，介面跑掉或是記錄錯誤（例如只是因換行字元不同，而造成變更數增加，導致錯誤的歷史紀錄），直接進入下一步。<br><br>
     <img class='img' src='assets\posts\gitInstall\git-setup-8.jpg'><br><br>
     其他選項的介紹如下：<br><br>
@@ -183,7 +183,7 @@
     <b>Checkout Windows-style, commit Unix-style line endings</b><br>
     <div class='block-table'>
       預設值（建議選項）。<br>
-      在讀取檔案時，使用該作業系統的換行方式顯示；在本地儲存庫時，使用 LF 的換行方式儲存。
+      在讀取檔案時，使用本機作業系統的換行方式顯示；在本地儲存庫時，使用 LF 的換行方式儲存。
     </div><br>
 
     <b>Checkout as-is, commit Unix-style line endings</b><br>
@@ -254,7 +254,7 @@
     <hr class="border-two" />
 
     <h3 class='sub-title'>11. 安裝完成，啟動 Git Bash</h3>
-    等進度條跑完，看到下圖換面，就代表安裝完成囉！可以開始版控人生啦～<br><br>
+    等進度條跑完，看到下圖畫面，就代表安裝完成囉！可以開始版控人生啦～<br><br>
     <img class='img' src='assets\posts\gitInstall\git-installfinish.jpg'><br><br>
     如圖將兩個選項都勾選，開啟 Git Bash 視窗和說明文件（在設置的檔案路徑下的「/Git/ReleaseNotes.html」）來瞧瞧吧！<br><br>
 
