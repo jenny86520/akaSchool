@@ -6,10 +6,11 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { HomeComponent } from './home/home.component';
 import { HelloWebsiteComponent } from './hello-website/hello-website.component';
 import { GitStartComponent } from './git-start/git-start.component';
+import { GitInstallComponent } from './git-install/git-install.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, HelloWorldComponent, HelloWebsiteComponent, GitStartComponent],
+  declarations: [HomeComponent, HelloWorldComponent, HelloWebsiteComponent, GitStartComponent, GitInstallComponent],
   imports: [
     CommonModule,
     PostsRoutingModule

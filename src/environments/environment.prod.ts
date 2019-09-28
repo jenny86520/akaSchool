@@ -57,6 +57,12 @@ export const environment = {
       title: '0x07 前進 Git 版本控管吧！【版本控管（Version control） & Git & GitHub 簡介】',
       path: 'gitStart',
       category: 'Git'
+    },
+    {
+      id: 9,
+      title: '0x08 Git 手把手安裝教學【[Git]安裝步驟（Windows）詳細介紹】',
+      path: 'gitInstall',
+      category: 'Git'
     }
 
 

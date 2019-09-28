@@ -1,0 +1,288 @@
+<div>
+  <h2 class='title'>{{title}}</h2>
+  <!--前言-->
+  Git 是提供分散式版本控管的軟體，其簡介可以參考這篇：<a [routerLink]="['../', postGitStart.path]"
+    skipLocationChange>{{postGitStart.title}}</a><br><br>
+  本篇將介紹<span class='point-red'>如何在 Windows（Win10） 作業系統下安裝 Git 軟體</span>，安裝可不是那麼簡單喔～不過全部使用預設值是真的很簡單啦((x<br><br>
+  安裝過程中，會詢問非常多設定，來仔細了解一下每一個步驟和選項的用途、功能吧！（<b>本文的 Git 安裝範例為 2.23.0 版本</b>）<br><br>
+  <!--教學導覽-->
+  <table class='block-catalog'>
+    本日教學導覽
+    <ol>
+      <li value="0">下載 Git 安裝執行檔</li>
+      <li>Git 條款</li>
+      <li>安裝路徑</li>
+      <li>一併安裝的工具（Git Bash、Git GUI）及設定</li>
+      <li>資料夾名稱</li>
+      <li>Git 預設開啟的文字編輯器</li>
+      <li>調整 Path 環境變數</li>
+      <li>HTTPS 加密連線方式</li>
+      <li>換行字元（Line Ending Conversions）</li>
+      <li>Git Bash 的終端模擬器（Terminal Emulator）</li>
+      <li>其他設定</li>
+      <li>安裝完成，啟動 Git Bash</li>
+    </ol>
+  </table>
+  <br>
+  <hr class="border-two" />
+  <!--/教學導覽-->
+  <div>
+    <!--0. 下載 Git 安裝執行檔-->
+    <h3 class='sub-title'>0. 下載 Git 安裝執行檔</h3>
+    到 Git 官網下載 Git 的安裝執行檔，位置如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstall\gitWebsite.jpg'><br><br>
+    按下安裝後，等進度條跑完，就載好安裝執行檔囉！<br><br>
+    <br>
+    <hr class="border-two" />
+    <!--1. Git 條款-->
+    <h3 class='sub-title'>1. Git 條款</h3>
+    執行安裝後的執行檔，會看到如下圖顯示 Git 的條款，直接點選下一步。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-1.jpg'><br><br>
+    <br>
+    <hr class="border-two" />
+    <!--2. 安裝路徑-->
+    <h3 class='sub-title'>2. 安裝路徑</h3>
+    選擇安裝路徑，如下圖，這裡使用預設就可以了，直接點選下一步。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-2.jpg'><br><br>
+    <br>
+    <hr class="border-two" />
+    <!--3. 一併安裝的工具（Git Bash、Git GUI）及設定-->
+    <h3 class='sub-title'>3. 一併安裝的工具（Git Bash、Git GUI）及設定</h3>
+    選擇想一併安裝的工具及設定，如下圖，通常<b>使用預設值就行了</b>，不過這邊<span class='point-red'>建議把最底下的勾選打勾，
+      這樣就會自動更新 Git 版本</span>，就可以避免遇到因版本差異而產生的問題，且舊版有些安全性的漏洞，即時更新 Git 較有保障。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-3.jpg'><br><br>
+    圖中的各選項，以下有詳細介紹：<br><br>
+
+    <b>Additional icons & On the Desktop</b>
+    <div class='block-table'>
+      預設未勾選，在桌面產生 Git 捷徑。
+    </div><br>
+
+    <b>Windows Explorer integration</b>
+    <div class='block-table'>
+      Windows 的資源包，將整合致檔案總管<br>
+      <b>Git Bash Here</b>：預設已勾選，執行 Git 指令的環境（文字介面，類似命令列視窗）。<br>
+      <b>Git GUI Here</b>：預設已勾選，執行 Git 指令的環境（圖形介面，如下圖）。<br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstall\git-setup-3-gui.jpg'> </div><br>
+      （之後會另開篇章介紹執行 Git 指令的環境比較）
+    </div><br>
+
+    <b>Git LFS (Large File Support)</b>
+    <div class='block-table'>
+      預設已勾選。<br>
+      主要是讓 Git 能夠處理大型檔案（10 MB 以上）。因為 Git 的設計上都是以文字檔的程式碼為主，而程式碼的大小通常都不會太大，都是很多小型檔案為主。［by: <a
+        href='https://haway.30cm.gg/git-lfs/' target='_blank'>哈部落：Git LFS 原理、大小檔案都適用</a>］
+    </div><br>
+
+    <b>Associate .git* configuration files with the default text editor</b>
+    <div class='block-table'>
+      預設已勾選。<br>
+      預設使用預設的文字編輯器打開所有檔名為「.git」的檔案（ex: .git, .gitignore, .gitkeep）。<br>
+    </div><br>
+
+    <b>Associate .sh files to be run with Bash</b>
+    <div class='block-table'>
+      預設已勾選。<br>
+      預設使用 Bash 打開所有檔名為「<a href='https://www.reviversoft.com/zh-tw/file-extensions/sh' target='_blank'>.sh</a>」的檔案（Shell
+      Script）。<br>
+    </div><br>
+
+    <b>Use a TrueType font in all console windows</b>
+    <div class='block-table'>
+      預設已勾選。<br>
+      命令列視窗是否要支援 <a href='https://zh.wikipedia.org/wiki/Unicode' target='_blank'>Unicode</a>，Win 10 以上的版本已內建支援
+      Unicode，所以可不勾選。<br>
+    </div><br>
+
+    <b>Check daily for Git for Windows updates</b>
+    <div class='block-table'>
+      預設未勾選，<span class='point-red'>建議勾選</span>。<br>
+      每天會檢查 Git for Windows 是否有新版本，且自動更新為新版。<br>
+    </div><br>
+    <br>
+    <hr class="border-two" />
+    <!--4. 資料夾名稱-->
+    <h3 class='sub-title'>4. 資料夾名稱</h3>
+    選擇下載時存放 Git 的資料夾名稱，如下圖。使用預設值，直接下一步即可。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-4.jpg'><br><br>
+    <br>
+    <hr class="border-two" />
+    <!--5. Git 預設開啟的文字編輯器-->
+    <h3 class='sub-title'>5. Git 預設開啟的文字編輯器</h3>
+    選擇 Git 預設開啟的文字編輯器，如下圖。選擇預設值 vim（下篇會介紹如何使用 vim），之後還是可修改的，直接下一步即可。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-5.jpg'><br><br>
+    此外。也可以選擇你熟悉的文字編輯器，可選的文字編輯器為以下（記得要先安裝欲選擇的文字編輯器，不然會無法繼續進入下一步喔）：
+    <ul>
+      <li><a href='https://www.tecmint.com/learn-nano-text-editor-in-linux/' target='_blank'>Nano editor</a></li>
+      <li>Vim（預設）</li>
+      <li><a href='https://notepad-plus-plus.org/downloads/' target='_blank'>Notepad++</a></li>
+      <li><a href='https://code.visualstudio.com/' target='_blank'>Visual Studio Code</a></li>
+      <li><a href='https://code.visualstudio.com/insiders/' target='_blank'>Visual Studio Code Insiders</a></li>
+      <li><a href='https://www.sublimetext.com/3' target='_blank'>Sublime</a></li>
+      <li><a href='https://atom.io/' target='_blank'>Atom</a></li>
+      <li>(other)</li>
+    </ul>
+    對了，它有提示 vim 可能很難用，嗯，對((x<br><br>
+    <br>
+    <hr class="border-two" />
+    <!--6. 調整 Path 環境變數-->
+    <h3 class='sub-title'>6. 調整 Path 環境變數</h3>
+    選擇要如何加入 Git 相關的環境變數，使用預設值只將 Git 加入環境變數，如下圖。選擇預設值，直接下一步就好。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-6.jpg'><br><br>
+    以下介紹一下圖中三個選項的意思：<br><br>
+
+    <b>Use Git from Git Bash only</b><br>
+    <div class='block-table'>
+      不將 Git 執行檔加入環境變數，也就是在命令列視窗無法下「git ...」執行 Git 相關指令，只可於 Git Bash 中使用 Git 指令。
+    </div><br>
+
+    <b>Use Git from the Windows Command Prompt</b><br>
+    <div class='block-table'>
+      預設值（建議選項），將 Git 執行檔加入環境變數，也就是在命令列視窗下「git ...」即可執行 Git 相關指令。
+    </div><br>
+
+    <b>Use Git and optional Unix tools from the Windows Command Prompt</b><br>
+    <div class='block-table'>
+      將 Git 執行檔及 Git Bash 下的指令皆加入環境變數，也就等同於將命命列視窗與 Bash 結合。<br>
+      <span class='point-red'>建議命令列視窗與 Bash 分開，以明確知道兩者的指令差異</span>。
+    </div><br>
+    <br>
+    <hr class="border-two" />
+    <!--7. HTTPS 加密連線方式-->
+    <h3 class='sub-title'>7. HTTPS 加密連線方式</h3>
+    選擇傳輸時的加密方式，即使用 Git 下載遠端上的檔案時的傳輸加密方式，使用預設值 OpenSSL，如下圖。只用預設值，直接下一步即可。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-7.jpg'><br><br>
+    以下為兩個加密方式的介紹：<br><br>
+
+    <b>Use the OpenSSL library</b><br>
+    <div class='block-table'>
+      預設值（建議選項），使用 OpenSSL 加密連線。
+    </div><br>
+
+
+    <b>Use the native Windows Secure Channel library</b><br>
+    <div class='block-table'>
+      使用 Windows 內建的認證管理員判斷權限（例如公司會有網域空間），如下圖，權限帳密等資訊會列於此。<br>
+      <div class='block-tab'>
+        <img class='img' src='assets\posts\gitInstall\git-setup-7-1.jpg'><br><br>
+      </div>
+    </div><br>
+    <br>
+    <hr class="border-two" />
+    <!--8. 換行字元（Line Ending Conversions）-->
+    <h3 class='sub-title'>8. 換行字元（Line Ending Conversions）</h3>
+    選擇使用換行字元的方式，<span class='point-red'>因在不同作業系統下的換行字元不同，需要設定在切換平台時對於換行符號的調整方式</span>。<br><br>
+    例如<b>在 Windows 跟 Linux 下使用的換行字元就不一樣，前者使用 CRLF（Carriage Return and Line Feed，「/r/n」）作為換行字元，後者則使用 LF（Line
+      Feed，「/n」）</b>。
+    為了跨平台的需求，<br><br>
+    此預設值為<b>在讀取檔案時（Checkout），使用該作業系統的換行方式顯示；在本地儲存庫時（Commit），使用 LF 的換行方式儲存</b>。
+    建議使用此選項，如下圖，比較不會因換行字元的關係，介面跑掉或是記錄錯誤（例如只是因換行字元不同，而造成變更數增加，導致錯誤的歷史紀錄），直接進入下一步。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-8.jpg'><br><br>
+    其他選項的介紹如下：<br><br>
+
+    <b>Checkout Windows-style, commit Unix-style line endings</b><br>
+    <div class='block-table'>
+      預設值（建議選項）。<br>
+      在讀取檔案時，使用該作業系統的換行方式顯示；在本地儲存庫時，使用 LF 的換行方式儲存。
+    </div><br>
+
+    <b>Checkout as-is, commit Unix-style line endings</b><br>
+    <div class='block-table'>
+      在讀取檔案時，<b>使用該檔案原本的換行方式顯示</b>；在本地儲存庫時，使用 LF 的換行方式儲存。<br>
+      通常是原本作業系統就使用 LF 為換行字元時，才會選擇此選項。
+    </div><br>
+
+    <b>Checkout as-is, commit as-is</b><br>
+    <div class='block-table'>
+      在讀取檔案與儲存到本地儲存庫時，<b>皆使用該檔案原本的換行方式</b><br>
+      較不易於跨平台開發。
+    </div><br>
+
+    <div class='block-table'>
+      <b>補充</b>：<a href='https://blog.miniasp.com/post/2013/09/15/Git-for-Windows-Line-Ending-Conversion-Notes'
+        target='_blank'>Will 保哥：Git 在 Windows 平台處理斷行字元 (CRLF) 的注意事項</a>
+    </div><br>
+    <br>
+    <hr class="border-two" />
+    <!--9. Git Bash 的終端模擬器（Terminal Emulator）-->
+    <h3 class='sub-title'>9. Git Bash 的終端模擬器（Terminal Emulator）</h3>
+    選擇 Git Bash 的執行環境，像是 java 需要運行在 JVM 環境下一樣，Git Bash 也需要其執行環境。使用預設值 MinTTY，如下圖，直接進入下一步即可。<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-9.jpg'><br><br>
+    以下簡單介紹一下圖中兩種執行環境：<br><br>
+
+    <b>Use MinTTY (The default terminal of MSYS2)</b><br>
+    <div class='block-table'>
+      預設值（建議選項）。<br>
+      為終端模擬器，模擬 Linux 的環境，但依然能存取 Windows 作業下的檔案，以及支援 Unicode。
+      缺點是執行 Python 時會有一些問題，細節可以參考圖中的說明。
+    </div><br>
+
+    <b>Use Windows' default console window</b><br>
+    <div class='block-table'>
+      命令列視窗的環境，只能使用命令列的指令，細節可以參考圖中的說明。
+    </div><br>
+    <br>
+    <hr class="border-two" />
+    <!--10. 其他設定-->
+    <h3 class='sub-title'>10. 其他設定</h3>
+    選擇其他要設定的選項，使用預設值「<span class='point-red'>啟用快取、紀錄 Git 驗證</span>」即可，下一步後一樣是附加功能，一樣使用預設值，即不勾選，
+    最後點選「Install」就可以開始安裝啦～<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-10.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstall\git-setup-11.jpg'><br><br>
+    以下為四項設定的介紹：<br><br>
+
+    <b>Enable file system caching</b><br>
+    <div class='block-table'>
+      預設已勾選（建議勾選）。啟用快取，在大型專案開發時可以加快讀取速度。
+    </div><br>
+
+    <b>Enable Git Credential Manager</b><br>
+    <div class='block-table'>
+      預設已勾選（建議勾選）。紀錄 Git 驗證，每次要上傳/下載遠端儲存庫的檔案時皆需要登入 Git，開啟這個選項即會紀錄登入資料，就不需每次都重新登入。
+    </div><br>
+
+    <b>Enable symbolic links</b><br>
+    <div class='block-table'>
+      預設未勾選。勾選後，Git 只能使用<b>系統管理員身分的命令列視窗</b>才能使用，一般命令列視窗則無法使用 Git。
+    </div><br>
+
+    <b>Enable experimental, built-in add -i/-p</b><br>
+    <div class='block-table'>
+      預設未勾選。勾選後，加入新的指令（'git add -i' or 'git add -p'），主要是可以指定上傳檔案中的某一部份，目前還不穩定，建議不勾選，等穩定再說:P
+    </div><br>
+    <br>
+    <hr class="border-two" />
+
+    <h3 class='sub-title'>11. 安裝完成，啟動 Git Bash</h3>
+    等進度條跑完，看到下圖換面，就代表安裝完成囉！可以開始版控人生啦～<br><br>
+    <img class='img' src='assets\posts\gitInstall\git-installfinish.jpg'><br><br>
+    如圖將兩個選項都勾選，開啟 Git Bash 視窗和說明文件（在設置的檔案路徑下的「/Git/ReleaseNotes.html」）來瞧瞧吧！<br><br>
+
+
+  </div>
+  <br>
+  <hr class="border-two" />
+
+  <!--結語-->
+  <div>
+    有沒有發現我們一路下一步到底啊～沒錯！其實<span class='point-red'>安裝就是不管三七二十一，下一步到底，不用花到五分鐘就能完成 Git 安裝</span>。<br><br>
+    不過多少都會好奇它安裝時到底問了哪些東西、設定了哪些東西((並不好奇((x<br><br>
+    現在終於解開所有疑惑啦～有沒有下載的比較安心一點了呢！<br><br>
+    成功安裝好 Git，接下來等著的都是指令解析啦～要繃緊神經囉！<br><br>
+    今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
+  </div>
+  <br>
+  <hr class="border-two" />
+
+  <!--參考資料-->
+  <div>
+    <h3 class='sub-title'>參考資料</h3>
+    <ul>
+      <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
+    </ul>
+  </div>
+  <h5 class="sign">
+    赤 2019-09-28 22:26<br>
+  </h5>
+
+</div>
