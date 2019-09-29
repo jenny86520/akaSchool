@@ -73,7 +73,7 @@
     <hr class="border-two" />
     <!--1. 本地基本操作（Restore、Status、Log）& Vim 文字編輯器基本介紹-->
     <h3 class='sub-title'>1. 本地基本操作（Restore、Status、Log）& Vim 文字編輯器基本介紹</h3>
-    有了本地儲存庫，可以在使在本地端進行版控啦～<br><br>
+    有了本地儲存庫，可以開始在本地端進行版控啦～<br><br>
     剛剛我們已經上傳一個 commit 到本地儲存庫，了解<span class='point-red'>完成一個 commit 步驟為「將檔案加入索引」然後「上傳一個 commit」，即執行「git add」後執行「git
       commit」</span>。
     接下來來介紹幾個基本操作。<br><br>
@@ -114,7 +114,7 @@
 
     <h4>git restore &lt;file&gt;...</h4>
     當我們想放棄這次變更時，也就是<span class='point-red'>想復原變更，回到本地儲存庫時的內容</span>，就可以執行「git restore」。<br><br>
-    我們試著復原 README.md 的刪除，也就是復原變更，執行以下指令：<br>
+    我們試著復原 README.md 的刪除，也就是復原變更，執行以下指令：<br><br>
     <div class='block-code'>git rm README.md</div><br>
     卻發現糟糕！它居然找不到這個檔案！如下圖：<br><br>
     <img class='img' src='assets\posts\gitInitial\git control-status-restore-err.jpg'><br><br>
@@ -141,7 +141,7 @@
     可以嘗試開啟 Vim 撰寫內容，Vim 只能使用鍵盤作操作與移動。如果不小心進入 Vim 可以參考下面的指令作動作：<br><br>
     <ul>
       <li>按下鍵盤「i」鍵，可以開啟 insert 功能，才能夠對內容作修改。</li>
-      <li>按下鍵盤「esc」鍵可退出 insert，及可以輸入指令。</li>
+      <li>按下鍵盤「esc」鍵可退出 insert，即可以輸入指令。</li>
       <li>輸入「:wq」即可儲存變更後退出。</li>
       <li>輸入「:q」即可不儲存並離開。</li>
     </ul>
@@ -154,7 +154,7 @@
     顯示歷史紀錄，若不加任何參數，就會<span class='point-red'>印出全部且詳細的歷史紀錄</span>。
     接著執行以下指令：<br><br>
     <div class='block-code'>git log</div><br>
-    顯示如下圖，我們每一筆 commit 紀錄都會詳列出來。<br>
+    顯示如下圖，我們每一筆 commit 紀錄都會詳列出來。<br><br>
     <img class='img' src='assets\posts\gitInitial\git control-git log.jpg'><br><br>
     圖中可以看到我們加入的兩個 commit，<span class='point-red'>包含 commit 編號、作者（登記者）的名字跟 Email、commit 的日期時間、commit
       的內容</span>，非常詳盡。<br><br>
