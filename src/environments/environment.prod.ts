@@ -63,6 +63,12 @@ export const environment = {
       title: '0x08 Git 手把手安裝教學【[Git]安裝步驟（Windows）詳細介紹】',
       path: 'gitInstall',
       category: 'Git'
+    },
+    {
+      id: 10,
+      title: '0x09 版控新手村【[Git]本地版控基本操作（Add、Commit、Restore、Status、Log） & Vim 基本介紹】',
+      path: 'gitInitial',
+      category: 'Git'
     }
 
 

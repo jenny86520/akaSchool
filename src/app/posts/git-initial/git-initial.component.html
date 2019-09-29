@@ -1,0 +1,271 @@
+<div>
+  <h2 class='title'>{{title}}</h2>
+  <!--前言-->
+  歡迎來到版控新手村，這裡會從頭帶領大家使用 Git 做版本控管，
+  在新手村會修行<span class='point-red'>如何加入版控、移除版控、了解狀態和歷史紀錄的意思，以及 Vim 的基本操作</span>。<br><br>
+  將<span class='point-red'>於 Git Bash 環境下執行 Git 操作</span>，讓我們開始<del>點技能</del>吧！<br><br>
+  想多了解版本控管、Git 安裝方式，歡迎參考下列兩篇文章～要先準備好初始裝備才能開始打怪啊！<br><br>
+  <a [routerLink]="['../', postGitStart.path]" skipLocationChange>{{postGitStart.title}}</a><br>
+  <a [routerLink]="['../', postGitInstall.path]" skipLocationChange>{{postGitInstall.title}}</a><br><br>
+
+  <!--教學導覽-->
+  <table class='block-catalog'>
+    本日教學導覽
+    <ol>
+      <li value="0">加入版控（Add、Commit、Restore）、移除版控</li>
+      <li>本地基本操作（Status、Log）& Vim 文字編輯器基本介紹</li>
+      <li>解決 Git Bash 與命令列視窗的中文亂碼問題</li>
+      <li>如何更改 Git 預設文字編輯器？</li>
+    </ol>
+  </table>
+  <br>
+  <hr class="border-two" />
+  <!--/教學導覽-->
+  <div>
+    <!--0. 加入版控（Add、Commit）、移除版控-->
+    <h3 class='sub-title'>0. 加入版控（Add、Commit）、移除版控</h3>
+    如何開始使用 Git 做版本控制呢？首先要將專案加入版控，也就是<span class='point-red'>讓 Git 開始接手管理這個專案</span>。<br><br>
+    加入版控的方式非常簡單，我們只要到欲加入版控的專案目錄下，點選右鍵，選擇 Git Bash Here，開啟「Git Bash」視窗，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git initial-open bash.jpg'><br><br>
+
+    在 Git Bash 視窗執行下列指令：<br><br>
+    <div class='block-code'>git init</div><br>
+    看到以下的畫面（寫了一句「Initialized empty Git repository ...」），代表執行完成。<br><br>
+    <img class='img' src='assets\posts\gitInitial\git initial-git init.jpg'><br><br>
+
+    接著打開檔案總管，切換到專案目錄，並於工作列的「檢視>顯示/隱藏」中開啟「隱藏的項目」，就會看見 Git 創建的「.git」資料夾，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git initial.jpg'><br><br>
+
+    不過此時專案還沒有被加入版控喔！我們只是把本地儲存庫建立完成而已，也就是<span class='point-red'>「.git」資料夾為本地儲存庫，將會記錄所有 Git 版控的訊息和設定</span>。<br><br>
+    要將專案加入版控，即存入本地儲存庫，有兩個指令要下。這之前我們先來登記一下我們是誰，就像登入一樣，在 Git Bash 視窗執行以下指令：<br><br>
+    <div class='block-code'>
+      git config --global user.name "aka"<br>
+      git config --global user.email "jenny50626000@gmail.com"
+    </div><br>
+    以上指令的「config」為取得和設定 git 的組態參數，這裡是為了登入用。「--global」代表指定為全域，即不只此專案使用，而是套用到本機電腦所有地方。
+    「aka」與「jenny50626000@gmail.com」的部分為你要登記的名字與 Email。<br><br>
+    執行完後，就可以使用這個身分來寫入資料至儲存庫～<br><br>
+
+
+    再來就是加入版控的兩個指令啦～第一個指令：<br><br>
+    <div class='block-code'>git add .</div><br>
+    以上指令通常稱之為「<b>將檔案加入索引</b>」，即<span class='point-red'>將該檔案目錄下的所有檔案（指令中的「.」代表所有檔案）加入「索引」，類似放於暫存，並準備存入本地儲存庫</span>。
+    等待它跑完，代表此目錄下的檔案都準備好要加入本地儲存庫了！可以想成他們被暫存起來～<br><br>
+    當然也可以下「git add README.md」，也就是直接加上檔案名稱（「README.md」為欲加入版控的檔案），只加入其中幾項檔案也可。<br><br>
+
+    接下來下第二個指令：<br><br>
+    <div class='block-code'>git commit -m "initial commit"</div><br>
+    以上指令通常稱之為「<b>上傳一個 commit</b>」，即<span class='point-red'>將目前索引到的檔案（放在暫存的檔案，上述可知為所有檔案）存入到本地儲存庫</span>，
+    至於「-m」代表要替這次上傳加入內容（註解的概念）。「initial commit」的部分為要寫入的內容，可自由輸入。<br><br>
+    當然也可直接下「git commit」，不加上內容，但是 <span class='point-red'>Git 規定上傳至儲存庫一定要寫入內容，
+      所以會強制開啟預設的文字編輯器（安裝時選擇的預設值）</span>，這時候就得從文字編輯器中寫入內容囉！（後續會介紹 Vim 文字編輯器的基本操作）<br><br>
+    執行完指令後，等它跑完，我們就成功上傳一個 commit，將目前目錄下所有檔案都加入本地儲存庫了，也就是加入版控囉！<br><br>
+
+    懷疑嗎？可以執行以下指令來查看目前的歷史紀錄：<br><br>
+    <div class='block-code'>git log</div><br>
+    有沒有看到剛剛 commit 上去的內容啊～是真的放入本地儲存庫囉！（如下圖）<br><br>
+    <img class='img' src='assets\posts\gitInitial\git initial-git log.jpg'><br><br>
+    圖中也能看到剛剛登記的名字和 Email 及時間訊息。<br><br>
+
+    至於要移除版控的方式你猜到了嗎？<br><br>
+    沒錯！直接砍掉「.git」資料夾就行了！不過要注意，砍掉後代表<span class='point-red'>本地儲存庫消失，意味著所有歷史紀錄在本地將不復存在</span>，要想清楚唷！<br><br>
+    <br>
+    <hr class="border-two" />
+    <!--1. 本地基本操作（Status、Log）& Vim 文字編輯器基本介紹-->
+    <h3 class='sub-title'>1. 本地基本操作（Status、Log）& Vim 文字編輯器基本介紹</h3>
+    有了本地儲存庫，可以在使在本地端進行版控啦～<br><br>
+    剛剛我們已經上傳一個 commit 到本地儲存庫，了解<span class='point-red'>完成一個 commit 步驟為「將檔案加入索引」然後「上傳一個 commit」，即執行「git add」後執行「git
+      commit」</span>。
+    接下來來介紹幾個基本操作。<br><br>
+
+    <h4>git status</h4>
+    首先，我們在 Git Bash 視窗執行以下指令，<span class='point-red'>可觀看目前版本控管的狀態</span>：<br><br>
+    <div class='block-code'>git status</div><br>
+    可以看到以下的畫面，顯示目前我們「工作目錄」是乾淨的，就是沒有任何更動，代表目前的檔案內容完全與本地儲存庫一樣。<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-null.jpg'><br><br>
+    這時我們把目錄下的檔案做更動（新增、刪除、修改），例如我把「README.md」檔案刪除，再執行一次「git status」，就會顯示下圖畫面：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-delete.jpg'><br><br>
+    上圖可以分兩個區塊來看，第一個區塊「Changes not staged for commit」，這邊會列出<span class='point-red'>有更動並尚未加入索引的檔案</span>，
+    可以看到只有剛剛刪除的 README.md，並且在前面有<span class='point-red'>標註狀態為「deleted」，代表此檔案的更動為刪除</span>。<br><br>
+    還可以看到它有列出兩行用小括號框起來的提示，包含了三個指令，<span class='point-red'>「git add」、「git rm」、「git
+      restore」，前兩者皆為加入索引，最後為復原變更</span>。<br><br>
+    第二個區塊「no changes added to commit ...」，這邊說明了<b>尚未有已索引的檔案需上傳</b>。現在我們來實際操作一下。<br><br>
+
+    <h4>git add/rm &lt;file&gt;... & git reset &lt;file&gt;...</h4>
+    執行下面指令，將「README.md」加入索引：<br><br>
+    <div class='block-code'>git add README.md</div><br>
+    再執行一次 status 看一下目前狀態，可以看到如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-add.jpg'><br><br>
+    可以發現只剩下一個區塊，並顯示「Changes to be committed」，<span class='point-red'>列出加入索引的檔案，即等待 commit 的檔案</span>。
+    而且檔案顏色換成綠色了！而使用「git rm README.md」也會是同樣的效果喔！我們來試一下。<br><br>
+    執行以下指令，<span class='point-red'>還原所有加入的索引，也就是移除所有索引</span>：<br><br>
+    <div class='block-code'>git reset</div><br>
+    這時候執行「git status」看一下狀態，發現 README.md 恢復為尚未加入索引的狀態，如下圖。<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-reset.jpg'><br><br>
+    接著我們就可以執行以下指令，使用另一種指令加入索引，並執行「git status」看一下狀態，其實結果和「git add」是一樣的。<br><br>
+    <div class='block-code'>git rm README.md</div><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-rm.jpg'><br><br>
+    最後，我們這次新增一個「test.txt」檔，並執行「git status」看一下狀態，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-new file.jpg'><br><br>
+    圖中可以看到多了一個區塊「Untracked files」，<span class='point-red'>列出尚未加入版控的檔案</span>，因為 test.txt
+    為新加入的檔，在版控中（本地儲存庫）並無儲存過。<br><br>
+    這時候我們只要將 test.txt 加入索引並上傳 commit 就行了，這邊先不將其加入版控。<br><br>
+
+
+    <h4>git restore &lt;file&gt;...</h4>
+    當我們想放棄這次變更時，也就是<span class='point-red'>想復原變更，回到本地儲存庫時的內容</span>，就可以執行「git restore」。<br><br>
+    我們試著復原 README.md 的刪除，也就是復原變更，執行以下指令：<br>
+    <div class='block-code'>git rm README.md</div><br>
+    卻發現糟糕！它居然找不到這個檔案！如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-restore-err.jpg'><br><br>
+    這是因為<span class='point-red'>加入索引之後，就代表進入暫存，是無法再改變他們的內容，必須先移除索引（移出暫存），才能對內容作修改</span>。
+    所以我們把 README.md 移除索引，再次執行一次復原變更，並看一下狀態，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-restore.jpg'><br><br>
+    發現 README.md 的變更消失了！到檔案總管也會發現 README.md 檔案回來囉！回到本地儲存庫的內容，恭喜成功復原變更～<br><br>
+    接著我們也來復原一下 text.txt 檔案吧～如下圖執行指令：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-restore-err-2.jpg'><br><br>
+    糟糕！又出現錯誤了，顯示在本地儲存庫並找不到 text.txt 的檔案，沒錯！因為我們還沒有將它加入版控，所以在本地儲存庫當然看不到它，
+    所以要復原到它在本地儲存庫的內容，就會因找不到此檔而噴錯誤。<br><br>
+    要刪除尚未加入到版控的檔案，就手動刪除它就好囉～這邊先不將其刪除。<br><br>
+
+    <h4>git restore --staged &lt;file&gt;...</h4>
+    眼尖的人可能會注意到，它的提示小括號中有一項為「use "git restore --staged &lt;file&gt;..." to unstage」，代表<span
+      class='point-red'>還原某檔案的索引，也就是移除某檔案的索引</span>。
+    不像上述「git reset」指令只能整批移除索引，這項指令就可以只移除指定檔案的索引，使用方式如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-status-restore-staged.jpg'><br><br>
+
+    <h4>git commit</h4>
+    上傳一個 commit 到本地儲存庫，執行以下指令時，<span class='point-red'>會開啟預設的文字編輯器，強制須輸入 commit 內容</span>，如果安裝時沒有特別更改預設文字編輯器，將會是 Vim
+    文字編輯器。<br><br>
+    <div class='block-code'>git commit</div><br>
+    可以嘗試開啟 Vim 撰寫內容，Vim 只能使用鍵盤作操作與移動。如果不小心進入 Vim 可以參考下面的指令作動作：<br><br>
+    <ul>
+      <li>按下鍵盤「i」鍵，可以開啟 insert 功能，才能夠對內容作修改。</li>
+      <li>按下鍵盤「esc」鍵可退出 insert，及可以輸入指令。</li>
+      <li>輸入「:wq」即可儲存變更後退出。</li>
+      <li>輸入「:q」即可不儲存並離開。</li>
+    </ul>
+
+    <h4>git commit -m "message"</h4>
+    上傳一個 commit 到本地儲存庫，並加上「message」的內容，message 可以任意輸入。<br><br>
+
+
+    <h4>git log</h4>
+    顯示歷史紀錄，若不加任何參數，就會<span class='point-red'>印出全部且詳細的歷史紀錄</span>。
+    接著執行以下指令：<br><br>
+    <div class='block-code'>git log</div><br>
+    顯示如下圖，我們每一筆 commit 紀錄都會詳列出來。<br>
+    <img class='img' src='assets\posts\gitInitial\git control-git log.jpg'><br><br>
+    圖中可以看到我們加入的兩個 commit，<span class='point-red'>包含 commit 編號、作者（登記者）的名字跟 Email、commit 的日期時間、commit
+      的內容</span>，非常詳盡。<br><br>
+    其中，在 commit 後方會看到「(HEAD -> master)」或「(master)」字樣，那是屬於「分支」的範疇，之後會介紹，目前先不理它。<br><br>
+
+    <h4>git log --oneline</h4>
+    顯示一行的歷史紀錄，只印出 commit 編號與內容，方便檢視～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-git log-oneline.jpg'><br><br>
+
+    <h4>git log -N</h4>
+    顯示最新的 N 筆歷史紀錄，N 為正整數，不囉嗦直接看圖：<br><br>
+    <img class='img' src='assets\posts\gitInitial\git control-git log-count.jpg'><br><br>
+    <br>
+    <hr class="border-two" />
+    <!--2. 解決 Git Bash 與命令列視窗的中文亂碼問題-->
+    <h3 class='sub-title'>2. 解決 Git Bash 與命令列視窗的中文亂碼問題</h3>
+    <h4>在 Git Bash 視窗的亂碼</h4>
+    當 commit 的內容為中文字時，因為編碼關係使用「git log」顯示出來會變成亂碼，我馬上來示範一波。<br><br>
+    讓我們再度把 README.md 檔刪掉，並上傳一個 commit 到本地儲存庫，記得 commit 內容要輸入中文字，在 Git Bash 視窗測試如下：<br><br>
+    <img class='img' src='assets\posts\gitInitial\code-commit.jpg'><br><br>
+    啊勒，中文字沒問題欸，那就不用理它，接著嘗試把 test.txt 檔名改為「test-中文測試」，並執行 status 查看，如下：<br><br>
+    <img class='img' src='assets\posts\gitInitial\code-bash.jpg'><br><br>
+    圖中可以看到剛剛改成中文字的地方，出現亂碼了，這時候只要輸入一行指令作設定，就行了喔，指令如下：<br><br>
+    <div class='block-code'>git config --global core.quotepath false</div><br>
+    然後再次執行 status 查看，就解決亂碼的問題囉！如下：<br><br>
+    <img class='img' src='assets\posts\gitInitial\code-bash-ok.jpg'><br><br>
+
+    <h4>在命令列視窗的亂碼</h4>
+    這次我們開啟命令列視窗，一樣執行「git log」及「git status」查看，如下：<br><br>
+    <img class='img' src='assets\posts\gitInitial\code-command.jpg'><br><br>
+    發現在察看歷史紀錄時，中文字產生亂碼了，這時候執行以下指令，設定編碼方式：<br><br>
+    <div class='block-code'>set LC_ALL=C.UTF-8</div><br>
+    然後再次執行 log 查看，就解決亂碼的問題囉！如下：<br><br>
+    <img class='img' src='assets\posts\gitInitial\code-command-ok.jpg'><br><br>
+    <br>
+    <hr class="border-two" />
+    <!--3. 如何更改 Git 預設文字編輯器？-->
+    <h3 class='sub-title'>3. 如何更改 Git 預設文字編輯器？</h3>
+    看不慣當初忘記更改的預設文字編輯器嗎？那就改成孰悉的文字編輯器吧！<br><br>
+    先來查看一下目前的預設文字編輯器，執行以下指令，<span class='point-red'>若沒有任何輸出，代表使用的是預設的 Vim</span>。<br><br>
+    <div class='block-code'>git config --global core.editor</div><br>
+    接著只要在上面<span class='point-red'>指令後加上欲替換的文字編輯器</span>，就能快速更改預設的文字編輯器囉～記得要先安裝選擇的文字編輯器才能成功切換唷～<br><br>
+    如下就是切換為 notepad 的指令：<br><br>
+    <div class='block-code'>git config --global core.editor notepad</div><br>
+
+  </div>
+  <br>
+  <hr class="border-two" />
+
+  <!--結語-->
+  <div>
+    到達這裡，就攻破新手村囉～恭喜恭喜～可喜可賀！<br><br>
+    我們來重點整理：<br><br>
+    <ul>
+      <li>加入版控：
+        <ul>
+          <li>git init</li>
+          <li>git add .</li>
+          <li>上傳 commit：
+            <ul>
+              <li>git commit</li>
+              <li>git commit -m "initial commit"</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>移除版控：刪除「.git」資料夾</li>
+      <li>移除所有索引：git reset</li>
+      <li><b>移除最新一筆 commit：git reset HEAD~1</b></li>
+      <li>復原變更：git restore &lt;file&gt;</li>
+      <li>移除指定檔案的索引：git restore --staged &lt;file&gt;</li>
+      <li>查看歷史紀錄：
+        <ul>
+          <li>git log</li>
+          <li>git log --oneline</li>
+          <li>git log -N（N 為正整數）</li>
+          <li>git log --oneline -N（N 為正整數）</li>
+        </ul>
+      </li>
+      <li>查看版控狀態：git status</li>
+      <li>Vim 文字編輯器的基本操作：
+        <ul>
+          <li>按下鍵盤「i」鍵，可以開啟 insert 功能，才能夠對內容作修改。</li>
+          <li>按下鍵盤「esc」鍵可退出 insert，及可以輸入指令。</li>
+          <li>輸入「:wq」即可儲存變更後退出。</li>
+          <li>輸入「:q」即可不儲存並離開。</li>
+        </ul>
+      </li>
+      <li>解決中文亂碼問題：
+        <ul>
+          <li>Git Bash：git config --global core.quotepath false</li>
+          <li>命令列視窗：set LC_ALL=C.UTF-8</li>
+        </ul>
+      </li>
+      <li>更改 Git 預設文字編輯器（以 notepad 為例）：git config --global core.editor notepad</li>
+    </ul>
+    上面有偷偷加入一個補充，以後會再詳細介紹～現在開始在本地熟練一下版控操作吧！<br><br>
+    今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
+  </div>
+  <br>
+  <hr class="border-two" />
+
+  <!--參考資料-->
+  <div>
+    <h3 class='sub-title'>參考資料</h3>
+    <ul>
+      <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
+    </ul>
+  </div>
+  <h5 class="sign">
+    赤 2019-09-29 21:56<br>
+  </h5>
+
+</div>

@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { HelloWebsiteComponent } from './hello-website/hello-website.component';
 import { GitStartComponent } from './git-start/git-start.component';
 import { GitInstallComponent } from './git-install/git-install.component';
+import { GitInitialComponent } from './git-initial/git-initial.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'gitInstall',
     component: GitInstallComponent
+  },
+  {
+    path: 'gitInitial',
+    component: GitInitialComponent
   },
   {
     path: '**',
