@@ -10,8 +10,7 @@ export class HelloPostsMainComponent implements OnInit {
 
   // @Input() title: string;
   @Input() lastPost: any = {
-    title: null,
-    path: null
+    title: null
   };
   @Input() classNumber: number;
 
@@ -20,6 +19,5 @@ export class HelloPostsMainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.path = '/' + this.lastPost.path;
   }
 }

@@ -1,6 +1,6 @@
 <div>
   前情提要：
-  <a [routerLink]="path" skipLocationChange>{{lastPost.title}}</a>
+  <a routerLink="" [queryParams]="{ post: this.lastPost.path }" target='_blank'>{{lastPost.title}}</a>
   <!--Class-->
   <br>
   <hr class="border-two" />

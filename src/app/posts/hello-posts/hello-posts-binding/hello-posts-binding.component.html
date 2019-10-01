@@ -210,13 +210,13 @@
     <b>補充區</b><br>
     Angular 專案起始路徑，大門如何一扇扇展開？（依順序排列）<br>
     <ol>
-      <li>main.ts：根據 <a routerLink="/helloPosts/file" skipLocationChange>0x02</a> 檔案介紹中，可以得知程式的進入點是 main.ts 檔</li>
-      <li>AppModule（src/app/app.module.ts）：根據 <a routerLink="/helloPosts/file" skipLocationChange>0x02</a> 檔案介紹的 main.ts
+      <li>main.ts：根據 <a routerLink="" [queryParams]="{ post: 'helloPosts/file' }" target='_blank'>0x02</a> 檔案介紹中，可以得知程式的進入點是 main.ts 檔</li>
+      <li>AppModule（src/app/app.module.ts）：根據 <a routerLink="" [queryParams]="{ post: 'helloPosts/file' }" target='_blank'>0x02</a> 檔案介紹的 main.ts
         檔中，可以得知其指派 AppModule 為起始模組</li>
-      <li>AppComponent（src/app/app.component.ts）：根據 <a routerLink="/helloPosts/component" skipLocationChange>0x03</a>
+      <li>AppComponent（src/app/app.component.ts）：根據 <a routerLink="" [queryParams]="{ post: 'helloPosts/component' }" target='_blank'>0x03</a>
         ngModule 介紹中，可以得知 AppModule 指派 AppComponent 為起始元件</li>
     </ol>
-    根據 <a routerLink="/helloPosts/component" skipLocationChange>0x03</a> Component 介紹中，在 AppComponent 中又指派
+    根據 <a routerLink="" [queryParams]="{ post: 'helloPosts/component' }" target='_blank'>0x03</a> Component 介紹中，在 AppComponent 中又指派
     src/app/app.component.html 為其 Template<br>
     故<span class='point-red'>一開始的 view 是 app.component.html</span><br><br>
   </div>

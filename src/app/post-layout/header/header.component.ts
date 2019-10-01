@@ -35,8 +35,8 @@ export class HeaderComponent implements OnInit {
     this.postsHasCategory = this.posts.filter(p => p.category !== '');   // 已分類
   }
   goToPost(post: any) {
-    // for home not show (''/'')
-    // navigateByUrl(this.selectPost.path ? ['/', this.selectPost.path] : ['/'])
-    this.router.navigateByUrl(post.path ? '/' + post.path : '/', { skipLocationChange: true });
+      // for home not show (''/'')
+      // navigateByUrl(this.selectPost.path ? ['/', this.selectPost.path] : ['/'])
+      this.router.navigate(['/'], { queryParams: { post: post.path }, skipLocationChange: true });
   }
 }

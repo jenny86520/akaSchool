@@ -21,7 +21,8 @@
   看不懂吧，我也是，所以就相信我，它就是一個插路由的插座這樣，嗯嗯！<br><br>
   別離開啊～聽我娓娓道來...<br><br>
   <span class='point-red'>路由插座是隸屬於 RouterModule，所以要使用它就必須把 RouterModule 匯入進來</span><br><br>
-  由於我們建立專案時就選擇加入 Routing（詳見 <a routerLink='/helloWebsite' skipLocationChange>0x01</a>），所以已經幫我們匯入 RouterModule 了！<br><br>
+  由於我們建立專案時就選擇加入 Routing（詳見 <a routerLink='' [queryParams]="{ post: 'helloWebsite' }"
+    target='_blank'>0x01</a>），所以已經幫我們匯入 RouterModule 了！<br><br>
   上一節我們瀏覽 src/app/app-routing.module.ts 在匯入的地方就有看到 RouterModule 的身影，忘記了嗎？自己回去看:P<br><br>
   RouterModule 待會介紹，我們現在主角是路由插座<br><br>
   打開 src/app/app.component.html，還記得我們保留下來的標籤嗎？<br><br>
@@ -116,8 +117,8 @@
     <li>loadChildren：<b>延遲載入子路由</b>，此會一併於模組篇章中介紹</li>
     （詳細屬性介紹：<a href='https://angular.tw/api/router/Route' target='_blank'>Route</a>）
   </ul>
-  直接來練習一波，我們多創建幾個元件來練習吧！加入「Page2」、「NotFound」兩個元件～（建立元件作法：<a routerLink='/helloPosts/component'
-    skipLocationChange>0x03</a>）<br><br>
+  直接來練習一波，我們多創建幾個元件來練習吧！加入「Page2」、「NotFound」兩個元件～（建立元件作法：<a routerLink=''
+    [queryParams]="{ post: 'helloPosts/component' }" target='_blank'>0x03</a>）<br><br>
   <img class='img' src='assets\posts\helloPosts\router-routes-createcomponents.jpg'><br><br>
   接著把它們加到路由的陣列吧！順便放上一些屬性測試測試（為方便，先將上面有開啟的<span class='point-red'>「useHash」取消掉</span>）<br><br>
   <img class='img' src='assets\posts\helloPosts\router-routes-2.jpg'><br><br>
@@ -157,8 +158,8 @@
   打開 src/app/app.component.html，加上我們的路由連結，如下：<br><br>
   <img class='img' src='assets\posts\helloPosts\router-routerlink.jpg'><br><br>
   從圖中我們可以看到 RouterLink 有兩種方式，<span class='point-red'>使用字串或是放入字串陣列（最後兩個）</span><br><br>
-  <span class='point-red'>字串陣列必須使用屬性繫結</span>（繫結介紹請見：<a routerLink='/helloPosts/binding'
-    skipLocationChange>0x04</a>）<br><br>
+  <span class='point-red'>字串陣列必須使用屬性繫結</span>（繫結介紹請見：<a routerLink=''
+  [queryParams]="{ post: 'helloPosts/binding' }" target='_blank'>0x04</a>）<br><br>
   而最下面的路由連結，path 為一變數，可以到 src/app/app.component.ts 檔中給個隨意的值<br><br>
   <img class='img' src='assets\posts\helloPosts\router-routerlink-ts.jpg'><br><br>
   除了 RouterLink 外，還有一些其他路由的屬性可以設定，常見的像是 routerLinkActive、routerLinkActiveOptions<br><br>

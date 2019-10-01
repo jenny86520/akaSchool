@@ -1,13 +1,13 @@
 <!--4. 簡單管理所有文章標題：[Angular]環境變數（environmemt.ts v.s environmemt.prod.ts）-->
 <h2 class='title'>{{title}}</h2>
 <b>我們一路從建立白紙（component）、使用工具（binding）、配上地址（router），成功完成我們的第一篇文章！</b><br><br>
-內容還是要自己撰寫啦～上節（<a routerLink='../router' skipLocationChange>0x05</a>）我有提供 akaSchool 簡介的 code 給大家當第一篇文章((?<br><br>
+內容還是要自己撰寫啦～上節（<a routerLink='' [queryParams]="{ post: 'helloPosts/router' }" target='_blank'>0x05</a>）我有提供 akaSchool 簡介的 code 給大家當第一篇文章((?<br><br>
 在最後一節，我們來試著統一一下文章標題吧！<br><br>
 
 <app-hello-posts-main [lastPost]='lastPost' [classNumber]=4></app-hello-posts-main>
 
 <div>
-  還記得在 <a routerLink='../file' skipLocationChange>0x02</a> 介紹 Angular 專案檔案時，悄悄出現的 src/environmemts 資料夾嗎？<br><br>
+  還記得在 <a routerLink='' [queryParams]="{ post: 'helloPosts/file' }" target='_blank'>0x02</a> 介紹 Angular 專案檔案時，悄悄出現的 src/environmemts 資料夾嗎？<br><br>
   當時僅簡單介紹，這裡來詳細說明((敲<br><br>
 
   <h3 class='sub-title'>環境變數（environmemt.ts v.s environmemt.prod.ts）</h3>

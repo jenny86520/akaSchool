@@ -1,8 +1,8 @@
 <div>
   <h2 class='title'>{{title}}</h2>
   <!--前言-->
-  Git 是提供分散式版本控管的軟體，其簡介可以參考這篇：<a [routerLink]="['../', postGitStart.path]"
-    skipLocationChange>{{postGitStart.title}}</a><br><br>
+  Git 是提供分散式版本控管的軟體，其簡介可以參考這篇：<a routerLink='' [queryParams]="{ post: postGitStart.path }"
+    target='_blank'>{{postGitStart.title}}</a><br><br>
   本篇將介紹<span class='point-red'>如何在 Windows（Win10） 作業系統下安裝 Git 軟體</span>，安裝可不是那麼簡單喔～不過全部使用預設值是真的很簡單啦((x<br><br>
   安裝過程中，會詢問非常多設定，來仔細了解一下每一個步驟和選項的用途、功能吧！（<b>本文的 Git 安裝範例為 2.23.0 版本</b>）<br><br>
   <!--教學導覽-->
