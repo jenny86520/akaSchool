@@ -69,6 +69,12 @@ export const environment = {
       title: '0x09 版控新手村【[Git]本地版控基本操作（Add、Commit、Restore、Status、Log） & Vim 基本介紹】',
       path: 'gitInitial',
       category: 'Git'
+    },
+    {
+      id: 11,
+      title: '0x0A 版控個人副本【[Git]本地版控分支（Branch、Checkout、Rebase）、合併（Fetch、Merge） 介紹】',
+      path: 'gitInstance',
+      category: 'Git'
     }
 
 
