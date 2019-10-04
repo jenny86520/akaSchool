@@ -115,7 +115,7 @@
     <h4>git restore &lt;file&gt;...</h4>
     當我們想放棄這次變更時，也就是<span class='point-red'>想復原變更，回到本地儲存庫時的內容</span>，就可以執行「git restore」。<br><br>
     我們試著復原 README.md 的刪除，也就是復原變更，執行以下指令：<br><br>
-    <div class='block-code'>git rm README.md</div><br>
+    <div class='block-code'>git restore README.md</div><br>
     卻發現糟糕！它居然找不到這個檔案！如下圖：<br><br>
     <img class='img' src='assets\posts\gitInitial\git control-status-restore-err.jpg'><br><br>
     這是因為<span class='point-red'>加入索引之後，就代表進入暫存，是無法再改變他們的內容，必須先移除索引（移出暫存），才能對內容作修改</span>。
