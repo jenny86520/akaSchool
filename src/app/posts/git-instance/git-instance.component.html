@@ -10,31 +10,61 @@
 
   <!--教學導覽-->
   <table class='block-catalog'>
-    Coming soon ...
-    <!-- 本日教學導覽
+    <!-- Coming soon ... -->
+    本日教學導覽
     <ol>
-      <li value="0">什麼是分支（Branch）？</li>
-    </ol>-->
+      <li value="0">分支（Branch）？合併（Merge）？衝突（Conflict）？</li>
+      <li>如何建立分支、切換分支、刪除分支、觀看版本線圖？</li>
+    </ol>
   </table>
   <br>
   <hr class="border-two" />
   <!--/教學導覽-->
-  <!-- <div>
-    <h3 class='sub-title'>0. 什麼是分支（Branch）？</h3>
+  <div>
+    <!--0. 分支（Branch）？合併（Merge）？衝突（Conflict）？-->
+    <h3 class='sub-title'>0. 分支（Branch）？合併（Merge）？衝突（Conflict）？</h3>
+    以下將分別介紹三者，看不懂介紹可以往下看「以顏色對應的舉例」會更有感覺喔～<br><br>
+    <h4 style='color:blue'>分支（Branch）</h4>
+    由某個版本的程式碼或軟體物件中建立複製版本，在分支出來後的兩個版本，<span class='point-red'>可以獨立進行修改</span>。［by: <a
+      href='https://zh.wikipedia.org/wiki/%E5%88%86%E6%94%AF_(%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6)'
+      target='_blank'>維基百科：分支 (版本控制)</a>］<br><br>
+    簡單來說，就是開啟一個平行時空，在 A 分支的所有操作（新增、修改、刪除）都不會改變 B 分支，反之亦然。<br><br>
+    <h4 style='color:green'>合併（Merge）</h4>
+    當一個文件在<span class='point-red'>多個獨立分支中被修改後，如何合併這些修改成為一個文件的操作</span>。合併可以是版本控制軟體自動執行，但如果有衝突，就需要考慮手工合併。［by: <a
+      href='https://zh.wikipedia.org/wiki/%E5%90%88%E5%B9%B6_(%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6)'
+      target='_blank'>維基百科：合併 (版本控制)</a>］<br><br>
+    簡單來說，就是把平行時空重疊，合成一個時空。<br><br>
+    <h4 style='color:brown'>衝突（Conflict）</h4>
+    <del>這次沒有維基了。</del>上述也提到，合併時會出現衝突，衝突就是 A、B
+    分支皆修改到同一個檔案的同一個部分，當要合併為一個檔案時，兩個修改都要放在同一個位置，就產生需取捨哪些部份的問題，這件事情的發生就叫做衝突。<br><br>
+
+    以下舉個例子講解分支、合併以及衝突（以顏色標示三者）：<br><br>
+    <div class='block-table'>
+      假設某團隊需要完成一份關於版控的報告，每個人有各自負責的部分，<b style='color:blue'>有人負責版控種類，有人負責本地儲存庫介紹，有人負責遠端儲存庫介紹</b>等等，
+      並假設我負責做報告彙整，每個人將自己負責的部分做好後就都交給我，最後由我<b style='color:green'>把所有人的報告整合成一份報告</b>交出。
+      而每個人各自負責的部分，基本上沒有重疊，當<b style='color:brown'>有重疊又有出入</b>的時候，我就必須找撰寫到重疊部分的負責人員確定要使用誰的版本（解決衝突）。
+
+    </div><br>
+    <br>
+    <hr class="border-two" />
+
+    <!--1. 如何建立分支、切換分支、刪除分支、觀看版本線圖？-->
+    <h4 class='sub-title'>1. 如何建立分支、切換分支、刪除分支、觀看版本線圖？</h4>
+
 
   </div>
   <br>
   <hr class="border-two" />
- -->
+
   <!--結語-->
-  <!-- <div>
+  <div>
     今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
   </div>
   <br>
-  <hr class="border-two" /> -->
+  <hr class="border-two" />
 
   <!--參考資料-->
-  <!-- <div>
+  <div>
     <h3 class='sub-title'>參考資料</h3>
     <ul>
       <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
@@ -42,6 +72,6 @@
   </div>
   <h5 class="sign">
     赤 2019-xx-xx xx:xx<br>
-  </h5> -->
+  </h5>
 
 </div>
