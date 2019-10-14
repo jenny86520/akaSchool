@@ -72,7 +72,7 @@ export const environment = {
     },
     {
       id: 11,
-      title: '0x0A 版控個人副本【[Git]本地版控分支（Branch、Checkout、Rebase）、合併（Fetch、Merge） 介紹】',
+      title: '0x0A 版控個人副本【[Git]本地版控分支（Branch、Checkout）、合併（Merge） 介紹】',
       path: 'gitInstance',
       category: 'Git'
     }

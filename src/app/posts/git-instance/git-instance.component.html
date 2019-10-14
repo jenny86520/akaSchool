@@ -2,8 +2,8 @@
   <h2 class='title'>{{title}}</h2>
   <!--前言-->
   歡迎來到版控個人副本，這裡將會有兩頭 Boss（本地分支、合併）等著大家唷！
-  本次副本可以獲得的成就有以下：<span class='point-red'>如何建立/切換/移除分支、合併分支、還原合併、衝突解決，
-    了解 Fast-Forward 與 No Fast-Forward 的差別，以及學會切換基底</span>。<br><br>
+  本次副本可以獲得的成就有以下：<span class='point-red'>如何建立/切換/移除/重新命名分支、合併分支、還原合併、衝突解決，
+    以及了解 Fast-Forward 與 No Fast-Forward 的差別</span>。<br><br>
   將<span class='point-red'>於 Git Bash 環境下執行 Git 操作</span>，讓我們開始<del>打怪</del>吧！<br><br>
   想複習一下 Git 版本控管的基本操作，歡迎參考下列文章～要達一定等級才能開始打副本啊！<br><br>
   <a routerLink='' [queryParams]='{ post: postGitInitial.path }' target='_blank'>{{postGitInitial.title}}</a><br><br>
@@ -14,7 +14,24 @@
     本日教學導覽
     <ol>
       <li value="0">分支（Branch）？合併（Merge）？衝突（Conflict）？</li>
-      <li>如何建立分支、切換分支、刪除分支、觀看版本線圖？</li>
+      <li>如何建立／切換／刪除／重新命名分支（Branch）？
+        <ol>
+          <li>建立分支（-b）</li>
+          <li>切換分支（checkout）</li>
+          <li>刪除分支（-d & -D）</li>
+          <li>重新命名分支（-m）</li>
+        </ol>
+      </li>
+      <li>版本線圖（--graph）</li>
+      <li>如何合併／還原合併分支（Merge）？
+        <ol>
+          <li>合併分支（Merge）</li>
+          <li>還原合併</li>
+          <li>解決衝突（Conflict）</li>
+        </ol>
+      </li>
+      <li>強制修改分支位置（-f）</li>
+      <li>Fast-Forward v.s No Fast-Forward</li>
     </ol>
   </table>
   <br>
@@ -45,11 +62,288 @@
       而每個人各自負責的部分，基本上沒有重疊，當<b style='color:brown'>有重疊又有出入</b>的時候，我就必須找撰寫到重疊部分的負責人員確定要使用誰的版本（解決衝突）。
 
     </div><br>
+
+    在開始實作分支功能前，需先準備好一份<del>搞壞也沒關係的</del>專案，這裡我直接新增一個空資料夾，裡面放入兩個文字檔，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\new folder.jpg'><br><br>
+    並把它們都加入版控（如何加入版控請看：<a routerLink='' [queryParams]='{ post: postGitInitial.path }'
+      target='_blank'>0x09</a>），如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\add to git.jpg'><br><br>
+    這樣我們就完成前置作業啦～開始跟著我操作分支吧！<br><br>
+
     <br>
     <hr class="border-two" />
 
-    <!--1. 如何建立分支、切換分支、刪除分支、觀看版本線圖？-->
-    <h4 class='sub-title'>1. 如何建立分支、切換分支、刪除分支、觀看版本線圖？</h4>
+    <!--1. 如何建立／切換／刪除／重新命名分支（Branch）？-->
+    <h3 class='sub-title'>1. 如何建立／切換／刪除／重新命名分支（Branch）？</h3>
+    首先，我們先來查看一下目前分支，執行下列指令：<br><br>
+    <div class='block-code'>git branch</div><br>
+    將會列出目前擁有的分支，下圖可以看到，目前我們只有預設的 master 分支：<br><br>
+    <img class='img' src='assets\posts\gitInstance\add-show all.jpg'><br><br>
+    雖然這個<span class='point-red'>預設的分支名為「master」，不過它並沒有一定要保留著，也可改名</span>，因至少要有一分支，而 git 幫你預設建立一個罷了～<br><br>
+    圖中也可以看到，在「master」前有一個<span class='point-red'>「*」號，代表目前所在分支～</span><br><br>
+
+    <h4>1.0. 建立分支（-b）</h4>
+    預設已有一分支 master，接著我們新增幾個分支吧～新增分支有兩種方式：<br><br>
+    <div class='block-code'>git branch aka</div><br>
+    or<br><br>
+    <div class='block-code'>git checkout -b aka</div><br>
+    <ul>
+      <li>[aka]: 欲建立的分支名稱（可以取你尬意的）</li>
+      <li>[checkout -b]: 切換分支，<span class='point-red'>加上「-b」（-branch 簡寫）後，就建立此分支後並切換過去</span></li>
+    </ul>
+    我們就兩種方式都來試試看～如下圖執行指令，用第一種方式建立「aka」分支，並列出所有分支，就會看到我們新建立的分支唷～<br><br>
+    <img class='img' src='assets\posts\gitInstance\add-new branch.jpg'><br><br>
+    這時候可以注意一下，我們新增了一個名為「aka」的分支，且目前還是在「master」分支下。<br><br>
+    接著我們使用第二種方式建立「develop」分支，並列出所有分支，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\add-new branch-1.jpg'><br><br>
+    這時很明顯可以看到，「*」跑到「develop」分支前了，代表我們已經建立並切換到「develop」分支囉！<br><br>
+    且在圖中，路徑後方綠色小括號框起來的部分，你猜到了嗎～就是寫著你目前所在的分支名稱唷～<span class='point-red'>記得做什麼操作前，都要確定一下現在在哪個分支底下</span>。<br><br>
+    記得<span class='point-red'>執行建立分支時，會從所在的分支複製一模一樣的目錄到新增的分支</span>，所以建立分支時，要記得切換至要複製目錄的分支唷～<br><br>
+
+    <h4>1.1. 切換分支（checkout）</h4>
+    剛有提到「checkout -b」是建立分支後切換過去，看來你應該已經知道如何切換分支啦～指令如下：<br><br>
+    <div class='block-code'>git checkout aka</div><br>
+    試著切換到其他分支試試看～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\checkout branch.jpg'><br><br>
+    可以如圖下「git branch」確認是否切換過去選擇的分支（看「*」號），或是看路徑後方綠色小括號框起來去判斷唷～<br><br>
+
+    <h4>1.2. 刪除分支（-d & -D）</h4>
+    當你建立太多分支，終於想刪除分支時（？），就看過來～刪除分支有以下兩種方式，不能刪除自己所在的分支，記得先切到別條分支去唷～<br><br>
+    <div class='block-code'>git branch -d aka</div><br>
+    or<br><br>
+    <div class='block-code'>git branch -D aka</div><br>
+    <ul>
+      <li>[aka]: 欲刪除的分支名稱。</li>
+      <li>[-d]: 小心翼翼的刪除分支，會判斷這條分支是否有「合併」到其他分支去，有的話才允許刪除。</li>
+      <li>[-D]: <b>強制刪除，不管三七二十一，直接砍掉分支，請小心使用！</b></li>
+    </ul>
+    因為尚未講解「合併」，這裡先簡單來說，就是<span class='point-red'>欲刪除的分支有一些「commit」是任一其他分支都沒有的，當使用「-d」時就會幫你擋下，不讓你刪除</span>；
+    當然你可以使用「-D」強制刪除，不過前面提及的「commit」們就會消失的無影無蹤唷～<br><br>
+    那我們練習一下，使用第一種方式刪除「aka」分支，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\delete branch.jpg'><br><br>
+    如圖我們確實刪除了「aka」分支，接著來示範一下第一種刪除方式會擋下來的情況，以及使用第二種方式強制刪除。<br><br>
+    我們先切換到「develop」分支，執行下列指令：<br><br>
+    <div class='block-code'>git checkout develop</div><br>
+    接著我們修改一下「b」文字檔，並將修改加入一 commit ，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\delete branch-edit file.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance\delete branch-add commit.jpg'><br><br>
+    如圖，執行「git log」觀看歷史紀錄（遞減排序），可以看到兩次的<span class='point-red'> commit 的尾端都放了分支名稱，代表這個 commit 是紀錄在哪個分支</span>。<br><br>
+    很明顯可以看到第一次是在「master」分支，第二次是在「develop」分支，且第二次的 commit 的分支名稱前還有個<span class='point-red'>「HEAD ->」字樣，表示目前所在位置</span>，
+    因我們剛在「develop」分支完成一為「edit b.txt」的 commit，所以目前位置就是在這個 commit 上唷～<br><br>
+    完成前置作業，我們切換到「master」並嘗試刪除「develop」分支吧！如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\delete branch-2.jpg'><br><br>
+    上圖中可以看到，使用「-d」刪除是刪除不了的，因為「develop」分支中還有尚未合併的 commit，即沒有其他分支擁有的 commit，所以不允許刪除。
+    不過換成「-D」強制刪除，就能輕易地刪除了！<br><br>
+    且有趣的是，我們打開剛剛修改的「b.txt」檔查看，會發現剛剛地修改消失了，而且查看歷史紀錄也會發現剛剛修改的 commit 消失了！如下：<br><br>
+    <img class='img' src='assets\posts\gitInstance\delete branch-file.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance\delete branch-log.jpg'><br><br>
+    從這裡可支，<span class='point-red'>強制刪除就會捨棄掉該分支尚未合併的 commit ，所以使用時要小心唷！</span><br><br>
+
+    <h4>1.3. 重新命名分支（-m）</h4>
+    當意識到取的分支名稱很難看、太長、拼錯，<del>已經來不及了</del>，別擔心～可以重新命名分支名稱的！<br><br>
+    重新命名分支名稱有兩種方式：<br><br>
+    <div class='block-code'>git branch -m aka2</div><br>
+    or<br><br>
+    <div class='block-code'>git branch -m aka aka2</div><br>
+    <ul>
+      <li>[branch -m]: 重新命名分支。<span
+          class='point-red'>只加一參數，修改當前分支名稱為此參數（aka2）；加兩參數，只是第一參數的分支（aka）重新命名為第二參數的名稱（aka2）</span></li>
+    </ul>
+    來實際操作一遍～首先，把剛剛我們刪個精光的分支先加回來吧，並切換到「aka」分支，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\rename branch-add branch.jpg'><br><br>
+    我們來改名吧～將「aka」分支改名為「aka_develop」、「develop」改名為「master_develop」，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\rename branch.jpg'><br><br>
+    列出所有分支來看，可以看到分支名稱都完成更改囉～<br><br>
+
+    <br>
+    <hr class="border-two" />
+
+    <!--2. 版本線圖（--graph）-->
+    <h3 class='sub-title'>2. 版本線圖（--graph）</h3>
+    當產生了許多分支，可想而知會分流很多條 commit 分流，即 A 分支下的 commit 與 B 分支下的 commit，
+    這時候使用歷史紀錄觀看時，會把所有分支的 commit 放在一起，如果只看尾端來判斷是屬於哪分支的 commit，會非常吃力。<br><br>
+    所以我們需要連連看的線來幫助我們～這時候就可以<span class='point-red'>使用「--graph」參數來指定歷史紀錄畫出「版本線圖」啦！</span>如下指令：<br><br>
+    <div class='block-code'>git log --graph</div><br>
+    當然可以搭配「git log」的其他參數使用（參數彼此順序不影響），像是只看 commit 內容的版本線圖如下列指令：<br><br>
+    <div class='block-code'>git log --oneline --graph</div><br>
+    我們來實際下指令來看看，不過目前我們只有一個「initial commit」的 commit，至少兩點才能有一線（數學很重要((?），所以我們加一些 commit 吧！<br><br>
+    首先，我們切回「master」分支，再對「a.txt」、「b.txt」加入一些內容，並加入 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master edit.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master commit.jpg'><br><br>
+    這時候我們來看看版本線圖，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master.jpg'><br><br>
+    圖中分別使用「git log」及「git log --graph」觀看歷史紀錄，可以發現後者多出了連線，<span class='point-red'>連結兩點，也就表示兩點是在同一分支中</span>。<br><br>
+    當然也可以下「git log --oneline --graph」只看 commit 內容，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master-2.jpg'><br><br>
+    這時候發現，並沒有連線啊！因為每一 commit 只有一行，沒辦法畫出線，不過可以看到 commit 前面比單執行「git log」多出「*」號，這時候就要在多分支的 commit 下才能看出線圖。<br><br>
+    那我們就來在每個分支都做一些各自的 commit 吧！<br><br>
+    我們切換到「master_develop」分支，再對「a.txt」、「b.txt」加入一些內容，並加入 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master_develop edit.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master_develop commit.jpg'><br><br>
+    一樣，我們來看看版本線圖，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master_develop.jpg'><br><br>
+    發現跟在「master」分支下看到的結果幾乎一樣，但可以發現 commit 的內容不同，由於單執行「git log」只能看到當前分支的歷史紀錄，要<span
+      class='point-red'>看所有分支的歷史紀錄就要加上「--all」參數</span>，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master_develop-2.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-master_develop-3.jpg'><br><br>
+    這時候就可以很清楚看到「master」、「master_develop」分支的所有 commit，也可以<span class='point-red'>透過連線知道該分支擁有哪些
+      commit</span>，是不是方便多了呢！<br><br>
+    最後，我們切到「aka_develop」分支，再新增一空的「c.txt」檔案，並加入 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-aka_develop edit.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-aka_develop commit.jpg'><br><br>
+    看一下目前所有分支的歷史紀錄、版本線圖，如下：<br><br>
+    <img class='img' src='assets\posts\gitInstance\branch graph-aka_develop.jpg'><br><br>
+    是不是很酷呢！之後版本線圖將會越來越複雜～學會如何看、如何建立連線在版控中也是挺重要的，畢竟線圖很亂將導致難以追蹤，讓我們繼續看下去～<br><br>
+
+
+    <br>
+    <hr class="border-two" />
+
+    <!--3. 如何合併／還原合併分支（Merge）？-->
+    <h3 class='sub-title'>3. 如何合併／還原合併分支（Merge）？</h3>
+    有了很多分支之後，最終需要有個完全體(?)交出，所以需要把所有分支整合，這時候就需要合併分支，<span class='point-red'>一次只能一隻分支合併到另一隻分支</span>，別貪心！<br><br>
+    也建議大家最好有一個主幹線，大家合併過去，版本線圖才不會很亂唷～<br><br>
+
+    <h4>3.0. 合併分支（Merge）</h4>
+    合併分支非常簡單，假設要<span
+      class='point-red'>將「aka_develop」分支合併到「master_develop」分支中，也就是將兩者整合在「master_develop」分支中</span>，只要<b>切到「master_develop」分支</b>並執行以下指令：<br><br>
+    <div class='block-code'>git merge aka_develop</div><br>
+    那我們來實際操作一下，先看一下在「aka_develop」及「master_develop」分支中各自的歷史紀錄以及全部的歷史紀錄，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\merge-aka_develop master_develop.jpg'><br><br>
+    接著我們切換到「master_develop」分支，對「aka_develop」執行合併，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\merge-master_develop.jpg'><br><br>
+    之後會自動開啟預設的文字編輯器（若安裝 git 時未設定，預設為 vim，簡易操作說明請參考：<a routerLink='' [queryParams]='{ post: postGitInitial.path }'
+      target='_blank'>0x09</a>），我的是開啟 vim。<br><br>
+    <span class='point-red'>輸入這次合併的內容，通常越詳細越好</span>，畢竟作為歷史紀錄也好追蹤。
+    預設有替我們加一句合併的內容（如下圖），所以也<b>可直接退出使用預設內容</b>，那我們就直接使用預設內容，輸入「:q」退出。
+    <img class='img' src='assets\posts\gitInstance\merge-master_develop-commit.jpg'><br><br>
+    當沒有「衝突」發生，就成功合併囉！由於我們在兩分支中修改的部分不重疊，故不會有衝突，可以放心～<br><br>
+    可以檢視一下歷史紀錄，就發現「aka_develop」分支的內容加入到「master_develop」分支的歷史紀錄中了，且多了一條合併的 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\merge-master_develop-2.jpg'><br><br>
+    覺得看不清楚嗎？我們印出線圖來看看，如下：<br><br>
+    <img class='img' src='assets\posts\gitInstance\merge-master_develop-3.jpg'><br><br>
+    有了版本線圖，就可以很明顯看到「aka_develop」合併到「master_develop」分支中囉！我們也能在檔案總管看到在「aka_develop」分支中新建的「c.txt」檔，是不是很神奇阿～<br><br>
+    這時候你會想，那在「aka_develop」分支中會變得怎樣？答案是不會怎樣喔！因為<span
+      class='point-red'>改變的只有「master_develop」分支</span>，不信你可以到「aka_develop」分支查看，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\merge-aka_develop.jpg'><br><br>
+    所以完全不影響被合併的分支唷！這時候就可以使用「-d」小心翼翼的砍掉「aka_develop」分支，
+    因為<span class='point-red'>「aka_develop」已經被合併了，有人（master_develop）將它的 commit
+      加入到自己歷史紀錄，所以就允許刪除分支囉！</span>這邊就留著它就好～<br><br>
+
+
+    <h4>3.1. 還原合併</h4>
+    最後，也許你會反悔這次合併，或是覺得合併時的內容真的寫得太糟糕了！想取消這次合併，很簡單～只要執行以下指令：<br><br>
+    <div class='block-code'>git reset HEAD~1</div><br>
+    or<br><br>
+    <div class='block-code'>git reset HEAD^</div><br>
+    <ul>
+      <li>[reset]: 如無其他參數，為重製索引（詳見：<a routerLink='' [queryParams]='{ post: postGitInitial.path }'
+          target='_blank'>0x09</a>）</li>
+      <li>[HAED~1] [HAED^]: 還原至上一步（<span class='point-red'>僅適用
+          commit、merge、rebase</span>）。在建立分支的時候就有看見「HEAD」字樣，代表目前位置，而「HEAD~N」即還原到上 N 個位置。</li>
+    </ul>
+    那我們就來還原一下剛剛的合併吧～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\unmerge-master_develop.jpg'><br><br>
+    可以看到剛剛合併的 commit 消失了，又回到合併前各自平行世界的模樣，接著我們再執行一次合併，如下圖：<br>
+    <img class='img' src='assets\posts\gitInstance\merge-master_develop-error.jpg'><br><br>
+    糟糕！發生錯誤了～錯誤訊息寫著有一個未被追蹤的檔案「c.txt」，git 表示快把它移走，我不認識它！<br><br>
+    是的，因為剛第一次合併時，我們將在「aka_develop」分支新建的「c.txt」檔案合併過來、搬過來了，<span
+      class='point-red'>還原合併雖然能復原修改及刪除，但是「新增」的檔案還是會存在</span>，要注意唷～<br><br>
+    這時候手動刪除就行囉～我們到檔案總管將「c.txt」檔案刪除，再次執行合併就成功囉～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\merge-master_develop-4.jpg'><br><br>
+
+    <h4>3.2. 解決衝突（Conflict）</h4>
+    人生中，要學會與衝突和解((?<br><br>
+    在合併的過程中，如果遇到欲合併的兩分支都修改到相同檔案的相同部分，就會產生衝突，
+    那我們「master」與「master_develop」分支就是一個很好的例子，兩條分支皆修改了「a.txt」、「b.txt」檔案的第一行。<br><br>
+    我們這次試著把「master_develop」合併到「master」分支，也就是整合到「master」分支中，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-master.jpg'><br><br>
+    圖中可以看到，合併「a.txt」、「b.txt」檔案時都發生衝突（CONFLICT）了，最後一行也說「fix conflicts and then commit the result.」，要我們解決衝突後再
+    commit。<br><br>
+    接著我們看圖中紅框框起來的部分，發現我們目前所在分支的名稱變成「master|MERGING」，代表現在處在合併的狀態中，要解決衝突或是放棄合併我們才能出來。<br><br>
+    接下來怎麼辦呢？<span class='point-red'>你不知道該如何是好的時候，執行「git status」就對了～它總會告訴你現在你可以做哪些動作</span>，那我們就執行一下，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-master-status.jpg'><br><br>
+    可以看到它給你兩條路，<span class='point-red'>解決衝突並 commit（fix conflicts and run "git commit"），或是放棄這次合併（use "git merge --abort"
+      to abort the merge）</span>。
+    底下列出沒有衝突且已加入索引的「c.txt」檔案，以及發生衝突且未加入索引的「a.txt」、「b.txt」檔案。<br><br>
+    這次我們先取消合併吧，執行「git merge --abort」取消這次合併，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-master-abort.jpg'><br><br>
+    可以看到目前所在分支的名稱從「master|MERGING」變回「master」，且並沒有任何合併發生。<br><br>
+    再來我們來練習解決衝突吧！再次執行 merge，再次進到「master|MERGING」狀態，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-master-2.jpg'><br><br>
+    這時候我們打開發生衝突的「a.txt」、「b.txt」檔案，會看到 git 很貼心地幫你把衝突的部分全部列出，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-file.jpg'><br><br>
+    git 貼心的把<span class='point-red'>目前分支（master）修改的部分用「&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD」與「=======」包起來；
+      被合併的分支（master_develop）修改的部分用「=======」與「&gt;&gt;&gt;&gt;&gt;&gt;&gt; master_develop」包起來</span>。<br><br>
+    解決衝突的方法呢，就是把「&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD」、「=======」、「&gt;&gt;&gt;&gt;&gt;&gt;&gt; master_develop」的部分砍掉，
+    留下你合併之後想要的模樣（留被合併的分支內容、留合併的分支內容、兩者都留，或是其他）。<br><br>
+    這裡我們就都留吧～所以把「a.txt」、「b.txt」檔案內容改成如下，並存檔。<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-file-ok.jpg'><br><br>
+    這時候看一下目前狀態：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-status.jpg'><br><br>
+    沒什麼變化，當然囉～我們只是改掉衝突的地方，但還沒 commit 上去，所以我們就把「a.txt」、「b.txt」檔案加入索引並 commit 上去，執行下列指令：<br><br>
+    <div class='block-code'>git add .<br>git commit</div><br>
+    我們刻意讓它跳出文字編輯器，可以看到它有幫我們給一些可以寫入的內容參考，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-commit.jpg'><br><br>
+    只要刪掉註解「#」號，就可以使用它提供的內容當作 commit 內容囉～按下「i」鍵修改內容，修改完後按下「esc」鍵退出修改模式，改成如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-commit-2.jpg'><br><br>
+    輸入「:wq」儲存後退出，就解決衝突，並完成合併了唷～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\conflict-merge-ok.jpg'><br><br>
+    圖中可以看到我們回到正常的分支名稱「master」，而不是合併中的狀態「master|MERGING」，看板本線圖，發現已經成功將「master_develop」合併到「master」分支囉～<br><br>
+    線圖有點亂呢，這就是前面提到的，<span class='point-red'>建議設好主幹線，所有人都是整合到主幹線去</span>。
+    像前面所做的兩次合併，「aka_develop」合併到「master_develop」、「master_develop」合併到「master」，就會讓版本線圖有點雜亂了。<br><br>
+    當然，本次合併並不會影響到「master_develop」分支唷～<br><br>
+
+    <br>
+    <hr class="border-two" />
+
+    <!--4. 強制修改分支位置（-f）-->
+    <h3 class='sub-title'>4. 強制修改分支位置（-f）</h3>
+    目前我們把「aka_develop」、「master_develop」分支都合併到「master」分支中，我們就不需要這兩分支，這邊教一個<span
+      class='point-red'>強制修改分支位置的方法</span>，指令如下：<br><br>
+    <div class='block-code'>git branch -f aka_develop e781638</div><br>
+    <ul>
+      <li>[-f]: --force 簡寫，強迫執行</li>
+      <li>[aka_develop e781638]: 前者為欲移動位置的分支名稱，後者為欲移動的位置的<b>版本編號</b>，就是歷史紀錄中每個 commit 前面的編號。</li>
+    </ul>
+    我們就將「aka_develop」、「master_develop」都移到「master」分支的位置吧！先觀看歷史紀錄，找到「master」分支的位置的版本編號，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\change space-log.jpg'><br><br>
+    可以看到「master」分支的位置的版本編號為「e781638」（大家都會不一樣，所以記得用你自己歷史紀錄中的編號唷～），於是我們執行如下圖指令，將「aka_develop」、「master_develop」都移到「master」分支的位置。<br><br>
+    <img class='img' src='assets\posts\gitInstance\change space-log-ok.jpg'><br><br>
+    可以看到三條分支都指向目前位置（e781638）了～可喜可賀((?<br><br>
+
+    <br>
+    <hr class="border-two" />
+
+    <!--5. Fast-Forward v.s No Fast-Forward-->
+
+    <h3 class='sub-title'>5. Fast-Forward v.s No Fast-Forward</h3>
+    快轉機制（Fast-Forward）是什麼？<del>這次沒有維基可以查，可惡</del><br><br>
+    <span class='point-red'>快轉機制主要使用在合併時</span>，在先前兩次的合併中，我們都是使用非快轉機制（No Fast-Forward），也就是在版本線圖上，可以看到它另外拉出一條線繞一圈回來。
+    而快轉機制就是不另外拉一條線繞出來，而是直接在同一條線上。待會舉例會更明白。<br><br>
+    <span class='point-red'>「git merge」預設是使用快轉機制，需加上「--no-ff」參數才能使用非快轉機制</span>。
+    不過我們當合併時也沒有加上「--no-ff」參數，怎麼會使用非轉機制呢？由我娓娓道來...<br><br>
+    直接從實例看起吧～目前三條分支都在同一位置，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\ff-log.jpg'><br><br>
+    先切換到「master_develop」分支，並新增「d.txt」送出 commit，再新增「e.txt」送出 commit，製作出兩個 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\ff-commit.jpg'><br><br>
+    接著我們看一下版本線圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\ff-log-2.jpg'><br><br>
+    發現往上長了兩顆「*」，這時候我們將「master_develop」分支合併到「master」分支，再看版本線圖，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\ff-merge.jpg'><br><br>
+    發現怎麼沒有像之前一樣繞一圈才上去，而是筆直的直接上去到 merge 的 commit 位置，這就是快轉機制。<br><br>
+    因「master_develop」所做的更改，只是「master」加上「d.txt」、「e.txt」檔案而已，等同於在「master」直接加上「d.txt」、「e.txt」檔案，
+    所以<span class='point-red'>預設使用快轉，把「master_develop」、「master」當成同一分支看待</span>。<br><br>
+    而在版控中，當然不希望這種事情發生（大部分不希望），所以只好手動關閉快轉機制。<br><br>
+    我們先取消這次合併，由於<span class='point-red'>「master」等同於自己 commit 兩次</span>，所以要還原到前兩步（記得手動刪除「d.txt」、「e.txt」檔案），如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\ff-reset.jpg'><br><br>
+    這次我們使用非轉機制，將「master_develop」分支合併到「master」分支，再看版本線圖，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance\ff-merge-noff.jpg'><br><br>
+    這次它會強制你輸入 commit 內容，這裡直接使用它預設的內容，輸入「:q」退出即可。<br><br>
+    可以看到<span
+      class='point-red'>非快轉機制會另外將他拉出一條線再合併回去</span>，這樣就很清楚是從「master_develop」分支合併到「master」分支，以上就是快轉機制與非快轉機制的差別～<br><br>
+    至於為何我前面兩次的和並沒有指定非快轉機制，仍然是使用非快轉機制呢？你想到了嗎～<br><br>
+    因為<span class='point-red'>在合併的兩個分支，各自都有各自修改，沒有誰是誰的更新版，不能當作某分支再 commit 幾次的結果</span>，所以當然只能是非快轉機制的合併囉！<br><br>
 
 
   </div>
@@ -58,6 +352,54 @@
 
   <!--結語-->
   <div>
+    恭喜通關～我們終於解決分支跟合併兩大 BOSS 啦～((歡呼<br><br>
+    撿一下戰利品吧～以下是本日重點整理：<br><br>
+    <ul>
+      <li>查看分支：git branch</li>
+      <li>建立分支：
+        <ul>
+          <li>git branch name</li>
+          <li>建立並切換過去：git checkout -b name</li>
+        </ul>
+      </li>
+      <li>切換分支：git checkout name</li>
+      <li>刪除分支：
+        <ul>
+          <li>git branch -d name</li>
+          <li>git branch -D name</li>
+        </ul>
+      </li>
+      <li>重新命名分支：
+        <ul>
+          <li>重新命名目前分支：git branch -m newName</li>
+          <li>重新命名指定分支：git branch -m name newName</li>
+        </ul>
+      </li>
+      <li>強制修改分支位置：git branch -f name e781638</li>
+      <li>合併分支：
+        <ul>
+          <li>快轉機制：git merge name</li>
+          <li>非轉機制：git merge name --no-ff</li>
+        </ul>
+      </li>
+      <li>發生衝突時，取消本次合併：git merge --abort</li>
+      <li>還原至上一步（僅適用 commit、merge、rebase）：
+        <ul>
+          <li>git reset HEAD~1</li>
+          <li>git reset HEAD^</li>
+        </ul>
+      </li>
+      <li>版本線圖（參數順序不影響）：
+        <ul>
+          <li>git log --graph</li>
+          <li>git log --oneline --graph</li>
+          <li>git log --oneline --graph --all</li>
+          <li>git log --oneline --graph -N（N為正整數）</li>
+        </ul>
+      </li>
+    </ul>
+
+    恭喜生等啦～而上述提及的「Rebase」重訂基底就留到下次介紹囉～<br><br>
     今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
   </div>
   <br>
@@ -68,10 +410,13 @@
     <h3 class='sub-title'>參考資料</h3>
     <ul>
       <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
+      <li><a href='https://linuxize.com/post/how-to-rename-local-and-remote-git-branch/' target='_blank'>[git]]Linuxize - How To Rename a Local and Remote Git Branch</a></li>
+      <li><a href='https://blog.csdn.net/m0_38022029/article/details/79058144' target='_blank'>[git]]kingdom_wp - git 强制修改分支位置</a></li>
+      <li><a href='https://www.zhihu.com/question/19926152' target='_blank'>[game]探討遊戲副本的英文</a></li>
     </ul>
   </div>
   <h5 class="sign">
-    赤 2019-xx-xx xx:xx<br>
+    赤 2019-10-14 17:30<br>
   </h5>
 
 </div>
