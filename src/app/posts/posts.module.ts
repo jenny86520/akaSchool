@@ -9,10 +9,11 @@ import { GitStartComponent } from './git-start/git-start.component';
 import { GitInstallComponent } from './git-install/git-install.component';
 import { GitInitialComponent } from './git-initial/git-initial.component';
 import { GitInstanceComponent } from './git-instance/git-instance.component';
+import { GitInstance2Component } from './git-instance2/git-instance2.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, HelloWorldComponent, HelloWebsiteComponent, GitStartComponent, GitInstallComponent, GitInitialComponent, GitInstanceComponent],
+  declarations: [HomeComponent, HelloWorldComponent, HelloWebsiteComponent, GitStartComponent, GitInstallComponent, GitInitialComponent, GitInstanceComponent, GitInstance2Component],
   imports: [
     CommonModule,
     PostsRoutingModule

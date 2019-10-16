@@ -7,6 +7,7 @@ import { GitStartComponent } from './git-start/git-start.component';
 import { GitInstallComponent } from './git-install/git-install.component';
 import { GitInitialComponent } from './git-initial/git-initial.component';
 import { GitInstanceComponent } from './git-instance/git-instance.component';
+import { GitInstance2Component } from './git-instance2/git-instance2.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'gitInstance',
     component: GitInstanceComponent
+  },
+  {
+    path: 'gitInstance2',
+    component: GitInstance2Component
   },
   {
     path: '**',
