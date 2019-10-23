@@ -1,0 +1,191 @@
+<div>
+  <h2 class='title'>{{title}}</h2>
+  <!--前言-->
+  標題越來越長了((扶額<br><br>
+  歡迎來到版控個人副本2，請問有獲得「版控個人副本1」的戰利品了嗎？沒有的話就先通關吧：<br><br>
+  <a routerLink='' [queryParams]='{ post: postGitInstance.path }' target='_blank'>{{postGitInstance.title}}</a><br><br>
+  在這裡將會有三頭 Boss（版控觀念釐清、比較差異、修補檔）等著大家唷！
+  本次副本可以獲得的成就有以下：<span class='point-red'>釐清工作目錄、索引、建立版本、最新版本各自的定義，以及如何比較差異、運用修補檔（Patch）。</span><br><br>
+  將<span class='point-red'>於 Git Bash 環境下執行 Git 操作</span>，讓我們開始<del>打怪</del>吧！<br><br>
+  想複習一下 Git 版本控管的基本操作，歡迎參考下列文章～要達一定等級才能開始打副本啊！<br><br>
+  <a routerLink='' [queryParams]='{ post: postGitInitial.path }' target='_blank'>{{postGitInitial.title}}</a><br><br>
+
+  <!--教學導覽-->
+  <table class='block-catalog'>
+    本日教學導覽
+    <ol>
+      <li value="0">版控觀念釐清
+        <ol>
+          <li>工作目錄（Working Tree）</li>
+          <li>索引（index）</li>
+          <li>歷史版本（Commit）</li>
+          <li>最新版本（HEAD）</li>
+        </ol>
+      </li>
+      <li>比較差異（Diff）
+        <ol>
+          <li>git diff 基本用法</li>
+          <li>二進位（Binary）檔案的比較</li>
+          <li>取出異動清單</li>
+        </ol>
+      </li>
+      <li>修補檔的運用（Patch）</li>
+    </ol>
+  </table>
+  <br>
+  <hr class="border-two" />
+  <!--/教學導覽-->
+  <div>
+    <!--0. 版控觀念釐清-->
+    <h3 class='sub-title'>0. 版控觀念釐清</h3>
+    在先前幾次<del>打怪</del>的經驗中，都有提到「索引」、「建立版本」、「最新版本」等用詞，是不是搞得暈頭轉向啊？<br><br>
+    別擔心～現在我們就來統整這些專有名詞吧！在版控中，這些東西可是很重要的觀念呢！<br><br>
+    首先，先上圖，你如果能夠看圖說故事，就可以跳到底下直接學習「比較差異」，如果沒辦法看圖說故事，就看底下說明吧～<br><br>
+    <img class='img' src='assets\posts\gitInstance2\workingtree-index-head.jpg'><br><br>
+
+    <h4>0.0. 工作目錄（Working Tree）</h4>
+    好的，一來就說個先前從來沒提過的((x<br><br>
+    其實只是沒有指名道姓點出來而已，我們一直以來都有用到工作目錄唷～那工作目錄到底是什麼？<br><br>
+    <span class='point-red'>工作目錄就是指目前「尚未加入索引」或「尚未 commit（尚未將修改加入本地儲存庫）」的檔案存放地</span>。
+    簡單來說，就是執行「git status」時，被列為<b><span style='color: red;'>紅色字體</span></b>的檔案們～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\working tree-status.jpg'><br><br>
+    而如果沒有任何尚未加入索引或尚未 commit 的檔案，也就是無任何修改時，可以看到 git 會告訴你現在工作目錄很乾淨喔（working tree clean），如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\working tree-status clean.jpg'><br><br>
+
+    <h4>0.1. 索引（index）</h4>
+    跟著我一路走來，大家對於索引的印象應該就只有「被 add 的檔案」這樣吧？<br><br>
+    其實索引確實是如此呢！這裡來仔細說明一下～<br><br>
+    <span class='point-red'>索引就是指準備好要 commit（將修改加入本地儲存庫）的檔案，注意其尚未加入本地儲存庫</span>。
+    簡單來說，就是執行「git status」時，被列為<b><span style='color:green;'>綠色字體</span></b>的檔案們～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\index-status.jpg'><br><br>
+    通常索引也會被稱作「暫存」，代表暫存起來準備加入儲存庫，但是 git 中還有一個暫存（stash，之後會詳細介紹）用法，以防搞混還是建議稱為索引就好。<br><br>
+
+    <h4>0.2. 歷史版本（Commit）</h4>
+    <span class='point-red'>「Commit」可以有多種解釋，將索引的檔案加入本地儲存庫、建立一個版本，兩者都是指同一件事情</span>。
+    簡單來說，就是執行「git log」時，被列出的歷史紀錄們，已儲存至本地儲存庫的歷史版本，每一條就是一 commit。如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\commit-log.jpg'><br><br>
+    Commit 通常包含編號、變動人員姓名、變動人員 Email、時間、commit 內容，如下圖（下圖為 Merge 的 commit，所以多一條 Merge 訊息）：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\commit-log-more.jpg'><br><br>
+
+    <h4>0.3. 最新版本（HEAD）</h4>
+    顧名思義，<span class='point-red'>通常為最新版本就是最新、最近一次的 commit，等於指向本地儲存庫的記錄點位置，我們稱之為「HEAD」，也可稱為目前版本、目前位置</span>。
+    簡單來說，就是執行「git log」時，HEAD 字樣指向的 commit 位置，也就是目前所在的位置，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\commit-log.jpg'><br><br>
+    而<span class='point-red'> HEAD 是可以任意移動的，可以根據需求移動到某一記錄點，使目前本地儲存庫的內容變為「指向的紀錄點」所屬的內容</span>。
+    最簡單的例子就是切換分支，上圖我們是指向「master」分支，下圖我們改指向「master_develop」分支，將本地儲存庫的內容變為「add e.txt」時的內容。<br><br>
+    <img class='img' src='assets\posts\gitInstance2\head-log.jpg'><br><br>
+    <br>
+    <hr class="border-two" />
+
+    <!--1. 比較差異（Diff）-->
+    <h3 class='sub-title'>1. 比較差異（Diff）</h3>
+    通常都是希望可以分類每一次更新的版本，才選擇使用版控，當然也期望能比較每個版本之間的差異，而 git 就提供了相當方便的方法來比較差異，
+    依然先看圖說故事，底下就讓我們來認識一下「diff」的強大吧！<br><br>
+    <img class='img' src='assets\posts\gitInstance2\graph-diff.jpg'><br><br>
+
+    <h4>1.0. git diff 基本用法</h4>
+    首先，隨意找一個<del>搞壞也沒關係</del>的專案，我繼續沿用<a routerLink='' [queryParams]='{ post: postGitInstance.path }'
+      target='_blank'>上次</a>的版控專案，專案中的檔案及歷史紀錄如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-initial.jpg'><br><br>
+
+    <h5>git diff</h5>
+    執行下列指令，可以<span class='point-red'>比對工作目錄與索引的差異</span>。<br><br>
+    <div class='block-code'>git diff</div><br>
+    目前工作目錄及索引皆是乾淨的，所以直接執行上面指令是不會印出任何東西，那我們就加修改一些資料然後加入索引吧！<br><br>
+    這次我們使用 vim 來修改檔案並加入索引吧！（vim 的基本操作可以參考我的<a routerLink='' [queryParams]='{ post: postGitInitial.path }'
+      target='_blank'>這篇</a>，或是別人的<a href='http://linux.vbird.org/linux_basic/0310vi.php#vi_ex'
+      target='_blank'>這篇</a>）。<br><br>
+    執行以下指令，使用 vim 開啟「c.txt」檔：<br><br>
+    <div class='block-code'>vim c.txt</div><br>
+    添加一段「add c.txt something by vim」，並儲存退出，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-edit c.jpg'><br><br>
+    現在我們的工作目錄有東西了，再次執行「git diff」，比較工作目錄與索引之間的差異，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-workingtree index.jpg'><br><br>
+    上圖中可以看到幾項訊息，我們來一一了解一下～<br><br>
+    <ul>
+      <li><b>warning: LF will be replaced by CRLF in c.txt. The file ...</b><br>
+        這部分為換行字元的警告，告知我們如果加入索引的話，換行字元將由 LF 換成 CRLF（關於換行字元：<a routerLink='' [queryParams]='{ post: postGitInstall.path }'
+          target='_blank'>{{postGitInstall.title.substring(0,4)}}</a>第八節）
+      </li>
+      <li><b>diff --git a/c.txt b/c.txt</b><br>
+        此為 git 執行的指令執行比較，「a」代表比較的舊版檔案（此比較下指索引）；「b」代表比較的新版檔案（此比較下指工作目錄）。
+        因為我們是比較同一檔案，所以 a、b 皆指向「c.txt」檔案。
+      </li>
+      <li><b>index e69de29..fb17da9 100644</b><br>
+        此處會列出 git 在做這次比對時的「標頭資訊（Header Line）」，可能會有好幾行。<br>
+        目前列出的「e69de29..fb17da9」為兩個比較物件的 ID（位於 .git 資料夾中，之後會詳細介紹 .git 資料夾）；
+        「100644」為 git 屬性，即檔案的屬性（可讀、可寫等）。
+      </li>
+      <li><b>
+          --- a/c.txt<br>
+          +++ b/c.txt<br>
+          @@ -0,0 +1 @@<br>
+          +add c.txt something by vim<br></b>
+        此處會列出比較的內容訊息，可能會有好幾組，取決於差異的位置多寡。<br>
+        前兩行列出比較的舊版與新版檔案，<span class='point-red'>前面加上「---」代表舊版，前面加上「+++」代表新版</span>。<br>
+        第三行為舊版與新版更動的行數，<span class='point-red'>「-」代表刪去、「+」代表新增</span>，此處為舊版更動 0 行，新版新增 1 行。<br>
+        最後列出所有的變更，一樣<span class='point-red'>「-」代表刪去、「+」代表新增</span>。
+      </li>
+    </ul>
+
+    <h5>git diff --cached</h5>
+    執行下列指令，可以<span class='point-red'>比對索引與最新版本的差異</span>。<br><br>
+    <div class='block-code'>git diff --cached</div><br>
+    or<br><br>
+    <div class='block-code'>git diff --cached HEAD</div><br>
+    目前索引中非常乾淨，沒有任何待 commit 的檔案，所以直接執行上述指令是不會印出任何東西。
+    所以我們把剛剛的「c.txt」檔案加入索引並執行以上指令，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-index head.jpg'><br><br>
+    上圖可以看到，比先前少了那行換行字元的警告，因為此時我們已經將「c.txt」檔案加入索引，git 已經轉換完換行字元，所以警告就不存在了。
+    其餘的訊息一模一樣，不過這次是比較索引與最新版本的差異，不相信我們可以再修改個檔案試試～<br><br>
+    一樣使用 vim 於「d.txt」檔中添加一段「add d.txt something by vim」，並儲存退出。
+    這樣工作目錄及索引就各自有東西了，<b>工作目錄有修改的「d.txt」，索引有修改的「c.txt」</b>，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-edit d.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-edit-workingtree index.jpg'><br><br>
+    接著我們執行「git diff」、「git diff --cached」，分別比較工作目錄與索引之間的差異，及索引與最新版本的差異，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-diff-workingtree index head.jpg'><br><br>
+    很明顯可以看到兩個指令的執行結果不一樣，各自列出各自的比較差異。<br><br>
+
+    <h5>git diff HEAD</h5>
+    執行下列指令，可以<span class='point-red'>比對工作目錄與最新版本的差異</span>。<br><br>
+    <div class='block-code'>git diff HEAD</div><br>
+    目前工作目錄與索引各自有一個檔案，我們直接執行上述指令來看看結果吧！<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-diff-workingtree head.jpg'><br><br>
+    圖中可以看到，竟然不如預期！預期應該只會顯示再工作目錄的「d.txt」檔案的差異才對，可是卻連在索引的「c.txt」檔案也一併列出差異。
+    由此可知，<span class='point-red'>比較工作目錄與最新版本的差異，會連同索引中的檔案一同比較</span>。<br><br>
+    這裡有趣的事來了！那<b>如果我工作目錄跟索引中修改同個檔案的同個地方，那我比較工作目錄與最新版本之間的差異又會顯示什麼呢？</b>我們一起探究一番吧～<br><br>
+    再次使用 vim 開啟已經加入索引的「c.txt」檔案，這時我們<b>把剛剛的「add」改成「edit」</b>，並儲存後退出，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-edit c-2.jpg'><br><br>
+    現在我們在工作目錄和在索引都有「c.txt」的修改，如下圖：
+    <img class='img' src='assets\posts\gitInstance2\diff-status.jpg'><br><br>
+    接著就來執行我們的比較差異吧～依序執行「git diff」、「git diff --cached」、「git diff HEAD」看看結果，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-diff-workingtree index head-2.jpg'><br><br>
+    啊勒？原來執行「git diff HEAD」比較工作目錄與最新版本，雖然會顯示工作目錄加上索引與最新版本的差異，但是<span
+      class='point-red'>當工作目錄與索引衝突時，會取工作目錄的部分比較差異</span>啊！<br><br>
+
+
+  </div>
+  <br>
+  <hr class="border-two" />
+
+  <!--結語-->
+  <div>
+    今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
+  </div>
+  <br>
+  <hr class="border-two" />
+
+  <!--參考資料-->
+  <div>
+    <h3 class='sub-title'>參考資料</h3>
+    <ul>
+      <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
+      <li><a href='https://backlog.com/git-tutorial/git-workflow/' target='_blank'>[git]backlog - Git workflow</a></li>
+      <li><a href='https://ithelp.ithome.com.tw/articles/10135441' target='_blank'>[git]Will 保哥 - 比對檔案與版本差異</a></li>
+    </ul>
+  </div>
+  <h5 class="sign">
+    赤 2019-xx-xx xx:xx<br>
+  </h5>
+
+</div>

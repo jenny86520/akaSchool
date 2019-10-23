@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GitInstanceComponent } from './git-instance.component';
+import { GitInstanceBranchMergeComponent } from './git-instance-branch-merge.component';
 
 describe('GitInstanceComponent', () => {
-  let component: GitInstanceComponent;
-  let fixture: ComponentFixture<GitInstanceComponent>;
+  let component: GitInstanceBranchMergeComponent;
+  let fixture: ComponentFixture<GitInstanceBranchMergeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GitInstanceComponent ]
+      declarations: [ GitInstanceBranchMergeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GitInstanceComponent);
+    fixture = TestBed.createComponent(GitInstanceBranchMergeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

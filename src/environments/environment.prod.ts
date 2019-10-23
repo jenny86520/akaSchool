@@ -73,15 +73,22 @@ export const environment = {
     {
       id: 11,
       title: '0x0A 版控個人副本【[Git]本地版控分支（Branch、Checkout）、合併（Merge） 介紹】',
-      path: 'gitInstance',
+      path: 'gitInstance/Branch-Merge',
       category: 'Git'
     },
     {
       id: 12,
-      title: '0x0B 版控個人副本【[Git]版控比較（Diff）、重定基底（Rebase） 介紹】',
-      path: 'gitInstance2',
+      title: '0x0B 版控個人副本【[Git]版控觀念（Working Tree、Index、Commit、HEAD）、比較差異（Diff、Patch） 介紹】',
+      path: 'gitInstance/Diff-Patch',
+      category: 'Git'
+    },
+    {
+      id: 13,
+      title: '0x0C 版控個人副本【[Git]復原變更（Reset、Revert）、重定基底（Rebase） 介紹】',
+      path: 'gitInstance/Reset-Revert-Rebase',
       category: 'Git'
     }
+    // 復原變更、重定基底，最終學會靈活地修改歷史紀錄（新增、修改、刪除、換位）
 
 
   ],
