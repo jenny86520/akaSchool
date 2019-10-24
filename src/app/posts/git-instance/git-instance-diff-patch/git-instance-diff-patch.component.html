@@ -26,10 +26,14 @@
         <ol>
           <li>git diff 基本用法</li>
           <li>二進位（Binary）檔案的比較</li>
-          <li>取出異動清單</li>
         </ol>
       </li>
-      <li>修補檔的運用（Patch）</li>
+      <li>修補檔的運用（Patch）
+        <ol>
+          <li>Patch 基本用法</li>
+          <li>二進位檔案的錯誤解決方法</li>
+        </ol>
+      </li>
     </ol>
   </table>
   <br>
@@ -82,7 +86,7 @@
     通常都是希望可以分類每一次更新的版本，才選擇使用版控，當然也期望能比較每個版本之間的差異，而 git 就提供了相當方便的方法來比較差異，
     依然先看圖說故事，底下就讓我們來認識一下「diff」的強大吧！<br><br>
     <img class='img' src='assets\posts\gitInstance2\graph-diff.jpg'><br><br>
-
+    <!--1.0. git diff 基本用法-->
     <h4>1.0. git diff 基本用法</h4>
     首先，隨意找一個<del>搞壞也沒關係</del>的專案，我繼續沿用<a routerLink='' [queryParams]='{ post: postGitInstance.path }'
       target='_blank'>上次</a>的版控專案，專案中的檔案及歷史紀錄如下圖：<br><br>
@@ -152,7 +156,7 @@
     目前工作目錄與索引各自有一個檔案，我們直接執行上述指令來看看結果吧！<br><br>
     <img class='img' src='assets\posts\gitInstance2\diff-diff-workingtree head.jpg'><br><br>
     圖中可以看到，竟然不如預期！預期應該只會顯示再工作目錄的「d.txt」檔案的差異才對，可是卻連在索引的「c.txt」檔案也一併列出差異。
-    由此可知，<span class='point-red'>比較工作目錄與最新版本的差異，會連同索引中的檔案一同比較</span>。<br><br>
+    因為<span class='point-red'>加入索引的更動依然存在於工作目錄中，並不會因為加入索引就讓工作目錄回到最新版本的模樣</span>。<br><br>
     這裡有趣的事來了！那<b>如果我工作目錄跟索引中修改同個檔案的同個地方，那我比較工作目錄與最新版本之間的差異又會顯示什麼呢？</b>我們一起探究一番吧～<br><br>
     再次使用 vim 開啟已經加入索引的「c.txt」檔案，這時我們<b>把剛剛的「add」改成「edit」</b>，並儲存後退出，如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance2\diff-edit c-2.jpg'><br><br>
@@ -160,9 +164,186 @@
     <img class='img' src='assets\posts\gitInstance2\diff-status.jpg'><br><br>
     接著就來執行我們的比較差異吧～依序執行「git diff」、「git diff --cached」、「git diff HEAD」看看結果，如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance2\diff-diff-workingtree index head-2.jpg'><br><br>
-    啊勒？原來執行「git diff HEAD」比較工作目錄與最新版本，雖然會顯示工作目錄加上索引與最新版本的差異，但是<span
-      class='point-red'>當工作目錄與索引衝突時，會取工作目錄的部分比較差異</span>啊！<br><br>
+    果不其然，執行「git diff HEAD」比較工作目錄與最新版本，當然僅會顯示工作目錄與最新版本的差異，了解了嗎～<br><br>
 
+    <h5>git diff &lt;編號&gt;</h5>
+    執行下列指令，可以<span class='point-red'>比對工作目錄與歷史版本的差異</span>，「編號」為該歷史版本的編號。<br><br>
+    <div class='block-code'>git diff &lt;編號&gt;</div><br>
+    目前我們的工作目錄與索引皆有更動的檔案，且歷史版本（也就是歷史紀錄）有 9 條，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-status log.jpg'><br><br>
+    圖上<b><span
+        style='color:goldenrod'>土黃色字體</span></b>的編號，就是該歷史版本的編號。我們來比對工作目錄與編號為「e781638」、目前「aka_develop」分支所在的地方、commit
+    內容為「Merge branch
+    'master_develop'」的版本。執行以下指令（<span class='point-red'>大家的編號都不相同，記得使用自己 log 出的編號唷</span>）：<br><br>
+    <div class='block-code'>git diff e781638</div><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-diff-workingtree commit.jpg'><br><br>
+    圖中可以看到列出了三塊比較資訊，第一塊更改了「c.txt」，加上「<b>edit</b> c.txt something by vim」的內容，這部份是我們剛剛位於工作目錄的修改。
+    而第二塊內容為新增了「d.txt」，並加上「add d.txt something by vim」的內容，我們看看歷史記錄，這部分是編號「7c95afa」做新增的動作，及剛剛位於工作目錄的修改。
+    最後第三塊內容為新增了「e.txt」，一樣看看歷史紀錄找尋，找到是編號「fd40717」做新增的動作。<br><br>
+    由上述可知，執行「git diff e781638」的確比較了工作目錄與編號「e781638」歷史版本的差異。<br><br>
+
+    <h5>git diff --cached &lt;編號&gt;</h5>
+    執行下列指令，可以<span class='point-red'>比對索引與歷史版本的差異</span>，「編號」為該歷史版本的編號。<br><br>
+    <div class='block-code'>git diff --cached &lt;編號&gt;</div><br>
+    如同「git diff &lt;編號&gt;」的作法，只是上述指令為比較索引與歷史版本的差異。
+    目前我們索引中有一個檔案為「c.txt」的更動，還記得在索引中更動內容是「add c.txt something by vim」吧？工作目錄下的更動才為「edit c.txt something by vim」唷～<br><br>
+    接著來實際比對一下檔案，一樣與編號為「e781638」、目前「aka_develop」分支所在的地方、commit 內容為「Merge branch
+    'master_develop'」的版本做比對。執行以下指令（<span class='point-red'>大家的編號都不相同，記得使用自己 log 出的編號唷</span>）：<br><br>
+    <div class='block-code'>git diff --cached e781638</div><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-diff-index commit.jpg'><br><br>
+    圖中一樣可以看到列出了三塊比較資訊，第一塊更改了「c.txt」，加上「<b>add</b> c.txt something by vim」的內容，這部份是我們剛剛位於索引的修改。
+    而第二塊內容為新增了「d.txt」，為編號「7c95afa」做新增的動作。最後第三塊內容為新增了「e.txt」，為編號「fd40717」做新增的動作。<br><br>
+    由上述可知，執行「git diff --cached e781638」的確比較了索引與編號「e781638」歷史版本的差異。<br><br>
+
+    <h5>git diff &lt;編號&gt; &lt;編號&gt;</h5>
+    執行下列指令，可以<span class='point-red'>比對 A 歷史版本與 B 歷史版本的差異</span>，「編號」皆為該歷史版本的編號。<br><br>
+    <div class='block-code'>git diff &lt;編號&gt; &lt;編號&gt;</div><br>
+    這應該不難理解，只要帶上兩個欲比較的版本編號，就能比較兩歷史版本的差異，記得<span
+      class='point-red'>前者為比對時的舊版本，後者為新版本</span>，順序錯可能會導致理解錯誤，我們實際操作看看～<br><br>
+    我們選擇歷史版本編號「e781638」（aka_develop 分支的位置）、「fd40717」（master_develop 分支的位置）來做比較，
+    執行以下指令（<span class='point-red'>大家的編號都不相同，記得使用自己 log 出的編號唷</span>）：<br>
+    <div class='block-code'>git diff e781638 fd40717</div><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-diff-commit commit.jpg'><br><br>
+    圖中可以看到兩個區塊（我懶得標了:P），第一塊為新增了「d.txt」為編號「7c95afa」做新增的動作。第二塊內容為新增了「e.txt」，為編號「fd40717」做新增的動作。
+    的確比較了版本編號「e781638」及版本編號「fd40717」的差異。<br><br>
+    此時，我們試著把兩編號互換位置，如下面指令，並再次執行來看看結果～<br><br>
+    <div class='block-code'>git diff fd40717 e781638</div><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-diff-commit commit-2.jpg'><br><br>
+    圖中可以看到變成刪除了「d.txt」及「e.txt」檔案！因為此時<span class='point-red'>比較的是版本編號「fd40717」變成版本編號「e781638」的過程、更動</span>，
+    所以從新增了「d.txt」及「e.txt」檔案去回推，就變成刪除兩個檔案囉！<br><br>
+
+    <h5>git diff --name-only</h5>
+    當<span
+      class='point-red'>加上參數「--name-only」，僅會列出差異的檔案名稱</span>，當然參數可以互相搭配，以上的各比較指令皆可加上「--name-only」參數，且參數順序不影響結果，執行結果如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-nameonly.jpg'><br><br>
+
+    <h5>git diff --name-status</h5>
+    當<span class='point-red'>加上參數「--name-status」，僅會列出差異的檔案名稱即狀態代號（新增:A、修改:M、刪除:D
+      等）</span>，當然參數可以互相搭配，以上的各比較指令皆可加上「--name-status」參數，且參數順序不影響結果，執行結果如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-namestatus.jpg'><br><br>
+    （狀態的代號可以執行「git diff --help」開啟官方文件查看）<br><br>
+
+    <h5>git diff --diff-filter=&lt;狀態代號&gt;</h5>
+    當<span class='point-red'>加上參數「--diff-filter=&lt;狀態代號&gt;」，狀態代號為「A」、「M」、「D」等（新增:A、修改:M、刪除:D
+      等）。會列出篩選過後的清單</span>，當然參數可以互相搭配，以上的各比較指令皆可加上「--diff-filter=&lt;狀態代號&gt;」參數，且參數順序不影響結果，執行結果如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-filter.jpg'><br><br>
+
+    <!--1.1. 二進位（Binary）檔案的比較-->
+    <h4>1.1. 二進位（Binary）檔案的比較</h4>
+    當修改的是二進位檔案（如圖片），使用上述幾種基本的比較差異指令，<span
+      class='point-red'>只會列出這個二進位檔案被更動了，但並不會列出更動的內容，這時候就要加上「--binary」參數就能顯示二進位轉碼後的內容了</span>。<br><br>
+    我們實際實驗一下，首先先生出一張圖片吧！我就新增一個「cmd.jpg」的圖片檔，並執行「git diff」及「git diff --binary」比較工作目錄與索引的差異，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-binary-file.jpg'><br><br>
+    圖中發現並沒有列出我們剛新增的「cmd.jpg」圖片檔，這是因為<span class='point-red'>其尚未加入到版控，git 看不到它</span>，所以就先將它加入版控吧～執行如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-binary-new commit.jpg'><br><br>
+    這時「cmd.jpg」圖片檔以加入版控，並<b>連同剛在索引的「c.txt」更動</b>一起推上最新版本，不過此時「cmd.jpg」圖片檔已經推上最新版本，所以工作目錄、索引與最新版本任兩項差異都不會有「cmd.jpg」圖片檔。
+    因此我們執行「git diff 910e6c4 5d86768」及「git diff 910e6c4 5d86768 --binary」比較前一項歷史版本與最新版本的差異（<span
+      class='point-red'>大家的編號都不相同，記得使用自己 log 出的編號唷</span>），如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-binary-diff.jpg'><br><br>
+    圖中可以看到，不加上「--binary」參數，只會顯示有案進位檔案更動，加上參數後就會顯示轉碼後的內容。
+    而底下多了一句<span class='point-red'>「GIT binary patch」，即它順便幫你產生了「patch」修補檔</span>，待會就會介紹什麼是「patch」修補檔～<br><br>
+    <br>
+    <hr class="border-two" />
+
+    <!--2. 修補檔的運用（Patch）-->
+    <h3 class='sub-title'>2. 修補檔的運用（Patch）</h3>
+    到這裡，你已經學會如何比較差異，不論是工作目錄與索引、工作目錄與最新版本、工作目錄與歷史版本、索引與最新版本、索引與歷史版本、最新版本與歷史版本、A 歷史版本與 B
+    歷史版本，以即二進位檔案的比較差異也都已經學透透了！<br><br>
+    試想，如果我們能<span class='point-red'>把比較出來的差異內容存起來，並使用這個檔案來將舊版變為新版</span>（也就是從原本的<b>「A-B=C」變成「B+C=A」</b>，A 為新版、B 為舊版、C
+    為比較的差異），理論上可以做到這件事，當然 git 的確提供了這個方法，也就是將比較差異的結果存成一個檔案，這個檔就稱為修補（Patch）檔！<br><br>
+
+    <b>前置作業</b>
+    <div class='block-table'>
+      為了講解方便，先將工作目錄下的變更丟進「master_develop」分支的 commit 中吧！切換到「master_develop」分支，如下圖：<br><br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstance2\patch-checkout-error.jpg'></div><br>
+      糟糕！從「master」分支切換到「master_develop」分支發生錯誤了，
+      原因是因為<b>工作目錄下「c.txt」的內容與即將切換過去的「master_develop」分支下「c.txt」的內容不一致的部分重疊了</b>，<span class='point-red'>直接切換將會發生衝突，畢竟其尚未
+        commit</span>。
+      至於「d.txt」並不會發生問題，畢竟在「master_develop」分支下「d.txt」的內容為空，而目前工作目錄中只是在「d.txt」檔中加入內容，並無衝突。<br><br>
+
+      <span class='point-red'>發生這種切換分支產生的衝突，我們可以使用比較差異來解決衝突</span>，決定是否留存工作目錄的修改，如下圖：<br><br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstance2\patch-checkout-diff.jpg'></div><br>
+      在差異中找到「c.txt」的差異，確認差異的內容，這次我們就先放棄「c.txt」更動的內容，<span class='point-red'>可執行「git checkout --
+        c.txt」放棄變更</span>，如下圖：<br><br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstance2\patch-checkout-re.jpg'></div><br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstance2\patch-checkout-re-c.jpg'></div><br>
+      可以看到我們將「c.txt」檔中後來更改的內容「edit」字樣放棄變更，所以回到最新版本上的「add」字樣，這樣就解決了「c.txt」的衝突，可以切換分支囉！
+      我們就繼續完成一開始的任務，把變更都丟上的 commit ，清空工作目錄吧！如下圖：<br><br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstance2\patch-workingtree clean.jpg'></div><br>
+      最後我們切換到「master」分支，於此拉出一條「develop」分支並切換過去，如下圖：<br><br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstance2\patch-new branch.jpg'></div><br>
+      修改「c.txt」、「d.txt」檔案，並建立 commit，如下圖：<br><br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstance2\patch-edit-c.jpg'></div><br>
+      <div class='block-tab'> <img class='img' src='assets\posts\gitInstance2\patch-commit.jpg'></div><br>
+      這樣就完成了我們的前置作業。
+    </div><br>
+    <!--2.0. Patch 基本用法-->
+    <h4>2.0. Patch 基本用法</h4>
+    先看一下目前的狀態以及歷史紀錄，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-overview.jpg'><br><br>
+    現在我們假設「master」分支為我們正式上線的版本，採用的版本，而「develop」分支為開發中的版本。
+    而當我們要將上線的版本更新至開發中的版本，可以使用合併分支的方式，將「develop」分支合併到「master」分支中，「master」分支就會包含開發的版本，也就成為最新版。<br><br>
+    不過這次我們不用合併分支，我們使用比較差異的檔案，「Patch」檔來完成這件事情吧～還記得「A-B=C」相等於「B+C=A」嗎？<br><br>
+
+    <h5>patch</h5>
+    首先，我們來產生「master」分支及「develop」分支之間的「patch」檔吧！根據版本編號（<span class='point-red'>記得前面放舊版編號，master
+      所在位置；後面放新版編號，develop 所在位置</span>）執行下列指令：<br><br>
+    <div class='block-code'>git diff 3b0b682 bd2ae64 > update.patch</div><br>
+    上述指令為<b>將編號「3b0b682」與「bd2ae64」的 Patch 檔儲存為名稱為「update」的新建檔案</b>（檔名可以取你尬意的，記得<span
+      class='point-red'>附檔名要放「.patch」</span>），可以打開此檔看看內容，執行如下：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-new.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-file.jpg'><br><br>
+    圖中會發現我們把印在 Bash 中的比較差異內容通通存到「update.patch」中了，接著我們就來實現「B+C=A」吧！<br><br>
+
+    <h5>git apply &lt;fileName&gt;.patch</h5>
+    因為我們是<span class='point-red'>要讓「master」分支（舊版）套用 Patch
+      更新成「develop」分支，所以要先切換到「master」分支再執行</span>下列指令（如同合併時要在欲合併後的分支上執行）：<br><br>
+    <div class='block-code'>git apply update.patch</div><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-apply.jpg'><br><br>
+    會發現歷史紀錄沒什麼變化，不過我們執行「git status」看一下狀態，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-apply-status.jpg'><br><br>
+    發現原本乾淨的工作目錄，加入「develop」的變更了，因為尚未加入 commit，所以歷史紀錄才沒看到，為了確認現在的內容已經跟「develop」的版本一樣，我們先把這些變更加到
+    commit（<span class='point-red'>記得別把「update.patch」也加入版控了</span>），再來比對差異（你要直接比對也可以，執行「git diff &lt;develop
+    版本編號&gt;」），如下：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-apply-diff.jpg'><br><br>
+    執行比較差異後，發現沒有印出任何東西，由此可知兩個分支中的內容是完全一模一樣的，這樣就是成功上新版本了！<br><br>
+
+    <h5>git apply --reverse &lt;fileName&gt;.patch</h5>
+    也許你會後悔這次更新的版本，想要退版了，有了 Patch 檔也很方便喔！首先我們先取消剛剛的 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-reverse-reset.jpg'><br><br>
+    直要<span class='point-red'>於欲退版的分支加上參數「--reverse」</span>就行了～執行下列指令：<br><br>
+    <div class='block-code'>git apply --reverse update.patch</div><br>
+    or<br><br>
+    <div class='block-code'>git apply -R update.patch</div><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-reverse.jpg'><br><br>
+    可以看到原本套用過來的變更舊消失了！這樣就恢復原本的版本了，超級方便的！<br><br>
+
+    <h5>git apply --check &lt;fileName&gt;.patch</h5>
+    最後，還有一<span class='point-red'>參數「--check」，用來檢查如套用此 Patch
+      是否有衝突或是問題</span>，沒有印出什麼代表能夠成功套用，就可以拿走「--check」參數進行套用。<br><br>
+    不囉嗦我們直接執行，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-check.jpg'><br><br>
+    可以看到執行檢查並不會套用喔，要套用就要移除參數「--check」。<br><br>
+
+    <!--2.0. 二進位檔案的錯誤解決方法-->
+    <h4>2.0. 二進位檔案的錯誤解決方法</h4>
+    剛剛順順利利的完成 Patch 套用，這次我們來挑戰一下，如果要套用時遇到錯誤該如何解決。先看一下我們目前的狀態與歷史版本：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-error-overview.jpg'><br><br>
+    我們現在來把「master」分支降為「aka_develop」分支的內容，所以現在舊版設定為「master」分支，新版設定為「aka_develop」分支，產生一「update2.patch」檔案，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-error-new patch.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-error-file.jpg'><br><br>
+    接著我們於「master」分支執行「git apply --check update2.patch」，先檢查一下套用是否會成功，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-error.jpg'><br><br>
+    果不其然，發生錯誤了！錯誤訊息很明顯提到是二進位檔案發生錯誤，即二進位檔案欲套用的 patch 內容不完整。
+    還記得在比較差異中使用的「--binary」參數嗎？加不加此參數產生出來的比較內容不盡相同，
+    而我們<span class='point-red'>產生 patch 檔時並未加上「--binary」參數，而我們要變更的內容中有二進位檔案，所以 patch 中的內容並未列出二進位檔案變動的內容</span>，
+    所以才會發生錯誤，git 不知道此檔案到底變更了什麼。<br><br>
+    這時候只要重新建立有帶「--binary」參數的 patch 檔就可以了（可直接複寫），如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-error-new patch-2.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-error-file-2.jpg'><br><br>
+    再次執行「git apply --check update2.patch」，先檢查一下套用是否會成功，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance2\patch-error-ok.jpg'><br><br>
+    檢查並未印出錯誤，所以我們直接套用，就成功囉！<br><br>
 
   </div>
   <br>
@@ -170,6 +351,52 @@
 
   <!--結語-->
   <div>
+    恭喜通關～我們終於解決版控觀念釐清、比較差異、修補檔三大 BOSS 啦～((歡呼<br><br>
+    撿一下戰利品吧～以下是本日重點整理：<br><br>
+    <ul>
+      <li>版控觀念釐清
+        <ul>
+          <li>工作目錄（Working Tree）</li>
+          <li>索引（index）</li>
+          <li>歷史版本（Commit）</li>
+          <li>最新版本（HEAD）</li>
+        </ul>
+      </li>
+      <li>比較差異
+        <ul>
+          <li>工作目錄與索引：git diff</li>
+          <li>工作目錄與最新版本：git diff HEAD</li>
+          <li>工作目錄與歷史版本：git diff &lt;編號&gt;</li>
+          <li>索引與最新版本：
+            <ul>
+              <li>git diff --cached</li>
+              <li>git diff --cached HEAD</li>
+            </ul>
+            </li>
+          <li>索引與歷史版本：git diff --cached &lt;編號&gt;</li>
+          <li>A 歷史版本與 B 歷史版本：git diff &lt;A編號&gt; &lt;B編號&gt;</li>
+        </ul>
+      </li>
+      <li>比較差異參數
+        <ul>
+          <li>--binary：顯示二進位檔案變更的內容</li>
+          <li>--name-only：僅顯示檔案名稱</li>
+          <li>--name-status：僅顯示檔案名稱及狀態（新增、修改、刪除等）</li>
+          <li>--diff-filter=&lt;狀態代號&gt;：僅顯示狀態為選擇的狀態的檔案</li>
+        </ul>
+      </li>
+      <li>產生 Patch 檔：git diff &lt;A編號&gt; &lt;B編號&gt; &gt; &lt;fileName&gt;.patch</li>
+      <li>套用 Patch 檔：git apply &lt;fileName&gt;.patch</li>
+      <li>退出 Patch 檔：
+        <ul>
+          <li>git apply --reverse &lt;fileName&gt;.patch</li>
+          <li>git apply -R &lt;fileName&gt;.patch</li>
+        </ul>
+      </li>
+      <li>檢查 Patch 檔：git apply --check &lt;fileName&gt;.patch</li>
+    </ul>
+
+    恭喜升等啦～而上述提及的「stash」，即「暫存」就留到之後介紹囉～<br><br>
     今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
   </div>
   <br>
@@ -182,10 +409,11 @@
       <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
       <li><a href='https://backlog.com/git-tutorial/git-workflow/' target='_blank'>[git]backlog - Git workflow</a></li>
       <li><a href='https://ithelp.ithome.com.tw/articles/10135441' target='_blank'>[git]Will 保哥 - 比對檔案與版本差異</a></li>
+      <li><a href='http://localhost:4200/?post=gitInstance%2FDiff-Patch' target='_blank'>[vim]鳥哥的 Linux 私房菜 - vim 程式編輯器 介紹</a></li>
     </ul>
   </div>
   <h5 class="sign">
-    赤 2019-xx-xx xx:xx<br>
+    赤 2019-10-24 16:58<br>
   </h5>
 
 </div>
