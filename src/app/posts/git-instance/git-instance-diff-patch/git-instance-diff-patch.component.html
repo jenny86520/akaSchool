@@ -233,14 +233,14 @@
     當修改的是二進位檔案（如圖片），使用上述幾種基本的比較差異指令，<span
       class='point-red'>只會列出這個二進位檔案被更動了，但並不會列出更動的內容，這時候就要加上「--binary」參數就能顯示二進位轉碼後的內容了</span>。<br><br>
     我們實際實驗一下，首先先生出一張圖片吧！我就新增一個「cmd.jpg」的圖片檔，並執行「git diff」及「git diff --binary」比較工作目錄與索引的差異，如下圖：<br><br>
-    <img class='img' src='assets\posts\gitInstance2\diff-binary-file.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance2\diff-binary-new file.jpg'><br><br>
     圖中發現並沒有列出我們剛新增的「cmd.jpg」圖片檔，這是因為<span class='point-red'>其尚未加入到版控，git 看不到它</span>，所以就先將它加入版控吧～執行如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance2\diff-binary-new commit.jpg'><br><br>
-    這時「cmd.jpg」圖片檔以加入版控，並<b>連同剛在索引的「c.txt」更動</b>一起推上最新版本，不過此時「cmd.jpg」圖片檔已經推上最新版本，所以工作目錄、索引與最新版本任兩項差異都不會有「cmd.jpg」圖片檔。
+    這時「cmd.jpg」圖片檔已加入版控，並<b>連同剛在索引的「c.txt」更動</b>一起推上最新版本，不過此時「cmd.jpg」圖片檔已經推上最新版本，所以工作目錄、索引與最新版本任兩項差異都不會有「cmd.jpg」圖片檔。
     因此我們執行「git diff 910e6c4 5d86768」及「git diff 910e6c4 5d86768 --binary」比較前一項歷史版本與最新版本的差異（<span
       class='point-red'>大家的編號都不相同，記得使用自己 log 出的編號唷</span>），如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance2\diff-binary-diff.jpg'><br><br>
-    圖中可以看到，不加上「--binary」參數，只會顯示有案進位檔案更動，加上參數後就會顯示轉碼後的內容。
+    圖中可以看到，不加上「--binary」參數，只會顯示有二進位檔案更動，加上參數後就會顯示轉碼後的內容。
     而底下多了一句<span class='point-red'>「GIT binary patch」，即它順便幫你產生了「patch」修補檔</span>，待會就會介紹什麼是「patch」修補檔～<br><br>
     <br>
     <hr class="border-two" />
@@ -248,7 +248,7 @@
     <!--2. 修補檔的運用（Patch）-->
     <h3 class='sub-title'>2. 修補檔的運用（Patch）</h3>
     到這裡，你已經學會如何比較差異，不論是工作目錄與索引、工作目錄與最新版本、工作目錄與歷史版本、索引與最新版本、索引與歷史版本、最新版本與歷史版本、A 歷史版本與 B
-    歷史版本，以即二進位檔案的比較差異也都已經學透透了！<br><br>
+    歷史版本，以及二進位檔案的比較差異也都已經學透透了！<br><br>
     試想，如果我們能<span class='point-red'>把比較出來的差異內容存起來，並使用這個檔案來將舊版變為新版</span>（也就是從原本的<b>「A-B=C」變成「B+C=A」</b>，A 為新版、B 為舊版、C
     為比較的差異），理論上可以做到這件事，當然 git 的確提供了這個方法，也就是將比較差異的結果存成一個檔案，這個檔就稱為修補（Patch）檔！<br><br>
 
@@ -311,12 +311,12 @@
     <h5>git apply --reverse &lt;fileName&gt;.patch</h5>
     也許你會後悔這次更新的版本，想要退版了，有了 Patch 檔也很方便喔！首先我們先取消剛剛的 commit，如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance2\patch-reverse-reset.jpg'><br><br>
-    直要<span class='point-red'>於欲退版的分支加上參數「--reverse」</span>就行了～執行下列指令：<br><br>
+    只要<span class='point-red'>於欲退版的分支加上參數「--reverse」</span>就行了～執行下列指令：<br><br>
     <div class='block-code'>git apply --reverse update.patch</div><br>
     or<br><br>
     <div class='block-code'>git apply -R update.patch</div><br>
     <img class='img' src='assets\posts\gitInstance2\patch-reverse.jpg'><br><br>
-    可以看到原本套用過來的變更舊消失了！這樣就恢復原本的版本了，超級方便的！<br><br>
+    可以看到原本套用過來的變更就消失了！這樣就恢復原本的版本了，超級方便的！<br><br>
 
     <h5>git apply --check &lt;fileName&gt;.patch</h5>
     最後，還有一<span class='point-red'>參數「--check」，用來檢查如套用此 Patch
@@ -382,7 +382,7 @@
           <li>--binary：顯示二進位檔案變更的內容</li>
           <li>--name-only：僅顯示檔案名稱</li>
           <li>--name-status：僅顯示檔案名稱及狀態（新增、修改、刪除等）</li>
-          <li>--diff-filter=&lt;狀態代號&gt;：僅顯示狀態為選擇的狀態的檔案</li>
+          <li>--diff-filter=&lt;狀態代號&gt;：刪選出選擇的狀態</li>
         </ul>
       </li>
       <li>產生 Patch 檔：git diff &lt;A編號&gt; &lt;B編號&gt; &gt; &lt;fileName&gt;.patch</li>
@@ -413,7 +413,7 @@
     </ul>
   </div>
   <h5 class="sign">
-    赤 2019-10-24 16:58<br>
+    赤 2019-10-24 18:00<br>
   </h5>
 
 </div>
