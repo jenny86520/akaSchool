@@ -232,9 +232,8 @@
     <h4>1.1. 二進位（Binary）檔案的比較</h4>
     當修改的是二進位檔案（如圖片），使用上述幾種基本的比較差異指令，<span
       class='point-red'>只會列出這個二進位檔案被更動了，但並不會列出更動的內容，這時候就要加上「--binary」參數就能顯示二進位轉碼後的內容了</span>。<br><br>
-    我們實際實驗一下，首先先生出一張圖片吧！我就新增一個「cmd.jpg」的圖片檔，並執行「git diff」及「git diff --binary」比較工作目錄與索引的差異，如下圖：<br><br>
-    <img class='img' src='assets\posts\gitInstance2\diff-binary-new file.jpg'><br><br>
-    圖中發現並沒有列出我們剛新增的「cmd.jpg」圖片檔，這是因為<span class='point-red'>其尚未加入到版控，git 看不到它</span>，所以就先將它加入版控吧～執行如下圖：<br><br>
+    我們實際實驗一下，首先先生出一張圖片吧！我就新增一個「cmd.jpg」的圖片檔，並執行「git diff」及「git diff --binary」比較工作目錄與索引的差異，
+    發現並沒有列出我們剛新增的「cmd.jpg」圖片檔，這是因為<span class='point-red'>其尚未加入到版控，git 看不到它</span>，所以就先將它加入版控吧～執行如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance2\diff-binary-new commit.jpg'><br><br>
     這時「cmd.jpg」圖片檔已加入版控，並<b>連同剛在索引的「c.txt」更動</b>一起推上最新版本，不過此時「cmd.jpg」圖片檔已經推上最新版本，所以工作目錄、索引與最新版本任兩項差異都不會有「cmd.jpg」圖片檔。
     因此我們執行「git diff 910e6c4 5d86768」及「git diff 910e6c4 5d86768 --binary」比較前一項歷史版本與最新版本的差異（<span
