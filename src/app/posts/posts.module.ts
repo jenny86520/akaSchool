@@ -8,6 +8,7 @@ import { HelloWebsiteComponent } from './hello-website/hello-website.component';
 import { GitStartComponent } from './git-start/git-start.component';
 import { GitInstallComponent } from './git-install/git-install.component';
 import { GitInitialComponent } from './git-initial/git-initial.component';
+import { GitFinalComponent } from './git-final/git-final.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { GitInitialComponent } from './git-initial/git-initial.component';
     HelloWebsiteComponent,
     GitStartComponent,
     GitInstallComponent,
-    GitInitialComponent],
+    GitInitialComponent,
+    GitFinalComponent],
   imports: [
     CommonModule,
     PostsRoutingModule

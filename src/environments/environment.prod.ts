@@ -84,11 +84,22 @@ export const environment = {
     },
     {
       id: 13,
-      title: '0x0C 版控個人副本【[Git]復原變更（Reset、Revert）、重定基底（Rebase） 介紹】',
+      title: '0x0C 版控個人副本【[Git]復原變更（Reset、Revert）、重定基底（Rebase） 介紹】',    // 復原變更、重定基底，最終學會靈活地修改歷史紀錄（新增、修改、刪除、換位）
       path: 'gitInstance/Reset-Revert-Rebase',
       category: 'Git'
+    },
+    {
+      id: 14,
+      title: '0x0D 版控個人副本【[Git]暫存（Stash）、版本標記（Tag） 介紹】',
+      path: 'gitInstance/Stash-Tag',
+      category: 'Git'
+    },
+    {
+      id: 15,
+      title: '0x0E 探索「.git」資料夾 & 本地版控指令大集合【[Git] .git 資料夾內容介紹 & 所有本地版控指令】',
+      path: 'gitFinal',
+      category: 'Git'
     }
-    // 復原變更、重定基底，最終學會靈活地修改歷史紀錄（新增、修改、刪除、換位）
 
 
   ],
