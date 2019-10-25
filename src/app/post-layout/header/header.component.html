@@ -1,75 +1,32 @@
-<!-- .navbar-expand-{sm|md|lg|xl}決定在哪個斷點以上就出現漢堡式選單 -->
-<!-- navbar-dark 文字顏色 .bg-dark 背景顏色 -->
-<nav class="navbar  navbar-light block-header">
-
-  <!-- .navbar-toggler 漢堡式選單按鈕 -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span> <!-- .navbar-toggler-icon 漢堡式選單Icon -->
-  </button>
-
-  <!--webName-->
-  <h1 class='header-title'>
-    Welcome to <span style='color:tomato'>akaSchool</span>
-  </h1>
-  <!--作者-->
-  <span class='header-detail'>作者：aka／赤ちゃん</span>
+<header>
+  <!-- .navbar-expand-{sm|md|lg|xl}決定在哪個斷點以上就出現漢堡式選單 -->
+  <!-- navbar-dark 文字顏色 .bg-dark 背景顏色 -->
+  <nav class="navbar  navbar-light block-header" style="box-shadow:4px 4px 4px rgba(255, 207, 220, 0.5);">
 
 
-  <!-- .collapse.navbar-collapse 用於外層中斷點群組和隱藏導覽列內容 -->
-  <!-- 選單項目&漢堡式折疊選單 -->
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <!--排序選擇 & 搜尋-->
-    <form class="form-inline my-2 my-lg-0" (submit)="loadPosts()">
-      <!--排序選擇-->
-      <select class='form-control' name='orderType' [(ngModel)]='orderType'>
-        <option value='category'>依類別排序</option>
-        <option value='id'>依編號排序</option>
-      </select>
-      <!--搜尋-->
-      <input class="form-control mr-sm-2" type="text" name='search' placeholder="Search" aria-label="Search"
-        [(ngModel)]="searchText">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <!--依類別選單-->
-    <ul *ngIf="orderType === 'category'" class="navbar-nav mr-auto">
-      <!-- akaSchool -->
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle.title}}<span
-            class="sr-only">(current)</span></a>
-      </li>
-      <!--未分類-->
-      <li class="nav-item" *ngFor="let post of postsHasNoCategory">
-        <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
-          style="white-space: pre-line;">{{post.title}}</a>
-      </li>
-      <!--已分類-->
-      <li class="nav-item dropdown" *ngFor="let category of categories">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="true">{{category}}</a>
-        <!--其分類文章-->
-        <div class="dropdown-menu" [class.show]="searchText != ''" aria-labelledby="navbarDropdownMenuLink">
-          <div *ngFor="let post of postsHasCategory; let i = index">
-            <button *ngIf='post.category === category' class="dropdown-item" (click)='goToPost(post)'
-              style="white-space: pre-line;"> {{post.title}} </button>
-          </div>
-        </div>
-      </li>
-    </ul>
+    <!-- .navbar-toggler 漢堡式選單按鈕 -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      style="border: none;width: 100%;background-color: none;" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <!--webName-->
+      <div class='row'>
+        <h1 class='header-title col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3'>akaSchool</h1>
+        <span class='header-subtitle  col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6'>*爆肝工程師從零開始的日常*</span>
+        <!--作者-->
+        <div class='header-detail'>作者：aka／赤ちゃん</div>
 
-    <!--依編號選單-->
-    <ul *ngIf="orderType === 'id'" class="navbar-nav mr-auto">
-      <!-- akaSchool -->
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle.title}}<span
-            class="sr-only">(current)</span></a>
-      </li>
-      <!--所有文章-->
-      <li class="nav-item" *ngFor="let post of posts">
-        <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
-          style="white-space: pre-line;">{{post.title}}</a>
-      </li>
-    </ul>
-  </div>
+      </div>
+      <span class='d-md-none' style='font-size: 12px; color: gray;'>↑&nbsp;點我展開文章區</span>
+    </button>
 
-</nav>
+
+    <!-- .collapse.navbar-collapse 用於外層中斷點群組和隱藏導覽列內容 -->
+    <!-- 選單項目&漢堡式折疊選單 -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <br>
+      <app-overview></app-overview>
+      <app-menu></app-menu>
+    </div>
+  </nav>
+
+</header>

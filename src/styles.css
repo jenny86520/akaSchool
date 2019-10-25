@@ -1,27 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+/**font style */
+div{
+  font-family:  'Courier New', 'monospace', 'Arial', '微軟正黑體', '黑體繁', '標楷體', '新細明體';
+}
+
 /**wrapper */
 .two-col-wrapper {
-  padding-top: 20px;
-  padding-left: 20px;
-  /* padding-right: 20px; */
+  /* margin: 120px; */
+  padding-top: 3%;
+  padding-left: 1%;
+  padding-right: 1%;
   width: 100%;
-  float: left;
+  align-self: center;
+  /* float: left; */
+  display: block;
+}
+.wrapper-left{
+  position: fixed;
+  left: 0 !important;
+    margin: 0 !important;
+  padding: 0 !important;
   display: block;
 }
 
-
 /**block */
 .block-header {
-  background-color: gainsboro;
+  background-color: rgb(255, 244, 247);
 }
 .block-main {
   background-color: cornsilk
 }
-
+.block-menu{
+  padding-top: 20px;
+}
 .block-catalog {
   background-color: linen;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right: 1%;
+  padding-left: 1%;
   display: block;
 
 }
@@ -37,7 +52,8 @@
 }
 /**post text */
 .title {
-  color: brown
+  color: brown;
+  text-align:justify;
 }
 .sub-title {
   color: deeppink
@@ -88,6 +104,21 @@
   border-style: solid;
 }
 /**tag */
+header{
+  /* position: fixed;
+  width: 100%;
+  height: 100px;
+  display: block;
+  top: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 999 !important;
+  -moz-transition: all 0.12s;
+  -webkit-transition: all 0.12s;
+  -ms-transition: all 0.12s;
+  -o-transition: all 0.12s;
+  transition: all 0.12s; */
+}
 select {
   width: 50%;
 }
@@ -100,3 +131,20 @@ hr.border-two {
 ol { counter-reset: item -1 }
 ol li{ display: block; }
 ol li:before { content: counters(item, ".") ". "; counter-increment: item }
+
+#gotop {
+  position:fixed;
+  z-index:90;
+  right:30px;
+  bottom:30px;
+  display:none;
+  width:50px;
+  height:50px;
+  color:#fff;
+  background: pink;;
+  line-height:50px;
+  border-radius:50%;
+  transition:all 0.5s;
+  text-align: center;
+  box-shadow: 0 2px 5px 0
+}

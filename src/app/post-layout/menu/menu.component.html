@@ -1,19 +1,52 @@
-<!-- <div class='menu'>
-  <h3 class=''>文章區</h3><br>
-  <div style='font-size: 50%;padding-left: 5px'*ngFor='let post of posts'>
-    <li><a [routerLink]="goToPost(post)" skipLocationChange>{{post.title}}</a></li>
+<!--排序選擇 & 搜尋-->
+<form class="form-inline my-2 my-lg-0" (submit)="loadPosts()">
+  <div class='row'>
+    <!--排序選擇-->
+    <select class='form-control' name='orderType' [(ngModel)]='orderType'>
+      <option value='category'>依類別排序</option>
+      <option value='id'>依編號排序</option>
+    </select>
+    <!--搜尋-->
+    <input class="form-control mr-sm-2" type="text" name='search' placeholder="Search" aria-label="Search"
+      [(ngModel)]="searchText">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
   </div>
-</div> -->
-<!--簡介-->
-<div class="block-main">
-    <div>
-      <h2 class='title'>akaSchool ?</h2>
-      <span class='point-red'>「從這裡重新開始吧！從一，不，從零開始！」<br>雷姆琳的話要好好遵守❤</span><br><br>
-      這裡將會是爆肝工程師從零開始的日常，<br>我將會一點一滴記錄我的所見所聞，<br>冷熱知識((?<br><br>
-      目前以 Angular(web) 教學為主～<br>當然免不了有許多廢話啦:P<br><br>
-      歡迎持續追蹤＞＜!!
-      <h5 class="sign">赤 2019-08-28</h5>
+</form>
+<!--依類別選單-->
+<ul *ngIf="orderType === 'category'" class="navbar-nav mr-auto">
+  <!-- akaSchool -->
+  <li class="nav-item active">
+    <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle.title}}<span class="sr-only">(current)</span></a>
+  </li>
+  <!--未分類-->
+  <li class="nav-item" *ngFor="let post of postsHasNoCategory">
+    <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
+      style="white-space: pre-line;">{{post.title}}</a>
+  </li>
+  <!--已分類-->
+  <li class="nav-item dropdown" *ngFor="let category of categories">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="true">{{category}}</a>
+    <!--其分類文章-->
+    <div class="dropdown-menu" [class.show]="searchText != ''" aria-labelledby="navbarDropdownMenuLink">
+      <div *ngFor="let post of postsHasCategory; let i = index">
+        <button *ngIf='post.category === category' class="dropdown-item" (click)='goToPost(post)'
+          style="white-space: pre-line;"> {{post.title}} </button>
+      </div>
     </div>
-  </div>
+  </li>
+</ul>
 
-
+<!--依編號選單-->
+<ul *ngIf="orderType === 'id'" class="navbar-nav mr-auto">
+  <!-- akaSchool -->
+  <li class="nav-item active">
+    <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle.title}}<span class="sr-only">(current)</span></a>
+  </li>
+  <!--所有文章-->
+  <li class="nav-item" *ngFor="let post of posts">
+    <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
+      style="white-space: pre-line;">{{post.title}}</a>
+  </li>
+</ul>

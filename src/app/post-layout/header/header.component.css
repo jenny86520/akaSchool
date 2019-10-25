@@ -3,11 +3,25 @@
   color: lightpink;
 }
 .header-title {
-  color: white;
-  /* background-color: gainsboro; */
-  text-align: center;
+  padding-left: 10%;
+  color:red;
+    /* background-color: gainsboro; */
+  text-align: left;
+  align-self: center;
+
 }
+.header-subtitle {
+  color:red;
+    /* background-color: gainsboro; */
+  text-align: left;
+  align-self: center;
+
+}
+
+
 .header-detail {
   color: mediumvioletred;
-  text-align:right;
+  text-align: right;
+  align-self: flex-end;
+
 }

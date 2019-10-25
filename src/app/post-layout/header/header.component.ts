@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   postsHasNoCategory: any;  // 存放未分類
   postsHasCategory: any;    // 存放已分類
 
+
   constructor(private router: Router) {
   }
 
