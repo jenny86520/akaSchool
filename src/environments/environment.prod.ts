@@ -84,7 +84,7 @@ export const environment = {
     },
     {
       id: 13,
-      title: '0x0C 版控個人副本【[Git]復原變更（Reset、Revert）、重定基底（Rebase） 介紹】',    // 復原變更、重定基底，最終學會靈活地修改歷史紀錄（新增、修改、刪除、換位）
+      title: '0x0C 版控個人副本【[Git]復原變更（Reset、Checkout）、復原版本（Revert）、重定基底（Rebase） 介紹】',
       path: 'gitInstance/Reset-Revert-Rebase',
       category: 'Git'
     },

@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class GitInstanceResetRevertRebaseComponent implements OnInit {
   title: string = environment.postTitles.find(x => x.path === 'gitInstance/Reset-Revert-Rebase').title;
+  postGitInstance2: any = environment.postTitles.find(x => x.path === 'gitInstance/Diff-Patch');
+  postGitInitial: any = environment.postTitles.find(x => x.path === 'gitInitial');
+
   constructor() { }
 
   ngOnInit() {

@@ -1,28 +1,43 @@
 <div>
   <h2 class='title'>{{title}}</h2>
   <!--前言-->
-  <!-- 標題越來越長了((扶額<br><br>
-  歡迎來到版控個人副本2，請問有獲得「版控個人副本1」的戰利品了嗎？沒有的話就先通關吧：<br><br>
-  <a routerLink='' [queryParams]='{ post: postGitInstance.path }' target='_blank'>{{postGitInstance.title}}</a><br><br>
-  在這裡將會有三頭 Boss（版控觀念釐清、比較差異、修補檔）等著大家唷！
-  本次副本可以獲得的成就有以下：<span class='point-red'>釐清工作目錄、索引、建立版本、最新版本各自的定義，以及如何比較差異、運用修補檔（Patch）。</span><br><br>
+  誰來告訴我如何縮短標題((扶額<br><br>
+  歡迎來到版控個人副本3，請問有獲得「版控個人副本2」的戰利品了嗎？沒有的話就先通關吧：<br><br>
+  <a routerLink='' [queryParams]='{ post: postGitInstance2.path }' target='_blank'>{{postGitInstance2.title}}</a><br><br>
+  在這裡將會有三頭 Boss（復原變更、復原版本、重定基底）等著大家唷！
+  本次副本可以獲得的成就有以下：<span class='point-red'>復原變更（Reset）、拯救檔案（Checkout）、復原版本（Revert）、重定基底（Rebase）、reflog 的應用，
+    以及學會靈活地修改歷史紀錄（新增、修改、刪除、換位）。</span><br><br>
   將<span class='point-red'>於 Git Bash 環境下執行 Git 操作</span>，讓我們開始<del>打怪</del>吧！<br><br>
   想複習一下 Git 版本控管的基本操作，歡迎參考下列文章～要達一定等級才能開始打副本啊！<br><br>
   <a routerLink='' [queryParams]='{ post: postGitInitial.path }' target='_blank'>{{postGitInitial.title}}</a><br><br>
- -->
+
   <!--教學導覽-->
   <table class='block-catalog'>
-    Coming soon ...
-    <!-- 本日教學導覽
+    本日教學導覽
     <ol>
-      <li value="0">版控觀念釐清
+      <li value="0">Reset 的多種復原方式
+        <ol>
+          <li>取消索引（git reset／git reset HEAD）</li>
+          <li>復原最新版本（git reset HEAD^／git reset HEAD~N）</li>
+          <li>復原 Merge、Reset、Revert（git reset ORIG_HEAD）</li>
+          <li>Revert 常用參數（--patch／-p、--mixed、--hard）</li>
+        </ol>
       </li>
-    </ol> -->
+      <li>Checkout 與索引比較的復原方式
+        <ol>
+          <li>復原檔案／資料夾（git checkout -- &lt;file&gt;）</li>
+          <li>復原特定版本下的檔案／資料夾</li>
+        </ol>
+      </li>
+      <li>復原版本（Revert）</li>
+      <li>重定基底（Rebase）</li>
+    </ol>
   </table>
-  <!-- <br>
-  <hr class="border-two" /> -->
+  <br>
+  <hr class="border-two" />
   <!--/教學導覽-->
   <div>
+    Coming soon ...
   </div>
   <br>
   <hr class="border-two" />
