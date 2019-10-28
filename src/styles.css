@@ -7,9 +7,10 @@ div{
 /**wrapper */
 .two-col-wrapper {
   /* margin: 120px; */
-  padding-top: 3%;
+  padding-top: 2%;
   padding-left: 1%;
   padding-right: 1%;
+  padding-bottom: 2%;
   width: 100%;
   align-self: center;
   /* float: left; */
@@ -24,14 +25,32 @@ div{
 }
 
 /**block */
+.postlayout{
+  background-color: whitesmoke;
+}
 .block-header {
   background-color: rgb(255, 244, 247);
+  box-shadow:4px 4px 4px rgba(255, 207, 220, 0.5);
 }
-.block-main {
-  background-color: cornsilk
+.block-overview {
+  background-color: cornsilk;
+  box-shadow:4px 4px 2px rgba(255, 234, 174, 0.5);
 }
 .block-menu{
-  padding-top: 20px;
+  background-color: white;
+  box-shadow:4px 4px 2px rgb(255, 220, 220);
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 1%;
+}
+.block-main{
+  background-color: white;
+  box-shadow:4px 4px 2px rgb(255, 220, 220);
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 1%;
 }
 .block-catalog {
   background-color: linen;
@@ -127,10 +146,19 @@ hr.border-two {
   border-bottom: 1px solid #ccc;
   background: #999;
 }
+hr.border-s {
+  content: "";
+  display: block;
+  height: 0.5px;
+  width: 100%;
+  background: pink;
+}
+
 
 ol { counter-reset: item -1 }
 ol li{ display: block; }
 ol li:before { content: counters(item, ".") ". "; counter-increment: item }
+
 
 #gotop {
   position:fixed;

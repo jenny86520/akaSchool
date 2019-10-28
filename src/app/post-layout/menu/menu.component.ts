@@ -36,6 +36,7 @@ export class MenuComponent implements OnInit {
     // for home not show (''/'')
     // navigateByUrl(this.selectPost.path ? ['/', this.selectPost.path] : ['/'])
     this.router.navigate(['/'], { queryParams: { post: post.path }, skipLocationChange: true });
+    // alert('將切換至「' + post.title + '」\n\n請自行收合文章區:P');
   }
 
 }
