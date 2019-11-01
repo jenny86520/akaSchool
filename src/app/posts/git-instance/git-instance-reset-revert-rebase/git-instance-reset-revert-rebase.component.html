@@ -3,7 +3,8 @@
   <!--前言-->
   誰來告訴我如何縮短標題((扶額<br><br>
   歡迎來到版控個人副本3，請問有獲得「版控個人副本2」的戰利品了嗎？沒有的話就先通關吧：<br><br>
-  <a routerLink='' [queryParams]='{ post: postGitInstance2.path }' target='_blank'>{{postGitInstance2.title}}</a><br><br>
+  <a routerLink='' [queryParams]='{ post: postGitInstance2.path }'
+    target='_blank'>{{postGitInstance2.title}}</a><br><br>
   在這裡將會有三頭 Boss（復原變更、復原版本、重定基底）等著大家唷！
   本次副本可以獲得的成就有以下：<span class='point-red'>復原變更（Reset）、拯救檔案（Checkout）、復原版本（Revert）、重定基底（Rebase）、reflog 的應用，
     以及學會靈活地修改歷史紀錄（新增、修改、刪除、換位）。</span><br><br>
@@ -17,10 +18,10 @@
     <ol>
       <li value="0">Reset 的多種復原方式
         <ol>
-          <li>取消索引（git reset／git reset HEAD）</li>
-          <li>復原最新版本（git reset HEAD^／git reset HEAD~N）</li>
-          <li>復原 Merge、Reset、Revert（git reset ORIG_HEAD）</li>
-          <li>Revert 常用參數（--patch／-p、--mixed、--hard）</li>
+          <li>取消索引</li>
+          <li>復原最新版本</li>
+          <li>復原危險操作 & reflog 應用</li>
+          <li>常用參數</li>
         </ol>
       </li>
       <li>Checkout 與索引比較的復原方式
@@ -37,27 +38,160 @@
   <hr class="border-two" />
   <!--/教學導覽-->
   <div>
-    Coming soon ...
+    <h2 class='sub-title'>前置作業</h2>
+    記得先準備好一份<del>搞壞也沒關係的</del>專案做測試，或是<b>把原本的「.git」資料夾備份一份，搞壞再換回備份的</b>，當作一切都沒發生過。
+    我準備的專案內容、狀態、歷史紀錄如下，新增三個空的文字檔，且加入版控，非常乾淨溜溜：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\overview.jpg'><br><br>
+
+    <!--0. Reset 的多種復原方式-->
+    <h2 class='sub-title'>0. Reset 的多種復原方式</h2>
+    當更動檔案時，總是會有手誤改錯的部分，或是上傳版本之後，又想後悔復原，這時候 Reset 就是一個很好的復原幫手，
+    能夠<span class='point-red'>根據歷史資料來替你還原資料</span>，底下將一一介紹 Reset 的指令與其用途。<br><br>
+    <!--0.0. 取消索引（git reset／git reset HEAD）-->
+    <h3>0.0. 取消索引</h3>
+    從一開始一直 follow 我的你們，一定對這指令不陌生，以下指令可以<span class='point-red'>將加入索引的更動取消，回到最新版本，預設工作目錄保留更動</span>
+    （關於工作目錄、索引等名詞解釋：<a routerLink='' [queryParams]='{ post: postGitInstance2.path }'
+      target='_blank'>{{postGitInstance2.title.substr(0, 4)}}</a>）：<br><br>
+    <div class='block-code'>git reset</div><br>
+    or<br><br>
+    <div class='block-code'>git reset HEAD</div><br>
+    那我們來實際練習一下，可以嘗試不看底下操作，自己完成任務吧～<br><br>
+    <div class='block-table'>
+      ><b>普通任務</b>：於任一檔案（a.txt）中加入一串內容（add for reset），並將此檔加入索引後，試著取消索引。<br>
+      ><b>進階任務</b>：將任一修改過的檔案（a.txt）加入索引，再修改同一檔案的同一修改位置（edit for reset），使得工作目錄與索引中的同一檔案的同一位置擁有不同更動，試著取消索引，看看檔案的內容變化。
+    </div><br>
+
+    首先我們先完成普通任務，我使用 vim 來修改檔案並加入索引，如下（vim 的基本操作可以參考我的<a routerLink='' [queryParams]='{ post: postGitInitial.path }'
+      target='_blank'>這篇</a>，或是別人的<a href='http://linux.vbird.org/linux_basic/0310vi.php#vi_ex'
+      target='_blank'>這篇</a>。）：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-normal-edit a.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-normal-add.jpg'><br><br>
+    接著執行「git reset」或「git reset HEAD」看看變化，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-normal-reset.jpg'><br><br>
+    看見我們成功取消索引了，但是<span class='point-red'>更動的內容依然存在於工作目錄</span>。<br><br>
+    再來我們來嘗試進階任務，再次把「a.txt」加入索引，並開啟此檔於修改剛剛加入的內容，如下：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-normal-add-2.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-normal-edit a-2.jpg'><br><br>
+    最後就是重頭戲啦～執行「git reset」或「git reset HEAD」看看變化吧～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-normal-reset-2.jpg'><br><br>
+    目前狀態中可以看到，工作目錄一樣只有紀錄一個「a.txt」，我們打開來看看他內容是留哪份，可以看到<span class='point-red'>留的是後來工作目錄中的結果</span>。<br><br>
+    可以想像索引中的更動是預計要上架的產品，而工作目錄下的為其備份產品，後來發現要上架的產品有瑕疵，所以修正了瑕疵（add -> edit），並取消預計上架的那份（取消索引），
+    而且想當然，保留著的是後來修正瑕疵的產品（工作目錄中的）。這樣應該就很能理解為何取消索引後，工作目錄會存在更動，且與索引重疊的部分會保留工作目錄的結果了！<br><br>
+
+    <!--0.1. 復原最新版本（git reset HEAD^／git reset HEAD~N）-->
+    <h3>0.1. 復原最新版本</h3>
+    以下指令可以<span class='point-red'>復原上一次的 commit，回到前一版本，預設工作目錄保留更動</span>：<br><br>
+    <div class='block-code'>git reset HEAD^</div><br>
+    而以下指令可以<span class='point-red'>復原前 N 次的 commit，回到前 N 版本，工作目錄保留 N 版本後的所有更動（N 為任一正整數）</span>：<br><br>
+    <div class='block-code'>git reset HEAD~N</div><br>
+    那我們來實際練習一下，可以嘗試不看底下操作，自己完成任務吧～<br><br>
+    <div class='block-table'>
+      ><b>普通任務</b>：上傳任一 commit，試著取消這次 commit。<br>
+      ><b>進階任務</b>：試著復原至前兩次的 commit（HEAD~2），並觀察工作目錄的狀態。
+    </div><br>
+
+    首先，先完成普通任務，我們把剛剛修改的「a.txt」加入索引並上傳 commit ，內容為「edit a.txt」，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-head-commit.jpg'><br><br>
+    現在執行「git reset HEAD^」或「git reset HEAD~1」來取消這次 commit 吧！如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-head-reset.jpg'><br><br>
+    可以看到剛剛的 commit 消失了，而且「a.txt」的更動也回到工作目錄中囉！<br><br>
+    接著就來練習進階任務，重複上述將a.txt」加入索引並上傳 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-head-commit.jpg'><br><br>
+    執行「git reset HEAD~2」來復原至前兩次的 commit，以目前的歷史紀錄來看，就是還原到沒有任何 commit 的狀態，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-head-reset-2.jpg'><br><br>
+    發生錯誤了！其實並不意外，畢竟「還原到沒有任何 commit 的狀態」等同於還原到尚未被加入版控時，那 git 當然不知道你是要還原到哪裡去，就像問別人還沒出生前長什麼模樣一樣((?<br><br>
+    <span class='point-red'>發生錯誤也不必擔心，通常 git 會直接幫你取消你的操作</span>，所以狀態、工作目錄、索引、歷史等都不會有改變，等同於你沒有做任何操作而已。<br><br>
+    為了繼續完成任務，我們就再加一條 commit 吧！這次換於「b.txt」檔中加入內容「add for reset」，並加入索引後上傳 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-head-edit.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-head-commit-2.jpg'><br><br>
+    最後，再次執行「git reset HEAD~2」來復原至前兩次的 commit，以目前的歷史紀錄來看，就是還原到初次 commit 的狀態，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-head-reset-3.jpg'><br><br>
+    可以看到，兩次的 commit 更動都丟回工作目錄了，就像將產品下架一樣，但是下架的產品還會保留起來這樣。<br><br>
+
+    <!--0.2. 復原危險操作 & reflog 應用（git reset ORIG_HEAD）-->
+    <h3>0.2. 復原危險操作 & reflog 應用</h3>
+    以下指令可以<span class='point-red'>復原到上一次 Merge、Reset、Revert、Rebase 的前一版本，預設工作目錄保留更動（後面會介紹 Revert 及
+      Rebase）</span>：<br><br>
+    <div class='block-code'>git reset ORIG_HEAD</div><br>
+    <span class='point-red'>Merge、Reset、Revert、Rebase皆被 git 視為危險操作</span>，因此特別多了一個「指標」紀錄危險操作的前一版本。
+    此外，git 除了提供「git log」查詢歷史紀錄（版本）外，也提供查詢所有「歷史操作」，如下指令：<br><br>
+    <div class='block-code'>git reflog</div><br>
+    上述指令能夠<span class='point-red'>列出所有對此專案所做的任何操作（commit、merge、reset 等等），並且提供每一次操作的指標（HEAD@&#123;N&#125;，N
+      為正整數）</span>供還原到該版本。且操作前都會註明這次操作是 commit、reset、merge 等（<span class='point-red'>內容開頭會註明</span>），藉此看出 ORIG_HEAD 指向的上一次危險操作的位置在哪邊。<br><br>
+    有了每一操作的指標，我們可透過指標回到該操作的時刻，也就是還原該操作之後的所有操作，如下指令：<br><br>
+    <div class='block-code'>git reset HEAD@&#123;N&#125;</div><br>
+
+    那我們來實際練習一下，可以嘗試不看底下操作，自己完成任務吧～<br><br>
+    <div class='block-table'>
+      ><b>普通任務</b>：1. 試著查詢目前所有「歷史操作」。　2. 試著使用「ORIG_HEAD」還原復原動作。<br>
+      ><b>進階任務</b>：1. 試著新增多筆 commit，並還原至 ORIG_HEAD 位置。　2. 試著還原前五次歷史「操作」（HEAD@&#123;5&#125;）。
+    </div><br>
+
+    首先先來完成普通任務吧～查詢一下目前為止的歷史操作，順便印出歷史紀錄做比對，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-reflog.jpg'><br><br>
+    可以看到我們前面所做的所有操作都被記錄下來了，而每一筆操作皆有自己的「指標」（HEAD@&#123;N&#125;），類似編號。至於歷史紀錄就只會紀錄 commit。<br><br>
+    接著完成普通任務2吧～目前只有初始加入版控的 commit，我們多加一個 commit 測試吧（你要直接執行還原復原也可以），那我們把目前工作目錄下的更動上傳 commit，如下：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-commit.jpg'><br><br>
+    再來就執行復原，並看一下歷史操作吧～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-reset.jpg'><br><br>
+    還原復原的重頭戲來了，<span class='point-red'>先查看歷史操作，可以確定一下要還原上一次復原動作</span>（reset: moving to HEAD^），執行如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-rereset.jpg'><br><br>
+    上圖可以看到<span class='point-red'>又寫了一筆歷史操作（reset: moving to ORIG_HEAD）</span>，並且剛剛的 commit 回來囉～當然工作目錄也變乾淨了。<br><br>
+    這時候會不會好奇，如果我再次執行「git reset ORIG_HEAD」會還原到哪裡去？來試試看吧～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-rereset-2.jpg'><br><br>
+    剛剛的 commit 又消失了！並且更動又回到了工作目錄，看來是<span class='point-red'>還原了剛剛的還原動作，代表還原至 ORIG_HEAD
+      位置也被視為危險的動作</span>，來看看歷史操作，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-reflog-2.jpg'><br><br>
+    可以看到這次的操作跟剛剛一樣（reset: moving to ORIG_HEAD），一種「負負得正」的概念，所以又回到剛剛復原 commit 的狀態囉！<br><br>
+
+    接下來就來完成進階任務吧～上傳幾筆 commit，我就把工作目錄下的兩個檔案分別上傳 commit，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-commit-2.jpg'><br><br>
+    執行還原來看看結果吧～如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-rereset-3.jpg'><br><br>
+    上圖可以看到又寫了一筆歷史操作（reset: moving to ORIG_HEAD），現在歷史紀錄與工作目錄的狀態怎麼怪怪的！？<br><br>
+    歷史紀錄刪除了「edit a.txt」、「edit b.txt」兩筆，並多了一筆「edit a.txt & b.txt」，而且目前工作目錄為空。
+    其實一點也不奇怪唷～以剛剛的理解來看，ORIG_HEAD 可還原至上一次危險的動作前，而上一次危險的動作應該是我們負負得正的「還原剛剛的還原動作」，
+    所以<span class='point-red'>此次還原是跑到「還原剛剛的還原動作」的操作的前一版本，也就是「還原的動作」</span>，就是剛剛我們復原（取消）「edit a.txt & b.txt」的 commit，並還原此
+    commit 時的狀態唷！<br><br>
+    不相信的話，我們就可以善用比較來看看是不是同一個地方（比較結果相同代表兩項操作後皆指向同一地方），或是看看「git reflog」的結果，看到<span class='point-red'>分支及目前位置的標示（ (HEAD ->
+      master) ），
+      代表著這些操作都是指向同一個地方</span>。我們就來執行比較差異看看是不是真的相同，當然可以<span class='point-red'>直接使用歷史操作的指標來比較</span>，如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-diff.jpg'><br><br>
+    沒有印出任何東西，代表兩者相同喔～有沒有很神奇啊！<br><br>
+    最後完成進階任務吧～其實超簡單的XD 如下圖：<br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-reset-2.jpg'><br><br>
+    <img class='img' src='assets\posts\gitInstance3\reset-orig-reset-status.jpg'><br><br>
+    我們又回到一開始復原 commit 的時刻囉！恭喜完成任務～<br><br>
+
+    <!--0.3. 常用參數（--patch／-p、--mixed、--soft、--hard）-->
+    <h3>0.3. 常用參數</h3>
+
+
   </div>
   <br>
   <hr class="border-two" />
 
   <!--結語-->
-  <!-- <div>
-      今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
-    </div>
-    <br>
-    <hr class="border-two" /> -->
+  <div>
+    今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議觀迎 Email 告訴我喔～謝謝❤</span><br>
+  </div>
+  <br>
+  <hr class="border-two" />
 
   <!--參考資料-->
-  <!-- <div>
-      <h3 class='sub-title'>參考資料</h3>
-      <ul>
-        <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
-      </ul>
-    </div>
-    <h5 class="sign">
-      赤 2019-xx-xx xx:xx<br>
-    </h5> -->
+  <div>
+    <h3 class='sub-title'>參考資料</h3>
+    <ul>
+      <li><a href='https://www.udemy.com/course/git-newbie/' target='_blank'>[git]Will 保哥 - 精通 Git 版本控管：從入門到進階</a></li>
+      <li><a href='https://backlog.com/git-tutorial/tw/stepup/stepup6_3.html' target='_blank'>[git]連猴子都能懂的 Git 入門指南 -
+          復原常用參數</a></li>
+      <li><a href='https://www.itread01.com/content/1548587342.html' target='_blank'>[git]ITREAD01 - Git 中 HEAD 和
+          ORIG_HEAD 指標指的是什麼</a></li>
+      <li><a href='http://3ctipsmemo.blogspot.com/2018/06/html.html' target='_blank'>[html]3C 健忘人 - HTML 顯示特殊字元與符號編碼</a></li>
+    </ul>
+  </div>
+  <h5 class="sign">
+    赤 2019-xx-xx xx:xx<br>
+  </h5>
 
 </div>
