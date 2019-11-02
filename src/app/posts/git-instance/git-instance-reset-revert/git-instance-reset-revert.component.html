@@ -93,7 +93,7 @@
     現在執行「git reset HEAD^」或「git reset HEAD~1」來取消這次 commit 吧！如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance3\reset-head-reset.jpg'><br><br>
     可以看到剛剛的 commit 消失了，而且「a.txt」的更動也回到工作目錄中囉！<br><br>
-    接著就來練習進階任務，重複上述將a.txt」加入索引並上傳 commit，如下圖：<br><br>
+    接著就來練習進階任務，重複上述將「a.txt」加入索引並上傳 commit，如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance3\reset-head-commit.jpg'><br><br>
     執行「git reset HEAD~2」來復原至前兩次的 commit，以目前的歷史紀錄來看，就是還原到沒有任何 commit 的狀態，如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance3\reset-head-reset-2.jpg'><br><br>
@@ -243,7 +243,7 @@
     <div class='block-code'>git checkout -- &lt;file&gt;</div><br>
     上述指令用來還原某檔案或資料夾的更動，其實就是<span class='point-red'>將工作目錄下的某檔案或資料夾，復原成索引中此檔案或資料夾的模樣</span>，
     當索引為空，則工作目錄下還原成索引的話，就被清空，當然就復原了檔案的更動（放棄了剛剛工作目錄中的更動）。<br><br>
-    我們來隨意嘗試一下，先看一下目前工作目錄與索引的狀態，還記得剛剛供作目錄跟索引中對於「a.txt」檔案的更動嗎？如下圖：<br><br>
+    我們來隨意嘗試一下，先看一下目前工作目錄與索引的狀態，還記得剛剛工作目錄跟索引中對於「a.txt」檔案的更動嗎？如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance3\checkout-status.jpg'><br><br>
     圖中也可以看到，它也有提示使用 checkout 指令可還原更動（use "git checkout -- &lt;file&gt;..." to discard changes in working directory）。
     當我們執行「git checkout -- a.txt」，就會將工作目錄下的「a.txt」復原成索引中「a.txt」的模樣，如下圖：<br><br>
@@ -292,7 +292,7 @@
     那我們打開「a.txt」檔案瞧瞧吧，如下：<br><br>
     <img class='img' src='assets\posts\gitInstance3\revert-revert-error-show.jpg'><br><br>
     上圖看到 git 貼心的幫你把衝突的地方標示出來，可以看到在上塊（HEAD）為最新版本下的內容，下塊（parent of a197af2... edit a.txt）為 revert
-    指定版本的上一版（因為是要復原至指定版本，所以當然是變為指定版本的上一版，為空內容）。
+    指定版本的上一版（因為是要復原指定版本，所以當然是變為指定版本的上一版，為空內容）。
     那我們就保留「add for revert」文字就好，其他砍掉，儲存後退出，如下圖：<br><br>
     <img class='img' src='assets\posts\gitInstance3\revert-revert-error-edit.jpg'><br><br>
     接著我們執行「git status」，看到它給的提示，如下圖（由於<span class='point-red'>我們在不正常的狀態，故要使用它提示的方式離開不正常狀態喔！</span>不然後果自行負責～）：<br><br>
