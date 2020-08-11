@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PostLayoutModule } from './post-layout/post-layout.module';
+import { AngularFireModule } from '@angular/fire';
+import {firebaseConfig} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { PostLayoutModule } from './post-layout/post-layout.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PostLayoutModule
+    PostLayoutModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
