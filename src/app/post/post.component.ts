@@ -1,19 +1,21 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { map } from "rxjs/operators";
+import { NavigationEnd, Router } from "@angular/router";
 class Post {
   Title: string;
   Content: string;
   Tag: string[];
   Category: string[];
-  UpdDates: any[];
-  UpdUser: string[];
 }
 class Reference {
   Author: string;
   Title: string;
   Category: string;
   Url: string;
+}
+class Update {
+  date: any;
+  user: string;
 }
 
 @Component({
@@ -22,23 +24,61 @@ class Reference {
   styleUrls: ["./post.component.css"],
 })
 export class PostComponent implements OnInit {
+  public postNumber: string;
   public post: Post;
   public references: Reference[];
+  public updates: Update[];
 
-  constructor(private afs: AngularFirestore) {
-    this.afs
-      .doc<Post>("/Post/0x00")
-      .snapshotChanges()
-      .pipe(map((posts) => posts.payload.data()))
-      .subscribe(
-        (post : Post) => {
-          this.post = post;
-        },
-        (err) => {
-          console.log("err...");
-          // console.log(err);
-        }
-      );
+  private tmp;
+
+  constructor(private afs: AngularFirestore, private router: Router) {
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.postNumber = this.router.url.substring(1);
+        // get post
+        this.afs
+          .doc<Post>(`/Post/${this.postNumber || "0"}`)
+          .valueChanges()
+          .subscribe(
+            (post: Post) => {
+              this.post = post;
+            },
+            (err) => {
+              console.log("err...");
+            }
+          );
+
+        // get update collection
+        this.afs
+          .collection<Update>(
+            `/Post/${this.router.url.substring(1) || "0"}/UpdateCollection`
+          )
+          .valueChanges()
+          .subscribe(
+            (updateCollection) => {
+              this.updates = updateCollection;
+            },
+            (err) => {
+              console.log("err...");
+            }
+          );
+
+        // get reference collection
+        this.afs
+          .collection<Reference>(
+            `/Post/${this.router.url.substring(1) || "0"}/ReferenceCollection`
+          )
+          .valueChanges()
+          .subscribe(
+            (referenceCollection) => {
+              this.references = referenceCollection;
+            },
+            (err) => {
+              console.log("err...");
+            }
+          );
+      }
+    });
   }
 
   ngOnInit() {
@@ -47,8 +87,6 @@ export class PostComponent implements OnInit {
       Content: "",
       Tag: [],
       Category: [],
-      UpdUser: [],
-      UpdDates: [],
     };
   }
 }

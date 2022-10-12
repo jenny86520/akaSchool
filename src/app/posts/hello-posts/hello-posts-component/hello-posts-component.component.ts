@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment.prod';
 export class HelloPostsComponentComponent implements OnInit {
   title: string = environment.postTitles.find(x => x.path === 'helloPosts/component').title;
   lastPost: any = {
-    title: environment.postTitles.find(x => x.path === 'helloPosts/file').title,
-    path: 'helloPosts/file'
+    title: environment.postTitles.find(x => x.path === '0x02').title,
+    path: '0x02'
   };
 
   constructor() { }

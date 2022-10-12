@@ -1,5 +1,5 @@
 <div>
-  <h2 class='title'>{{post.Title}}</h2>
+  <h2 class='title'>{{postNumber}} {{post.Title}}</h2>
 
   <div [innerHTML]="post.Content || 'Coming soon ...'"></div>
 
@@ -11,7 +11,7 @@
   </div>
 
   <!--參考資料-->
-  <div *ngIf="references">
+  <div *ngIf="references?.length > 0">
     <br>
     <hr class="border-two" />
     <h3 class='sub-title'>參考資料</h3>
@@ -23,8 +23,8 @@
 
   <h5 class="sign">
     <br>
-    <span *ngFor="let updDate of post.UpdDates; let i = index">
-      {{post.UpdUser[i]}} {{updDate.seconds * 1000 | date:'yyyy-MM-dd HH:mm'}}<br>
+    <span *ngFor="let update of updates; let i = index">
+      {{i > 0 ? '更新：': ''}}{{update.user}} {{update.date.seconds * 1000 | date:'yyyy-MM-dd HH:mm'}}<br>
     </span>
   </h5>
 

@@ -1,4 +1,4 @@
-import { PostComponent } from './post/post.component';
+// import { PostComponent } from './post/post.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './post-layout/main/main.component';
@@ -10,7 +10,7 @@ const routes: Routes = [
     loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)
     // children: [
     //   {
-    //     path: '',
+    //     path: '**',
     //     component: PostComponent,
     //   },
     // ],

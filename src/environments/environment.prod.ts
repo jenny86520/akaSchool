@@ -1,5 +1,6 @@
 export const environment = {
   categories: [
+    'Website',
     'Angular',
     'Git'
   ],
@@ -12,20 +13,23 @@ export const environment = {
     },
     {
       id: 1,
-      title: '0x00 從零開始的爆肝工程師日常',
-      path: 'helloWorld',
+      title: '從零開始的爆肝工程師日常',
+      path: '0x00',
+      // path: 'helloWorld',
       category: ''
     },
     {
       id: 2,
-      title: '0x01 從零開始的個人網站【Angular、Git、GitHub 基礎入門】',
-      path: 'helloWebsite',
-      category: ''
+      title: '從零開始的個人網站【Angular、Git、GitHub 基礎入門】',
+      path: '0x01',
+      // path: 'helloWebsite',
+      category: 'Website'
     },
     {
       id: 3,
-      title: '0x02 我的第一篇文章-序章【Angular 專案檔案介紹】',
-      path: 'helloPosts/file',
+      title: '我的第一篇文章-序章【Angular 專案檔案介紹】',
+      path: '0x02',
+      // path: 'helloPosts/file',
       category: 'Angular'
     },
     {

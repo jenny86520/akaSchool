@@ -7,12 +7,12 @@ import { PostLayoutModule } from './post-layout/post-layout.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { firebaseConfig } from '../environments/environment';
-import { PostComponent } from './post/post.component';
+// import { PostComponent } from './post/post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostComponent
+    // PostComponent
   ],
   imports: [
     BrowserModule,

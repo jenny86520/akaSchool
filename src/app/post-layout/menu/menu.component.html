@@ -17,13 +17,13 @@
 <ul *ngIf="orderType === 'category'" class="navbar-nav mr-auto">
   <!-- akaSchool -->
   <li class="nav-item active">
-    <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle.title}}<span class="sr-only">(current)</span></a>
+    <a class="nav-link" routerLink="/">{{homeTitle.title}}<span class="sr-only">(current)</span></a>
   </li>
   <!--未分類-->
   <li class="nav-item" *ngFor="let post of postsHasNoCategory">
     <hr class='border-s'>
     <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
-      style="white-space: pre-line;">{{post.title}}</a>
+      style="white-space: pre-line;">{{post.path}} {{post.title}}</a>
   </li>
   <!--已分類-->
   <li class="nav-item dropdown" *ngFor="let category of categories">
@@ -35,7 +35,7 @@
       <li *ngFor="let post of postsHasCategory; let i = index">
         <hr *ngIf='post.category === category' class='border-s'>
         <button *ngIf='post.category === category' class="dropdown-item" (click)='goToPost(post)'
-          style="white-space: pre-line;"> {{post.title}} </button>
+          style="white-space: pre-line;">{{post.path}} {{post.title}} </button>
       </li>
     </ul>
   </li>
