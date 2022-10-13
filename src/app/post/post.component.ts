@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { NavigationEnd, NavigationStart, Router } from "@angular/router";
+import { Location } from "@angular/common";
+
 class Post {
   Title: string;
   Content: string;
@@ -29,9 +31,16 @@ export class PostComponent implements OnInit {
   public references: Reference[];
   public updates: Update[];
 
-  constructor(private afs: AngularFirestore, private router: Router) {
-    router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && event.id !== 2) {
+  constructor(
+    private afs: AngularFirestore,
+    private router: Router,
+    private location: Location
+  ) {
+    this.router.events.subscribe((event) => {
+      if (
+        event instanceof NavigationEnd &&
+        this.router.url.includes(this.location.path())
+      ) {
         this.postNumber = this.router.url.substring(1);
         // get post
         this.afs
@@ -49,7 +58,7 @@ export class PostComponent implements OnInit {
         // get update collection
         this.afs
           .collection<Update>(
-            `/Post/${this.router.url.substring(1) || "0"}/UpdateCollection`
+            `/Post/${this.postNumber || "0"}/UpdateCollection`
           )
           .valueChanges()
           .subscribe(
@@ -64,7 +73,7 @@ export class PostComponent implements OnInit {
         // get reference collection
         this.afs
           .collection<Reference>(
-            `/Post/${this.router.url.substring(1) || "0"}/ReferenceCollection`
+            `/Post/${this.postNumber || "0"}/ReferenceCollection`
           )
           .valueChanges()
           .subscribe(
