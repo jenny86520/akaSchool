@@ -1,62 +1,65 @@
 <div>
-  <h2 class='title'>{{postNumber}} {{post.Title}}</h2>
+  <h2 class="title">
+    {{ postNumber === "0" ? "" : postNumber }} {{ post.Title }}
+  </h2>
 
   <div [innerHTML]="post.Content || 'Coming soon ...'"></div>
 
   <!--結語-->
   <div *ngIf="post.Title && post.Content">
-    <br>
+    <br />
     <hr class="border-two" />
-    今天的分享就到這邊，<span class='point-red'>有遺漏、錯誤或是建議歡迎 Email 告訴我喔～謝謝❤</span><br>
+    今天的分享就到這邊，<span class="point-red"
+      >有遺漏、錯誤或是建議歡迎 Email 告訴我喔～謝謝❤</span
+    ><br />
   </div>
 
   <!--參考資料-->
   <div *ngIf="references?.length > 0">
-    <br>
+    <br />
     <hr class="border-two" />
-    <h3 class='sub-title'>參考資料</h3>
+    <h3 class="sub-title">參考資料</h3>
     <ul>
-      <li *ngFor="let reference of references"><a href="{{reference.Url}}"
-          target='_blank'>[{{reference.Category}}]{{reference.Author}} - {{reference.Title}}</a></li>
+      <li *ngFor="let reference of references">
+        <a href="{{ reference.Url }}" target="_blank"
+          >[{{ reference.Category }}]{{ reference.Author }} -
+          {{ reference.Title }}</a
+        >
+      </li>
     </ul>
   </div>
 
   <h5 class="sign">
-    <br>
+    <br />
     <span *ngFor="let update of updates; let i = index">
-      {{i > 0 ? '更新：': ''}}{{update.user}} {{update.date.seconds * 1000 | date:'yyyy-MM-dd HH:mm'}}<br>
+      {{ i > 0 ? "更新：" : "" }}{{ update.user }}
+      {{ update.date.seconds * 1000 | date: "yyyy-MM-dd HH:mm" }}<br />
     </span>
   </h5>
-
 </div>
-
-
-
 
 <!--post template-->
 <div *ngIf="false">
-
-  <table class='block-catalog'>
+  <table class="block-catalog">
     本日教學導覽
     <ol>
-      <li value="0">教學1
-      </li>
+      <li value="0">教學1</li>
     </ol>
   </table>
-  <br>
+  <br />
   <hr class="border-two" />
 
-  <h3 class='sub-title'>0. 副標題</h3>
+  <h3 class="sub-title">0. 副標題</h3>
 
-  <img class='img' src='圖片路徑'><br><br>
+  <img class="img" src="圖片路徑" /><br /><br />
 
-  <div class='block-code'>程式碼</div><br>
+  <div class="block-code">程式碼</div>
+  <br />
 
-  <span class='point-red'>紅字重點</span>
+  <span class="point-red">紅字重點</span>
 
-  <div class='block-table'>縮排框框</div>
+  <div class="block-table">縮排框框</div>
 
-  <div class='block-tab'>縮排</div>
-
+  <div class="block-tab">縮排</div>
 </div>
 <!--/post template-->

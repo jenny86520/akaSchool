@@ -51,6 +51,6 @@
   <li class="nav-item" *ngFor="let post of posts">
     <hr class='border-s'>
     <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
-      style="white-space: pre-line;">{{post.title}}</a>
+      style="white-space: pre-line;">{{post.path}} {{post.title}}</a>
   </li>
 </ul>
