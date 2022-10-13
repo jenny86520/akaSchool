@@ -3,7 +3,7 @@
     {{ postNumber === "0" ? "" : postNumber }} {{ post.Title }}
   </h2>
 
-  <div [innerHTML]="post.Content || 'Coming soon ...'"></div>
+  <div [innerHTML]="post.Content || '查無該頁'"></div>
 
   <!--結語-->
   <div *ngIf="post.Title && post.Content">

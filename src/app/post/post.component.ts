@@ -48,7 +48,8 @@ export class PostComponent implements OnInit {
           .valueChanges()
           .subscribe(
             (post: Post) => {
-              this.post = post;
+              if (post) this.post = post;
+              else this.errorHandler();
             },
             (err) => {
               console.log("err...");
@@ -63,7 +64,8 @@ export class PostComponent implements OnInit {
           .valueChanges()
           .subscribe(
             (updateCollection) => {
-              this.updates = updateCollection;
+              if (updateCollection) this.updates = updateCollection;
+              else this.errorHandler();
             },
             (err) => {
               console.log("err...");
@@ -78,7 +80,8 @@ export class PostComponent implements OnInit {
           .valueChanges()
           .subscribe(
             (referenceCollection) => {
-              this.references = referenceCollection;
+              if (referenceCollection) this.references = referenceCollection;
+              else this.errorHandler();
             },
             (err) => {
               console.log("err...");
@@ -95,5 +98,10 @@ export class PostComponent implements OnInit {
       Tag: [],
       Category: [],
     };
+  }
+
+  errorHandler() {
+    this.postNumber = undefined;
+    alert("查無該頁");
   }
 }
