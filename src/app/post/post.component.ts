@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { NavigationEnd, Router } from "@angular/router";
+import { NavigationEnd, NavigationStart, Router } from "@angular/router";
 class Post {
   Title: string;
   Content: string;
@@ -29,11 +29,9 @@ export class PostComponent implements OnInit {
   public references: Reference[];
   public updates: Update[];
 
-  private tmp;
-
   constructor(private afs: AngularFirestore, private router: Router) {
     router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd && event.id !== 2) {
         this.postNumber = this.router.url.substring(1);
         // get post
         this.afs
