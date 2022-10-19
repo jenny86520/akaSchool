@@ -2,23 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { NavigationEnd, NavigationStart, Router } from "@angular/router";
 import { Location } from "@angular/common";
-
-class Post {
-  Title: string;
-  Content: string;
-  Tag: string[];
-  Category: string[];
-}
-class Reference {
-  Author: string;
-  Title: string;
-  Category: string;
-  Url: string;
-}
-class Update {
-  date: any;
-  user: string;
-}
+import { Post, Reference, Update } from "../_shared/models/post";
 
 @Component({
   selector: "app-post",
@@ -42,6 +26,10 @@ export class PostComponent implements OnInit {
         this.router.url.includes(this.location.path())
       ) {
         this.postNumber = this.router.url.substring(1);
+        if (Number(this.postNumber) === NaN) {
+          this.errorHandler();
+        }
+
         // get post
         this.afs
           .doc<Post>(`/Post/${this.postNumber || "0"}`)
