@@ -1,6 +1,6 @@
 export const environment = {
   homeTitle: "akaSchool",
-  categories: ["Website", "Angular", "Git"],
+  categories: ["Website", "React", "Angular", "Git"],
   production: true,
 };
 
