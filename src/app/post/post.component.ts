@@ -5,9 +5,10 @@ import { Location } from "@angular/common";
 import { Post, Reference, Update } from "../_shared/models/post";
 
 @Component({
-  selector: "app-post",
-  templateUrl: "./post.component.html",
-  styleUrls: ["./post.component.css"],
+    selector: "app-post",
+    templateUrl: "./post.component.html",
+    styleUrls: ["./post.component.css"],
+    standalone: false
 })
 export class PostComponent implements OnInit {
   public postNumber: string;
