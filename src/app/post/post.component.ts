@@ -26,7 +26,7 @@ export class PostComponent implements OnInit {
         this.router.url.includes(this.location.path())
       ) {
         this.postNumber = this.router.url.substring(1);
-        if (Number(this.postNumber) === NaN) {
+        if (Number.isNaN(Number(this.postNumber))) {
           this.errorHandler();
         }
 
