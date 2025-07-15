@@ -3,7 +3,7 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "dist/akaSchool",
+    "public": "dist/akaSchool/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
