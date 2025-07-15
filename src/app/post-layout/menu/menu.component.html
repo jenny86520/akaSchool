@@ -9,48 +9,64 @@
     <!--搜尋-->
     <input class="form-control mr-sm-2" type="text" name='search' placeholder="Search" aria-label="Search"
       [(ngModel)]="searchText">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
-  </div>
-</form>
-<!--依類別選單-->
-<ul *ngIf="orderType === 'category'" class="navbar-nav mr-auto">
-  <!-- akaSchool -->
-  <li class="nav-item active">
-    <a class="nav-link" routerLink="/">{{homeTitle}}<span class="sr-only">(current)</span></a>
-  </li>
-  <!--未分類-->
-  <li class="nav-item" *ngFor="let post of postsHasNoCategory">
-    <hr class='border-s'>
-    <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
-      style="white-space: pre-line;">{{post.id}} {{post.Title}}</a>
-  </li>
-  <!--已分類-->
-  <li class="nav-item dropdown" *ngFor="let category of categories">
-    <hr class='border-s'>
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-      aria-expanded="true">{{category}}</a>
-    <!--其分類文章-->
-    <ul class="dropdown-menu" [class.show]="searchText != ''" aria-labelledby="navbarDropdownMenuLink">
-      <li *ngFor="let post of postsHasCategory; let i = index">
-        <hr *ngIf='post.Category.includes(category.toLowerCase())' class='border-s'>
-        <button *ngIf='post.Category.includes(category.toLowerCase())' class="dropdown-item" (click)='goToPost(post)'
-          style="white-space: pre-line;">{{post.id}} {{post.Title}} </button>
+    </div>
+  </form>
+  <!--依類別選單-->
+  @if (orderType === 'category') {
+    <ul class="navbar-nav mr-auto">
+      <!-- akaSchool -->
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">{{homeTitle}}<span class="sr-only">(current)</span></a>
       </li>
+      <!--未分類-->
+      @for (post of postsHasNoCategory; track post) {
+        <li class="nav-item">
+          <hr class='border-s'>
+          <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
+          style="white-space: pre-line;">{{post.id}} {{post.Title}}</a>
+        </li>
+      }
+      <!--已分類-->
+      @for (category of categories; track category) {
+        <li class="nav-item dropdown">
+          <hr class='border-s'>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true">{{category}}</a>
+          <!--其分類文章-->
+          <ul class="dropdown-menu" [class.show]="searchText != ''" aria-labelledby="navbarDropdownMenuLink">
+            @for (post of postsHasCategory; track post; let i = $index) {
+              <li>
+                @if (post.Category.includes(category.toLowerCase())) {
+                  <hr class='border-s'>
+                }
+                @if (post.Category.includes(category.toLowerCase())) {
+                  <button class="dropdown-item" (click)='goToPost(post)'
+                  style="white-space: pre-line;">{{post.id}} {{post.Title}} </button>
+                }
+              </li>
+            }
+          </ul>
+        </li>
+      }
     </ul>
-  </li>
-</ul>
+  }
 
-<!--依編號選單-->
-<ul *ngIf="orderType === 'id'" class="navbar-nav mr-auto">
-  <!-- akaSchool -->
-  <li class="nav-item active">
-    <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle}}<span class="sr-only">(current)</span></a>
-  </li>
-  <!--所有文章-->
-  <li class="nav-item" *ngFor="let post of posts">
-    <hr class='border-s'>
-    <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
-      style="white-space: pre-line;">{{post.id}} {{post.Title}}</a>
-  </li>
-</ul>
+  <!--依編號選單-->
+  @if (orderType === 'id') {
+    <ul class="navbar-nav mr-auto">
+      <!-- akaSchool -->
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/" skipLocationChange>{{homeTitle}}<span class="sr-only">(current)</span></a>
+      </li>
+      <!--所有文章-->
+      @for (post of posts; track post) {
+        <li class="nav-item">
+          <hr class='border-s'>
+          <a class="nav-link" href="javascript:void(0)" (click)='goToPost(post)'
+          style="white-space: pre-line;">{{post.id}} {{post.Title}}</a>
+        </li>
+      }
+    </ul>
+  }
