@@ -1,15 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, inject, OnInit } from "@angular/core";
+import { Router, RouterModule } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 import { environment } from "src/environments/environment.prod";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { map } from "rxjs/operators";
-import { Post } from "src/app/_shared/models/post";
+import { Post } from "src/app/_shared/interfaces/post";
+import { PostService } from "src/app/_shared/services/post.service";
 
 @Component({
-    selector: "app-menu",
-    templateUrl: "./menu.component.html",
-    styleUrls: ["./menu.component.css"],
-    standalone: false
+  selector: "app-menu",
+  templateUrl: "./menu.component.html",
+  styleUrls: ["./menu.component.css"],
+  standalone: true,
+  imports: [FormsModule, RouterModule],
 })
 export class MenuComponent implements OnInit {
   public searchText: string; // 搜尋字串
@@ -21,7 +22,8 @@ export class MenuComponent implements OnInit {
   postsHasNoCategory: Post[]; // 存放未分類
   postsHasCategory: Post[]; // 存放已分類
 
-  constructor(private router: Router, private afs: AngularFirestore) {}
+  private postService = inject(PostService);
+  private router = inject(Router);
 
   async ngOnInit() {
     this.orderType = "category";
@@ -48,30 +50,17 @@ export class MenuComponent implements OnInit {
 
   loadPosts(): Promise<Post[]> {
     return new Promise((resolve, reject) => {
-      this.afs
-        .collection<Post>(`/Post`)
-        .snapshotChanges()
-        .pipe(
-          map((actions) => {
-            return actions.map((action) => {
-              const data = action.payload.doc.data() as Post;
-              const id = action.payload.doc.id;
-              delete data.Content;
-              return { id, ...data };
-            });
-          })
-        )
-        .subscribe(
-          (posts) => {
-            resolve(posts);
-          },
-          (err) => {
-            console.log("err...");
-            reject(err);
-          }
-        );
+      this.postService.getPosts().subscribe({
+        next: (posts) => {
+          resolve(posts);
+        },
+        error: (err) => {
+          reject(err);
+        },
+      });
     });
   }
+
   goToPost(post: any) {
     this.router.navigateByUrl(`${post.id}`);
     // alert('將切換至「' + post.title + '」\n\n請自行收合文章區:P');

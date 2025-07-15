@@ -1,17 +1,17 @@
-export class Post {
+export interface Post {
   id?: string;
   Title: string;
   Content: string;
   Tag: string[];
   Category: string[];
 }
-export class Reference {
+export interface Reference {
   Author: string;
   Title: string;
   Category: string;
   Url: string;
 }
-export class Update {
+export interface Update {
   date: any;
   user: string;
 }
